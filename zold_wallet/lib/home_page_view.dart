@@ -17,7 +17,7 @@ class HomePageView extends HomePageViewModel {
               RaisedButton(
                 onPressed: (){
                   setState(() {
-                    text = "Hello world";
+                    text = "Hello world!";
                   });
                 },
                 child: Text("btn"),
