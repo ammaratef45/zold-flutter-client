@@ -1,0 +1,12 @@
+architect:
+  - ammaratef45
+install: |-
+  sudo gem install pdd
+  git clone https://github.com/flutter/flutter.git -b beta --depth 1
+  ./flutter/bin/flutter doctor
+merge:
+  script: |-
+    cd zold_wallet
+    ../flutter/bin/flutter packages get
+    ../flutter/bin/flutter test
+    pdd -f /dev/null -v
