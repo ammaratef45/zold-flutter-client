@@ -5,8 +5,7 @@ jobs:
       - image: cirrusci/flutter
     steps:
       - checkout
-      - run: cd zold_wallet
       - run: flutter doctor
-      - run: flutter packages get 
-      - run: flutter test 
-      - run: flutter -v build apk
+      - run: cd zold_wallet && flutter packages get 
+      - run: cd zold_wallet && flutter test 
+      - run: cd zold_wallet && flutter -v build apk
