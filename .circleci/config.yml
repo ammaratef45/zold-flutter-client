@@ -7,5 +7,6 @@ jobs:
       - checkout
       - run: cd zold_wallet
       - run: flutter doctor
+      - run: flutter packages get 
       - run: flutter test 
       - run: flutter -v build apk
