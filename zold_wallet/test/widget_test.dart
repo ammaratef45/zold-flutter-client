@@ -3,16 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:zold_wallet/main.dart';
 
 void main() {
-  testWidgets('Btn Press test', (WidgetTester tester) async {
+  testWidgets('Get ID pressed', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
-    expect(find.text('Hello world'), findsOneWidget);
-    expect(find.text('Hello world!'), findsNothing);
+    expect(find.text('ID'), findsOneWidget);
+    expect(find.text('ID: error'), findsNothing);
 
-    await tester.tap(find.text('btn'));
+    await tester.tap(find.text('Get ID'));
     await tester.pump();
 
-    expect(find.text('Hello world'), findsNothing);
-    expect(find.text('Hello world!'), findsOneWidget);
+    expect(find.text('ID'), findsNothing);
+    expect(find.text('ID: error'), findsOneWidget);
   });
 }
