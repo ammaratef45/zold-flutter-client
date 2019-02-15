@@ -15,4 +15,18 @@ void main() {
     expect(find.text('ID'), findsNothing);
     expect(find.text('ID: error'), findsOneWidget);
   });
+
+  testWidgets('Get Balance pressed', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    expect(find.text('Balance'), findsOneWidget);
+    expect(find.text('Balance: error'), findsNothing);
+
+    await tester.tap(find.text('Get Balance'));
+    await tester.pump();
+
+    expect(find.text('Balance'), findsNothing);
+    expect(find.text('Balance: error'), findsOneWidget);
+  });
+
 }

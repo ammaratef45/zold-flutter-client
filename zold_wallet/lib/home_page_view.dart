@@ -16,10 +16,19 @@ class HomePageView extends HomePageViewModel {
               TextField(
                 controller: apiKeyController,
               ),
-              Text(text),
+              Text(idText),
               RaisedButton(
                 onPressed: getId,
                 child: Text("Get ID"),
+              ),
+              Text(balanceText),
+              RaisedButton(
+                onPressed: getBalance,
+                child: Text("Get Balance"),
+              ),
+              RaisedButton(
+                onPressed: pullWallet,
+                child: Text("Pull"),
               )
             ],
           )

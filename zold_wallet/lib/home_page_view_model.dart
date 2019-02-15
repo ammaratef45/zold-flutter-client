@@ -3,7 +3,8 @@ import './home_page.dart';
 import './backend/API.dart';
 
 abstract class HomePageViewModel extends State<HomePage> {
-  String text = "ID";
+  String idText = "ID";
+  String balanceText = "Balance";
   final apiKeyController = TextEditingController();
   API api = API();
 
@@ -17,13 +18,37 @@ abstract class HomePageViewModel extends State<HomePage> {
     api.getId(apiKeyController.text)
     .then((id){
       setState(() {
-        text = id;
+        idText = id;
       });
     })
     .catchError((ex){
       setState(() {
-        text = "ID: error";
+        idText = "ID: error";
       });
+    });
+  }
+
+  void getBalance() {
+    api.getBalance(apiKeyController.text)
+    .then((balance){
+      debugPrint(balance);
+      setState(() {
+        balanceText = balance;
+      });
+    })
+    .catchError((ex){
+      setState(() {
+        balanceText = "Balance: error";
+      });
+    });
+  }
+
+  void pullWallet() {
+    api.pull(apiKeyController.text)
+    .then((response){
+      debugPrint(response);
+    })
+    .catchError((ex){
     });
   }
 }
