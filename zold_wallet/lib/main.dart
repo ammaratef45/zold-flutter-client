@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: myHome,
-      routes: {
+      /*routes: {
         '/login': (BuildContext context) => new LoginPage(),
         '/home': (BuildContext context) => new HomePage(),
-      },
+      },*/
     );
   }
 }
