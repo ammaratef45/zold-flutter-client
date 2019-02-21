@@ -4,6 +4,7 @@ import './home_page.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final Widget myHome = HomePage();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,7 +12,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Zold Wallet'),
+      home: myHome,
+      routes: {
+        //'/login': (BuildContext context) => new LoginPage(),
+        '/home': (BuildContext context) => new HomePage(),
+      },
     );
   }
 }
