@@ -2,6 +2,7 @@ architect:
   - ammaratef45
 install: |-
   sudo gem install pdd
+  sudo gem install fastlane
   git clone https://github.com/flutter/flutter.git -b beta --depth 1
   ./flutter/bin/flutter doctor
 merge:
@@ -10,3 +11,12 @@ merge:
     ../flutter/bin/flutter packages get
     ../flutter/bin/flutter test
     pdd -f /dev/null -v
+    
+deploy:
+  script: |-
+    cd zold_wallet
+    echo "$google_play_secret_key" | base64 --decode > api-project.json
+    echo "$key_properties" | base64 --decode > key.properties
+    ../flutter/bin/flutter -v build apk
+    fastlane supply init
+    faslane beta
