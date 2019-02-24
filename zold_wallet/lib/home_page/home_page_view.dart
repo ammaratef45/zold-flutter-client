@@ -13,22 +13,11 @@ class HomePageView extends HomePageViewModel {
         child: Center(
           child: Column(
             children: <Widget>[
-              TextField(
-                controller: apiKeyController,
-              ),
               Text(idText),
-              RaisedButton(
-                onPressed: getId,
-                child: Text("Get ID"),
-              ),
               Text(balanceText),
               RaisedButton(
-                onPressed: getBalance,
-                child: Text("Get Balance"),
-              ),
-              RaisedButton(
-                onPressed: pullWallet,
-                child: Text("Pull"),
+                onPressed: refresh,
+                child: Text("Refresh"),
               )
             ],
           )

@@ -4,7 +4,6 @@ import '../backend/API.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 
 abstract class LoginPageViewModel extends State<LoginPage> {
-  final apiKeyController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final secretCodeController = TextEditingController();
   API api = API();
@@ -13,7 +12,8 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   
   @override
   void dispose() {
-    apiKeyController.dispose();
+    phoneNumberController.dispose();
+    secretCodeController.dispose();
     super.dispose();
   }
 
@@ -41,20 +41,9 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   void getApiKey() {
     api.getToken(phoneNumber, secretCodeController.text)
     .then((token){
-      debugPrint(token);
+      Navigator.of(context).pushReplacementNamed('/home');
     })
     .catchError((ex){
-      showErrorDialog();
-    });
-  }
-
-  void pullWallet() {
-    api.pull(apiKeyController.text)
-    .then((response){
-      debugPrint(response);
-    })
-    .catchError((ex){
-      debugPrint(ex.toString());
       showErrorDialog();
     });
   }

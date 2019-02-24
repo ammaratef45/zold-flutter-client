@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import './home_page.dart';
-import './backend/API.dart';
+import '../backend/API.dart';
 
 abstract class HomePageViewModel extends State<HomePage> {
   String idText = "ID";
   String balanceText = "Balance";
-  final apiKeyController = TextEditingController();
   API api = API();
+
+  HomePageViewModel() {
+    pullWallet();
+    getId();
+    getBalance();
+  }
 
   @override
   void dispose() {
-    apiKeyController.dispose();
     super.dispose();
   }
 
   void getId() {
-    api.getId(apiKeyController.text)
+    api.getId()
     .then((id){
       setState(() {
         idText = id;
@@ -29,7 +33,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   }
 
   void getBalance() {
-    api.getBalance(apiKeyController.text)
+    api.getBalance()
     .then((balance){
       debugPrint(balance);
       setState(() {
@@ -43,8 +47,14 @@ abstract class HomePageViewModel extends State<HomePage> {
     });
   }
 
+  void refresh() {
+    pullWallet();
+    getId();
+    getBalance();
+  }
+
   void pullWallet() {
-    api.pull(apiKeyController.text)
+    api.pull()
     .then((response){
       debugPrint(response);
     })

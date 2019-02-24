@@ -8,12 +8,10 @@ class LoginPageView extends LoginPageViewModel {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           title: new Text("Error"),
           content: new Text("Error, try again later"),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Close"),
               onPressed: () {
@@ -30,7 +28,6 @@ class LoginPageView extends LoginPageViewModel {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           title: Text("Code"),
           content: Column(

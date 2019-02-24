@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 class API {
   
   static const String BASE_URL = "https://wts.zold.io/";
+  static String apiKey = "";
   var client;
 
   API() {
     client = http.Client();
   }
 
-  Future<String> getId(String apiKey) async {
+  Future<String> getId() async {
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}id";
     final response = await http.get(
@@ -24,7 +25,7 @@ class API {
     throw new Exception("Error: status code is not 200");
   }
 
-  Future<String> getBalance(String apiKey) async {
+  Future<String> getBalance() async {
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}balance";
     final response = await http.get(
@@ -37,7 +38,7 @@ class API {
     throw Exception("Error: status code is not 200");
   }
 
-  Future<String> pull(String apiKey) async {
+  Future<String> pull() async {
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}pull";
     final request = http.Request('GET', Uri.parse(url));
@@ -65,7 +66,8 @@ class API {
     final request = http.Request('GET', Uri.parse(url));
     final response = await client.send(request);
     if(response.statusCode == 200) {
-      return response.body().toString();
+      apiKey = response.body().toString();
+      return apiKey;
     }
     throw new Exception("Error: status code is not 200");
   }
