@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: 0.12.0+1
+  country_code_picker: 1.1.1
 
   cupertino_icons: ^0.1.2
 
