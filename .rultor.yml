@@ -1,6 +1,7 @@
 architect:
   - ammaratef45
 docker:
+  as_root: true
   image: adamantium/flutter
 
 install: |-
