@@ -5,8 +5,8 @@ docker:
   image: adamantium/flutter
 
 install: |-
-  sudo gem install pdd
-  sudo gem install fastlane
+  gem install pdd
+  gem install fastlane
 
 decrypt:
   repo/zold_wallet/android/api-project.json: "repo/zold_wallet/android/api-project.json.asc"
