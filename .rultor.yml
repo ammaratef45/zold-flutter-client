@@ -28,5 +28,6 @@ deploy:
     flutter doctor
     cd zold_wallet
     flutter -v build apk
+    cd android
     fastlane supply init
     faslane beta
