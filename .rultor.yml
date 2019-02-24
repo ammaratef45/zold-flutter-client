@@ -1,5 +1,7 @@
 architect:
   - ammaratef45
+docker:
+  image: adamantium/flutter
 
 install: |-
   sudo gem install pdd
