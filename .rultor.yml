@@ -7,8 +7,8 @@ install: |-
   ./flutter/bin/flutter doctor
 
 decrypt:
-  zold_wallet/android/api-project.json: "zold_wallet/android/api-project.json.asc"
-  zold_wallet/android/key.properties: "zold_wallet/android/key.properties.asc"
+  zold_wallet/android/api-project.json: "repo/zold_wallet/android/api-project.json.asc"
+  zold_wallet/android/key.properties: "repo/zold_wallet/android/key.properties.asc"
 
 merge:
   script: |-
