@@ -17,6 +17,6 @@ deploy:
     cd zold_wallet
     echo "$google_play_secret_key" | base64 --decode > api-project.json
     echo "$key_properties" | base64 --decode > key.properties
-    flutter -v build apk
+    ../flutter/bin/flutter -v build apk
     fastlane supply init
     faslane beta
