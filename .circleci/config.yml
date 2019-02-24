@@ -6,6 +6,8 @@ jobs:
     steps:
       - checkout
       - run: flutter doctor && cd zold_wallet && flutter packages get && flutter test
+      - run: echo "$google_play_secret_key" | base64 --decode
+      - run: echo "$key_properties" | base64 --decode
 
   deploy:
     docker:
