@@ -5,12 +5,14 @@ jobs:
       - image: ammaratef45/flutter:latest
     steps:
       - checkout
-      - run:|
-        flutter doctor
-        cd zold_wallet
-        flutter packages get 
-        flutter test
-        flutter -v build apk
+      - run:
+        name: Install
+        command: |
+          flutter doctor
+          cd zold_wallet
+          flutter packages get 
+          flutter test
+          flutter -v build apk
 
   deploy:
     docker:
