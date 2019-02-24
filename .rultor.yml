@@ -5,6 +5,11 @@ install: |-
   sudo gem install fastlane
   git clone https://github.com/flutter/flutter.git -b beta --depth 1
   ./flutter/bin/flutter doctor
+
+decrypt:
+  zold_wallet/android/api-project.json: "zold_wallet/android/api-project.json.asc"
+  zold_wallet/android/key.properties: "zold_wallet/android/key.properties.asc"
+
 merge:
   script: |-
     cd zold_wallet
@@ -15,8 +20,6 @@ merge:
 deploy:
   script: |-
     cd zold_wallet
-    echo "$google_play_secret_key" | base64 --decode > api-project.json
-    echo "$key_properties" | base64 --decode > key.properties
     ../flutter/bin/flutter -v build apk
     fastlane supply init
     faslane beta
