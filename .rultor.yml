@@ -30,4 +30,4 @@ deploy:
     flutter -v build apk
     cd android
     fastlane supply init
-    faslane beta
+    fastlane beta
