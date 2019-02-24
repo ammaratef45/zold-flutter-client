@@ -1,8 +1,6 @@
 architect:
   - ammaratef45
-docker:
-  image: ammaratef45/flutter:latest
-  as_root: true
+
 install: |-
   sudo gem install pdd
   sudo gem install fastlane
@@ -17,6 +15,7 @@ merge:
     cd zold_wallet
     flutter packages get
     flutter test
+    flutter -v build apk
     pdd -f /dev/null -v
     
 deploy:
