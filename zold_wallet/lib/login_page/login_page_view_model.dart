@@ -26,7 +26,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
 
   void getCode() {
     phoneNumber = dialCode + phoneNumberController.text;
-    phoneNumber = phoneNumber.replaceAll("+", "00");
+    phoneNumber = phoneNumber.replaceAll("+", "");
     api.getCode(phoneNumber)
     .then(showCodeDialog())
     .catchError((ex){
