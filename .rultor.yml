@@ -1,10 +1,10 @@
 architect:
   - ammaratef45
+docker:
+  image: ammaratef45/flutter:latest
 install: |-
   sudo gem install pdd
   sudo gem install fastlane
-  git clone https://github.com/flutter/flutter.git -b beta --depth 1
-  ./flutter/bin/flutter doctor
 
 decrypt:
   repo/zold_wallet/android/api-project.json: "repo/zold_wallet/android/api-project.json.asc"
@@ -12,14 +12,16 @@ decrypt:
 
 merge:
   script: |-
+    flutter doctor
     cd zold_wallet
-    ../flutter/bin/flutter packages get
-    ../flutter/bin/flutter test
+    flutter packages get
+    flutter test
     pdd -f /dev/null -v
     
 deploy:
   script: |-
+    flutter doctor
     cd zold_wallet
-    ../flutter/bin/flutter -v build apk
+    flutter -v build apk
     fastlane supply init
     faslane beta
