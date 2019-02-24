@@ -17,8 +17,8 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
-  showErrorDialog() {}
-  showCodeDialog() {}
+  void showErrorDialog() {}
+  void showCodeDialog() {}
 
   void loginPhone() {
     getCode();
@@ -28,7 +28,9 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
     api.getCode(phoneNumber)
-    .then(showCodeDialog())
+    .then((res){
+      showCodeDialog();
+    })
     .catchError((ex){
       showErrorDialog();
     });
