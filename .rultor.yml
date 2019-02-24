@@ -2,6 +2,7 @@ architect:
   - ammaratef45
 docker:
   image: ammaratef45/flutter:latest
+  as_root: true
 install: |-
   sudo gem install pdd
   sudo gem install fastlane
