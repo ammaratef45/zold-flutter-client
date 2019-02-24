@@ -5,6 +5,7 @@ docker:
   image: adamantium/flutter
 
 install: |-
+  curl -sSL https://get.rvm.io | bash -s stable --ruby
   gem install pdd
   gem install fastlane
 
