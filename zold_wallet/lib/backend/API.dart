@@ -14,7 +14,6 @@ class API {
   }
 
   Future<String> getId() async {
-    debugPrint(apiKey);
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}id";
     final request = http.Request('GET', Uri.parse(url));
@@ -34,8 +33,12 @@ class API {
     request.headers.addAll(headers);
     request.followRedirects = false;
     http.StreamedResponse response = await client.send(request);
-    if(response.statusCode == 200) {
-      return response.stream.toString();
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+    if(statusCode == 200) {
+      return responseData;
     }
     throw Exception("Error: status code is not 200");
   }
@@ -47,14 +50,18 @@ class API {
     request.headers.addAll(headers);
     request.followRedirects = false;
     final response = await client.send(request);
-    if(response.statusCode == 302) {
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+    if(statusCode == 302) {
       return "success";
     }
     throw new Exception("Error: status code is not 302");
   }
 
   Future<String> getCode(String phone) async {
-    final url = "${BASE_URL}mobile/send?phone="+phone;
+    final url = "${BASE_URL}mobile/send?phone="+phone + "&noredirect=1";
     final request = http.Request('GET', Uri.parse(url));
     request.followRedirects = false;
     final response = await client.send(request);
@@ -69,7 +76,7 @@ class API {
   }
 
   Future<String> getToken(String phone, String key) async {
-    final url = "${BASE_URL}mobile/token?phone=" + phone + "&code=" + key;
+    final url = "${BASE_URL}mobile/token?phone=" + phone + "&code=" + key + "&noredirect=1";
     final request = http.Request('GET', Uri.parse(url));
     request.followRedirects = false;
     final response = await client.send(request);
