@@ -17,11 +17,10 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
-  void showErrorDialog() {}
-  void showCodeDialog() {}
+  void showMessageDialog(String message) {}
 
   void loginPhone() {
-    getCode();
+    getApiKey();
   }
 
   void getCode() {
@@ -29,10 +28,10 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     phoneNumber = phoneNumber.replaceAll("+", "");
     api.getCode(phoneNumber)
     .then((res){
-      showCodeDialog();
+      showMessageDialog("we sent a code to " + phoneNumber);
     })
     .catchError((ex){
-      showErrorDialog();
+      showMessageDialog("Error: " + ex.toString());
     });
   }
 
@@ -41,12 +40,14 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   }
 
   void getApiKey() {
+    phoneNumber = dialCode + phoneNumberController.text;
+    phoneNumber = phoneNumber.replaceAll("+", "");
     api.getToken(phoneNumber, secretCodeController.text)
     .then((token){
       Navigator.of(context).pushReplacementNamed('/home');
     })
     .catchError((ex){
-      showErrorDialog();
+      showMessageDialog("Error: " + ex.toString());
     });
   }
 }

@@ -4,13 +4,13 @@ import 'package:country_code_picker/country_code_picker.dart';
 
 class LoginPageView extends LoginPageViewModel {
 
-  @override showErrorDialog() {
+  @override showMessageDialog(String message) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Error"),
-          content: new Text("Error, try again later"),
+          title: new Text("Ooh"),
+          content: new Text(message),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Close"),
@@ -24,40 +24,7 @@ class LoginPageView extends LoginPageViewModel {
     );
   }
 
-  @override showCodeDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Code"),
-          content: Column(
-            children: <Widget>[
-              Text("Enter the secret code received in sms:"),
-              TextField(
-                controller: secretCodeController,
-                keyboardType: TextInputType.number,
-              )
-            ],
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("OK"),
-              onPressed: () {
-                getApiKey();
-              },
-            ),
-            FlatButton(
-              child: Text("Cancel"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +45,27 @@ class LoginPageView extends LoginPageViewModel {
                   child: TextField(
                     controller: phoneNumberController,
                     keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      hintText: 'Phone Number'
+                    ),
                   ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    controller: secretCodeController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      hintText: 'Secret Code'
+                    ),
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: getCode,
+                  child: Text("Get Code"),
                 ),
               ],
             ),

@@ -13,6 +13,8 @@ abstract class HomePageViewModel extends State<HomePage> {
     getBalance();
   }
 
+  void showMessageDialog(String message) {}
+
   @override
   void dispose() {
     super.dispose();
@@ -26,6 +28,7 @@ abstract class HomePageViewModel extends State<HomePage> {
       });
     })
     .catchError((ex){
+      showMessageDialog("Error: " + ex.toString());
       setState(() {
         idText = "ID: error";
       });
@@ -41,6 +44,7 @@ abstract class HomePageViewModel extends State<HomePage> {
       });
     })
     .catchError((ex){
+      showMessageDialog("Error: " + ex.toString());
       setState(() {
         balanceText = "Balance: error";
       });
