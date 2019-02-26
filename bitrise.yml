@@ -38,9 +38,6 @@ workflows:
     - script@1.1.5:
         title: Do anything with Script step
     - flutter-installer@0.9.2: {}
-    - flutter-analyze@0.1.0:
-        inputs:
-        - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
     - flutter-test@0.9.1:
         inputs:
         - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
