@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build-and-test:
+  build:
     macos:
       xcode: "9.0"
     working_directory: /Users/distiller/project
@@ -28,5 +28,3 @@ jobs:
           path: output/scan
       - store_artifacts:
           path: output
-
-
