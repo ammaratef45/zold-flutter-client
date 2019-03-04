@@ -6,14 +6,13 @@ import 'dart:convert' show utf8;
 class API {
   
   static const String BASE_URL = "https://wts.zold.io/";
-  static String apiKey = "";
   http.Client client;
 
   API() {
     client = http.Client();
   }
 
-  Future<String> getId() async {
+  Future<String> getId(String apiKey) async {
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}id";
     final request = http.Request('GET', Uri.parse(url));
@@ -26,7 +25,7 @@ class API {
     throw new Exception("Error: status code is not 200");
   }
 
-  Future<String> getBalance() async {
+  Future<String> getBalance(String apiKey) async {
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}balance";
     final request = http.Request('GET', Uri.parse(url));
@@ -43,7 +42,7 @@ class API {
     throw Exception("Error: status code is not 200");
   }
 
-  Future<String> pull() async {
+  Future<String> pull(apiKey) async {
     var headers =  {"X-Zold-Wts": apiKey};
     final url = "${BASE_URL}pull";
     final request = http.Request('GET', Uri.parse(url));
@@ -85,8 +84,58 @@ class API {
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);
     if(statusCode == 200) {
-      apiKey = responseData;
-      return apiKey;
+      return responseData;
+    }
+    throw new Exception("Error: status code is not 200");
+  }
+
+  Future<String> confirmed(String apiKey) async {
+    var headers =  {"X-Zold-Wts": apiKey};
+    final url = "${BASE_URL}confirmed?noredirect=1";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+    if(statusCode == 200) {
+      return responseData;
+    }
+    throw new Exception("Error: status code is not 200");
+  }
+
+  Future<String> keygap(String apiKey) async {
+    var headers =  {"X-Zold-Wts": apiKey};
+    final url = "${BASE_URL}keygap";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+    if(statusCode == 200) {
+      return responseData;
+    }
+    throw new Exception("Error: status code is not 200");
+  }
+
+  Future<String> confirm(String apiKey, String keygap) async {
+    var headers =  {"X-Zold-Wts": apiKey};
+    final url = "${BASE_URL}do-confirm?noredirect=1&keygap=$keygap";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+    if(statusCode == 200) {
+      return "success";
     }
     throw new Exception("Error: status code is not 200");
   }
