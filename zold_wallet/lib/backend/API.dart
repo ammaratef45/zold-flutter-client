@@ -18,16 +18,20 @@ class API {
     final request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
     request.followRedirects = false;
-    final response = await client.send(request);
-    if(response.statusCode == 200) {
-      return response.stream.toString();
+    http.StreamedResponse response = await client.send(request);
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+    if(statusCode == 200) {
+      return responseData;
     }
     throw new Exception("Error: status code is not 200");
   }
 
   Future<String> getBalance(String apiKey) async {
     var headers =  {"X-Zold-Wts": apiKey};
-    final url = "${BASE_URL}balance";
+    final url = "${BASE_URL}balance?noredirect=1";
     final request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
     request.followRedirects = false;
@@ -39,12 +43,15 @@ class API {
     if(statusCode == 200) {
       return responseData;
     }
-    throw Exception("Error: status code is not 200");
+    if(statusCode == 500) {
+      return "pulling...";
+    }
+    throw Exception("Error: status code is not 200 or 500, it's $statusCode");
   }
 
-  Future<String> pull(apiKey) async {
+  Future<String> pull(String apiKey) async {
     var headers =  {"X-Zold-Wts": apiKey};
-    final url = "${BASE_URL}pull";
+    final url = "${BASE_URL}pull?noredirect=1";
     final request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
     request.followRedirects = false;
