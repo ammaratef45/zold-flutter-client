@@ -2,12 +2,25 @@ import 'package:flutter/material.dart';
 import './login_page.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import '../wallet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LoginPageViewModel extends State<LoginPage> {
   final phoneNumberController = TextEditingController();
   final secretCodeController = TextEditingController();
   String dialCode = "+20";
   Wallet wallet;
+  SharedPreferences prefs;
+  
+  LoginPageViewModel() {
+    lazyLogin();
+  }
+
+  lazyLogin() async {
+    prefs = await SharedPreferences.getInstance();
+    if(prefs.getString('key')?? "0" != "0") {
+      // Perform lazy login
+    }
+  }
   
   @override
   void dispose() {
