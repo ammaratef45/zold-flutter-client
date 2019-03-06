@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
   http: 0.12.0+1
   country_code_picker: 1.1.1
+  shared_preferences: 0.4.2
 
   cupertino_icons: ^0.1.2
 

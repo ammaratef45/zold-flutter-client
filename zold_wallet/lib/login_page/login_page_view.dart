@@ -4,7 +4,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 
 class LoginPageView extends LoginPageViewModel {
 
-  @override showMessageDialog(String message) {
+  @override showMessageDialog(String message, Function callback) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -16,6 +16,7 @@ class LoginPageView extends LoginPageViewModel {
               child: new Text("Close"),
               onPressed: () {
                 Navigator.of(context).pop();
+                callback();
               },
             ),
           ],

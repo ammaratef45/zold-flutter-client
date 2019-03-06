@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 import './login_page.dart';
-import '../backend/API.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import '../wallet.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LoginPageViewModel extends State<LoginPage> {
   final phoneNumberController = TextEditingController();
   final secretCodeController = TextEditingController();
-  API api = API();
   String dialCode = "+20";
-  String phoneNumber;
+  Wallet wallet;
+  SharedPreferences prefs;
+  
+  LoginPageViewModel() {
+    lazyLogin();
+  }
+
+  lazyLogin() async {
+    prefs = await SharedPreferences.getInstance();
+    if(prefs.getString('key')?? "0" != "0") {
+      // Perform lazy login
+    }
+  }
   
   @override
   void dispose() {
@@ -17,37 +29,49 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
-  void showMessageDialog(String message) {}
+  void showMessageDialog(String message, Function callback) {}
 
-  void loginPhone() {
-    getApiKey();
+  void loginPhone() async {
+    if(!wallet.keyLoaded()) await
+      wallet.getKey(secretCodeController.text)
+        .then((w) async {
+        })
+        .catchError((error){
+          showMessageDialog(error.toString(), onDialogClosed);
+        });
+    if(await wallet.isConfirmed()) {
+      Wallet.loggedInWallet = wallet;
+      Navigator.of(context).pushReplacementNamed('/home');
+    } else {
+      String keygap = await wallet.getKeyGap();
+      showMessageDialog("You keygap is: $keygap please save it in a safe place\n"
+        + "once you press okay it will be deleted frpm our server", confirmTheKey);
+    }
+  }
+
+  void confirmTheKey() async {
+    await wallet.confirm();
+    Wallet.loggedInWallet = wallet;
+    Navigator.of(context).pushReplacementNamed('/home');
   }
 
   void getCode() {
-    phoneNumber = dialCode + phoneNumberController.text;
+    var phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
-    api.getCode(phoneNumber)
-    .then((res){
-      showMessageDialog("we sent a code to " + phoneNumber);
-    })
-    .catchError((ex){
-      showMessageDialog("Error: " + ex.toString());
-    });
+    wallet = Wallet(phoneNumber);
+    wallet.sendCode()
+      .then((w){
+        showMessageDialog("we sent a code to " + phoneNumber, onDialogClosed);
+      })
+      .catchError((error) {
+        showMessageDialog(error.toString(), onDialogClosed);
+      });
   }
 
   void pickedCode(CountryCode object) {
     dialCode =object.dialCode;
   }
 
-  void getApiKey() {
-    phoneNumber = dialCode + phoneNumberController.text;
-    phoneNumber = phoneNumber.replaceAll("+", "");
-    api.getToken(phoneNumber, secretCodeController.text)
-    .then((token){
-      Navigator.of(context).pushReplacementNamed('/home');
-    })
-    .catchError((ex){
-      showMessageDialog("Error: " + ex.toString());
-    });
+  void onDialogClosed() {
   }
 }

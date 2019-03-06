@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import './home_page.dart';
-import '../backend/API.dart';
+import '../wallet.dart';
 
 abstract class HomePageViewModel extends State<HomePage> {
   String idText = "ID";
   String balanceText = "Balance";
-  API api = API();
+  Wallet wallet = Wallet.loggedInWallet;
 
   HomePageViewModel() {
-    pullWallet();
+    wallet.pull();
     getId();
     getBalance();
   }
@@ -21,48 +21,38 @@ abstract class HomePageViewModel extends State<HomePage> {
   }
 
   void getId() {
-    api.getId()
-    .then((id){
-      setState(() {
-        idText = id;
+    wallet.getId()
+      .then((id){
+        setState(() {
+          idText = id;
+        });
+      })
+      .catchError((error){
+        showMessageDialog(error.toString());
+        setState(() {
+          idText = "ID: error";
+        });
       });
-    })
-    .catchError((ex){
-      showMessageDialog("Error: " + ex.toString());
-      setState(() {
-        idText = "ID: error";
-      });
-    });
   }
 
   void getBalance() {
-    api.getBalance()
-    .then((balance){
-      debugPrint(balance);
-      setState(() {
-        balanceText = balance;
+    wallet.getBalanace()
+      .then((balance) {
+        setState(() {
+          balanceText = balance;
+        });
+      })
+      .catchError((error){
+        showMessageDialog(error.toString());
+        setState(() {
+          balanceText = "Balance: error";
+        });
       });
-    })
-    .catchError((ex){
-      showMessageDialog("Error: " + ex.toString());
-      setState(() {
-        balanceText = "Balance: error";
-      });
-    });
   }
 
   void refresh() {
-    pullWallet();
+    wallet.pull();
     getId();
     getBalance();
-  }
-
-  void pullWallet() {
-    api.pull()
-    .then((response){
-      debugPrint(response);
-    })
-    .catchError((ex){
-    });
   }
 }
