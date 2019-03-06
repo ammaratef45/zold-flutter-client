@@ -8,7 +8,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   final phoneNumberController = TextEditingController();
   final secretCodeController = TextEditingController();
   String dialCode = "+20";
-  Wallet wallet;
+  Wallet wallet = Wallet.wallet;
   SharedPreferences prefs;
   
   LoginPageViewModel() {
@@ -17,8 +17,11 @@ abstract class LoginPageViewModel extends State<LoginPage> {
 
   lazyLogin() async {
     prefs = await SharedPreferences.getInstance();
-    if(prefs.getString('key')?? "0" != "0") {
-      // Perform lazy login
+    String key = prefs.getString('key')?? "0";
+    debugPrint(key);
+    if( key != "0") {
+      wallet.apiKey = key;
+      Navigator.of(context).pushReplacementNamed('/home');
     }
   }
   
@@ -32,6 +35,9 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   void showMessageDialog(String message, Function callback) {}
 
   void loginPhone() async {
+    var phoneNumber = dialCode + phoneNumberController.text;
+    phoneNumber = phoneNumber.replaceAll("+", "");
+    wallet.setPhone(phoneNumber);
     if(!wallet.keyLoaded()) await
       wallet.getKey(secretCodeController.text)
         .then((w) async {
@@ -40,7 +46,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
           showMessageDialog(error.toString(), onDialogClosed);
         });
     if(await wallet.isConfirmed()) {
-      Wallet.loggedInWallet = wallet;
+      await prefs.setString('key', wallet.apiKey);
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
       String keygap = await wallet.getKeyGap();
@@ -51,14 +57,14 @@ abstract class LoginPageViewModel extends State<LoginPage> {
 
   void confirmTheKey() async {
     await wallet.confirm();
-    Wallet.loggedInWallet = wallet;
+    await prefs.setString('key', wallet.apiKey);
     Navigator.of(context).pushReplacementNamed('/home');
   }
 
   void getCode() {
     var phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
-    wallet = Wallet(phoneNumber);
+    wallet.setPhone(phoneNumber);
     wallet.sendCode()
       .then((w){
         showMessageDialog("we sent a code to " + phoneNumber, onDialogClosed);

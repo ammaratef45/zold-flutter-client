@@ -6,9 +6,9 @@ class Wallet {
   String id;
   String phone;
   API api =API();
-  static Wallet loggedInWallet;
-  
-  Wallet(String phone) {
+  Wallet._();
+  static final Wallet wallet = Wallet._();
+  setPhone(String phone) {
     this.phone =phone;
   }
 

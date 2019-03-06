@@ -51,15 +51,18 @@ class API {
 
   Future<String> pull(String apiKey) async {
     var headers =  {"X-Zold-Wts": apiKey};
-    final url = "${BASE_URL}pull?noredirect=1";
+    final url = "${BASE_URL}pull";
     final request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
     debugPrint(statusCode.toString());
+    debugPrint(apiKey);
+    debugPrint(response.headers.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);
+
     if(statusCode == 302) {
       return "success";
     }

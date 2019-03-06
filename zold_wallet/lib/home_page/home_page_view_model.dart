@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import './home_page.dart';
 import '../wallet.dart';
+import 'dart:math';
 
 abstract class HomePageViewModel extends State<HomePage> {
   String idText = "ID";
   String balanceText = "Balance";
-  Wallet wallet = Wallet.loggedInWallet;
+  Wallet wallet = Wallet.wallet;
 
   HomePageViewModel() {
     wallet.pull();
@@ -39,7 +40,9 @@ abstract class HomePageViewModel extends State<HomePage> {
     wallet.getBalanace()
       .then((balance) {
         setState(() {
-          balanceText = balance;
+          balanceText = "\t\t\tBalanace\n"+
+            balance + " Zents\n"+
+            (double.parse(balance)/(pow(2,32))).toString() + " ZLD";
         });
       })
       .catchError((error){
