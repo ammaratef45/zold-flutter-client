@@ -150,4 +150,22 @@ class API {
     throw new Exception("Error: status code is not 200");
   }
 
+  void pay(String bnf, String amount, String details, String apiKey, String keygap) async {
+    var headers =  {
+      "X-Zold-Wts": apiKey,
+      "Content-Type": "application/x-www-form-urlencoded"
+    };
+    var body = "bnf=$bnf&amount=$amount&details=$details&keygap=$keygap";
+    final url = "${BASE_URL}do-pay?noredirect=1";
+    final request = http.Request('POST', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.body = body;
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+  }
+
 }

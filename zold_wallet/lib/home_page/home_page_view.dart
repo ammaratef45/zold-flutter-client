@@ -1,6 +1,7 @@
 import './home_page_view_model.dart';
 import 'package:flutter/material.dart';
 import '../information_view/information_view.dart';
+import '../pay_view/pay_view.dart';
 
 class HomePageView extends HomePageViewModel {
 
@@ -30,17 +31,32 @@ class HomePageView extends HomePageViewModel {
       appBar: AppBar(
         title: Text("Zold"),
       ),
-      body: Center(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                child: InformatioView(),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: ListView.builder(
+        padding: EdgeInsets.all(8.0),
+        shrinkWrap: true,
+        itemCount: 2,
+        itemBuilder: (BuildContext context, int index) {
+          switch(index) {
+            case 0:
+              return Container(
+                height: 220.0,
+                child: InformationView(
+                  idText: id,
+                  balanceText: balance,
+                  onRefreshed: refresh,
+                )
+              );
+            case 1:
+              return PayView(
+                bnfController,
+                amountController,
+                messageController,
+                keygapController,
+                pay
+              );
+          }
+        },
+      )
     );
   }
 

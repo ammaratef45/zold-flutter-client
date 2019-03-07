@@ -1,31 +1,33 @@
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import './information_viewmodel.dart';
 
-class InformatioView extends InformationViewModel {
+class InformationView extends StatelessWidget {
+  final String idText;
+  final String balanceText;
+  final VoidCallback onRefreshed;
+  const InformationView(
+    {
+      this.idText="",
+      this.balanceText="",
+      @required this.onRefreshed
+    }
+  );
   @override
   Widget build(BuildContext context) {
     Widget widget = Container(
       child: Column(
         children: <Widget>[
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: Text("ID: "),
-                ),
-                Flexible(
-                  child: Text(idText),
-                )
-              ],
-            ),
+          Row(
+            children: <Widget>[
+              Text("ID: "),
+              Flexible(
+                child: Text(idText),
+              )
+            ],
           ),
-          Flexible(
+          Container(
             child: Row(
               children: <Widget>[
-                Flexible(
-                  child: Text("Balance: "),
-                ),
+                Text("Balance: "),
                 Flexible(
                   child: Text(balanceText),
                 )
@@ -33,7 +35,7 @@ class InformatioView extends InformationViewModel {
             ),
           ),
           RaisedButton(
-            onPressed: refresh,
+            onPressed: onRefreshed,
             child: Text("Refresh"),
           )
         ],

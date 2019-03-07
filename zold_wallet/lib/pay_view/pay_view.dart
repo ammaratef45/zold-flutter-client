@@ -1,41 +1,101 @@
 import 'package:flutter/material.dart';
-import './pay_viewmodel.dart';
+typedef void PayCallback(String bnf, String amount, String details, String keygap);
+class PayView extends StatelessWidget {
 
-class PayView extends PayViewModel {
+  final bnfController;
+  final amountController;
+  final messageController;
+  final keygapController;
+  final PayCallback payCallback;
+
+  PayView(
+    this.bnfController,
+    this.amountController,
+    this.messageController,
+    this.keygapController,
+    this.payCallback
+  );
+
   @override
   Widget build(BuildContext context) {
     Widget widget = Container(
       child: Column(
         children: <Widget>[
           Center(
-            child: Text("data"),
+            child: Text("Pay"),
           ),
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: Text("bnf: "),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Text("bnf: "),
+              ),
+              Flexible(
+                child: TextField(
+                  controller: bnfController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    hintText: 'eg. ammaratef45'
+                  ),
                 ),
-                Flexible(
-                  child: Text("ammaratef45"),
-                )
-              ],
-            ),
+              ),
+            ],
           ),
-          Flexible(
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: Text("Balance: "),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Text("Amount: "),
+              ),
+              Flexible(
+                child: TextField(
+                  controller: amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'eg. 1.2'
+                  ),
                 ),
-                Flexible(
-                  child: Text("6K zld"),
-                )
-              ],
-            ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Text("Keygap: "),
+              ),
+              Flexible(
+                child: TextField(
+                  controller: keygapController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'keygap'
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: Text("Details: "),
+              ),
+              Flexible(
+                child: TextField(
+                  controller: messageController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    hintText: 'eg. for selling me the book'
+                  ),
+                ),
+              ),
+            ],
           ),
           RaisedButton(
-            onPressed: pay,
+            onPressed: (){
+              payCallback(bnfController.text, amountController.text, messageController.text, keygapController.text);
+              bnfController.clear();
+              amountController.clear();
+              messageController.clear();
+              keygapController.clear();
+            },
             child: Text("Send"),
           )
         ],

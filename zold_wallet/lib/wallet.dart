@@ -4,7 +4,7 @@ class Wallet {
   String apiKey;
   String keygap;
   String id;
-  String balanceZents;
+  String balanceZents="pull";
   String phone;
   API api =API();
   Wallet._();
@@ -95,6 +95,10 @@ class Wallet {
       throw Exception("Error: " + ex.toString());
     });
     return balanceZents;
+  }
+
+  void pay(String bnf, String amount, String details, String keygap) async {
+    await api.pay(bnf, amount, details, apiKey, keygap);
   }
 
 }
