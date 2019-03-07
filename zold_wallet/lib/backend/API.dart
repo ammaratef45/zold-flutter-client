@@ -44,7 +44,7 @@ class API {
       return responseData;
     }
     if(statusCode == 500) {
-      return "pulling...";
+      return "pull";
     }
     throw Exception("Error: status code is not 200 or 500, it's $statusCode");
   }

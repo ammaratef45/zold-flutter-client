@@ -4,6 +4,7 @@ class Wallet {
   String apiKey;
   String keygap;
   String id;
+  String balanceZents;
   String phone;
   API api =API();
   Wallet._();
@@ -75,7 +76,6 @@ class Wallet {
   }
 
   Future<String> getId() async {
-    String id;
     await api.getId(apiKey)
     .then((res){
       id= res;
@@ -87,15 +87,14 @@ class Wallet {
   }
 
   Future<String> getBalanace() async {
-    String balance;
     await api.getBalance(apiKey)
     .then((res){
-      balance = res;
+      res=="pull"?balanceZents = null:balanceZents = res;
     })
     .catchError((ex){
       throw Exception("Error: " + ex.toString());
     });
-    return balance;
+    return balanceZents;
   }
 
 }
