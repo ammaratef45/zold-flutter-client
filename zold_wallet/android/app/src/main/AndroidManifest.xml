@@ -10,6 +10,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="zold_wallet"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+          android:name="io.fabric.ApiKey"
+          android:value="d3447205f8f0fd18a5dd8caa4e87660de195cd3a"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
