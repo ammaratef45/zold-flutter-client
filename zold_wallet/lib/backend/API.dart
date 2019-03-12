@@ -59,12 +59,12 @@ class API {
     final statusCode = response.statusCode;
     debugPrint(statusCode.toString());
     debugPrint(apiKey);
-    debugPrint(response.headers.toString());
+    String job = response.headers["x-zold-job"].toString();
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);
 
     if(statusCode == 302) {
-      return "success";
+      return job;
     }
     throw new Exception("Error: status code is not 302");
   }
@@ -163,6 +163,22 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
+    debugPrint(statusCode.toString());
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(responseData);
+  }
+
+  void output(String job, String apiKey) async {
+    var headers =  {
+      "X-Zold-Wts": apiKey
+    };
+    final url = "${BASE_URL}outpur?id=$job";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    debugPrint("-------- ouput response -------");
     debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);

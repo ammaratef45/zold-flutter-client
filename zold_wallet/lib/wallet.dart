@@ -70,6 +70,7 @@ class Wallet {
   pull() {
     api.pull(apiKey)
     .then((response){
+      api.output(response, apiKey);
     })
     .catchError((ex){
     });
