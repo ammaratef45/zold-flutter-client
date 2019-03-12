@@ -3,6 +3,7 @@ import './home_page.dart';
 import '../wallet.dart';
 import 'dart:math';
 import '../wts_log.dart';
+import '../payment.dart';
 
 typedef Future<WtsLog> WaitingCallback();
 abstract class HomePageViewModel extends State<HomePage> {
@@ -14,7 +15,9 @@ abstract class HomePageViewModel extends State<HomePage> {
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
 
-  HomePageViewModel();
+  HomePageViewModel() {
+    refresh();
+  }
 
   void showMessageDialog(String message) {}
 
@@ -48,8 +51,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   }
 
   void pay(String bnf, String amount, String details, String keygap) async {
-    showMessageDialog("Sending...");
-    await wallet.pay(bnf, amount, details, keygap);
-    showMessageDialog("We sent your request");
+    Payment payment =Payment(bnf, amount, details, keygap);
+    await showWaitingDialog(payment.doPay);
   }
 }

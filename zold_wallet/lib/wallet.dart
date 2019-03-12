@@ -107,8 +107,14 @@ class Wallet {
     return balanceZents;
   }
 
-  void pay(String bnf, String amount, String details, String keygap) async {
-    await api.pay(bnf, amount, details, apiKey, keygap);
+  Future<WtsLog> pay(String bnf, String amount, String details, String keygap) async {
+    String jobId = await api.pay(bnf, amount, details, apiKey, keygap);
+    String status = "Running";
+    while (status == "Running") {
+      status = (await api.output(jobId, apiKey)).status;
+      await Future.delayed(const Duration(seconds: 2)); 
+    }
+    return api.output(jobId, apiKey);
   }
 
 }

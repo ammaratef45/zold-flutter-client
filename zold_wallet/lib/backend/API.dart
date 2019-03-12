@@ -151,7 +151,7 @@ class API {
     throw new Exception("Error: status code is not 200");
   }
 
-  void pay(String bnf, String amount, String details, String apiKey, String keygap) async {
+  Future<String> pay(String bnf, String amount, String details, String apiKey, String keygap) async {
     var headers =  {
       "X-Zold-Wts": apiKey,
       "Content-Type": "application/x-www-form-urlencoded"
@@ -164,9 +164,9 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
+    String job = response.headers["x-zold-job"].toString();
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
+    return job;
   }
 
   Future<WtsLog> output(String job, String apiKey) async {
@@ -179,12 +179,8 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint("-------- ouput response -------");
-    debugPrint(job);
     String status = response.headers["x-zold-jobstatus"];
-    debugPrint(response.headers.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     return WtsLog(status, responseData);
   }
 
