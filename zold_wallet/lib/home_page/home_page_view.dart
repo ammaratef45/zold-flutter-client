@@ -9,6 +9,7 @@ class HomePageView extends HomePageViewModel {
   @override Future<void> showWaitingDialog(WaitingCallback callback) async {
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return Center(child: CircularProgressIndicator(),);
         }
@@ -32,7 +33,7 @@ class HomePageView extends HomePageViewModel {
               child: Text("Full log"),
               onPressed: () {
                 Navigator.of(context).pop();
-                showMessageDialog(log.fullLog + "ss");
+                showMessageDialog(log.fullLog);
               },
             ),
           ],
@@ -47,7 +48,9 @@ class HomePageView extends HomePageViewModel {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Ooh"),
-          content: Text(message),
+          content: SingleChildScrollView(
+            child:Text(message),
+          ),
           actions: <Widget>[
             FlatButton(
               child: Text("Close"),
