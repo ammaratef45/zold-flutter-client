@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert' show utf8;
+import '../wts_log.dart';
 
 class API {
   
@@ -59,12 +60,12 @@ class API {
     final statusCode = response.statusCode;
     debugPrint(statusCode.toString());
     debugPrint(apiKey);
-    debugPrint(response.headers.toString());
+    String job = response.headers["x-zold-job"].toString();
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);
 
     if(statusCode == 302) {
-      return "success";
+      return job;
     }
     throw new Exception("Error: status code is not 302");
   }
@@ -150,7 +151,7 @@ class API {
     throw new Exception("Error: status code is not 200");
   }
 
-  void pay(String bnf, String amount, String details, String apiKey, String keygap) async {
+  Future<String> pay(String bnf, String amount, String details, String apiKey, String keygap) async {
     var headers =  {
       "X-Zold-Wts": apiKey,
       "Content-Type": "application/x-www-form-urlencoded"
@@ -163,9 +164,24 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
+    String job = response.headers["x-zold-job"].toString();
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
+    return job;
+  }
+
+  Future<WtsLog> output(String job, String apiKey) async {
+    var headers =  {
+      "X-Zold-Wts": apiKey
+    };
+    final url = "${BASE_URL}output?id=$job";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    String status = response.headers["x-zold-jobstatus"];
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    return WtsLog(status, responseData);
   }
 
 }

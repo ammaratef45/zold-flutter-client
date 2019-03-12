@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import './home_page.dart';
 import '../wallet.dart';
 import 'dart:math';
+import '../wts_log.dart';
+import '../payment.dart';
 
+typedef Future<WtsLog> WaitingCallback();
 abstract class HomePageViewModel extends State<HomePage> {
   Wallet wallet = Wallet.wallet;
   String id = "";
@@ -12,9 +15,13 @@ abstract class HomePageViewModel extends State<HomePage> {
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
 
-  HomePageViewModel();
+  HomePageViewModel() {
+    refresh();
+  }
 
   void showMessageDialog(String message) {}
+
+  Future<void> showWaitingDialog(WaitingCallback callback) async {}
 
   @override
   void dispose() {
@@ -24,10 +31,10 @@ abstract class HomePageViewModel extends State<HomePage> {
     messageController.dispose();
   }
 
-  void refresh() {
-    wallet.pull();
-    wallet.getId();
-    wallet.getBalanace();
+  Future<void> refresh() async {
+    await showWaitingDialog(wallet.pull);
+    await wallet.getId();
+    await wallet.getBalanace();
     loadValues();
     setState((){});
   }
@@ -36,7 +43,7 @@ abstract class HomePageViewModel extends State<HomePage> {
     this.id = wallet.id==null?"null":wallet.id;
     this.balance = wallet.balanceZents=="pull"?
       "Pulling, refresh in a minute":
-      (double.parse(wallet.balanceZents)/pow(2,32)).toString() +
+      (double.parse(wallet.balanceZents)/pow(2,32)).toStringAsFixed(3) +
       " ZLD" +
       "(" +
       wallet.balanceZents + " Zents" +
@@ -44,8 +51,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   }
 
   void pay(String bnf, String amount, String details, String keygap) async {
-    showMessageDialog("Sending...");
-    await wallet.pay(bnf, amount, details, keygap);
-    showMessageDialog("We sent your request");
+    Payment payment =Payment(bnf, amount, details, keygap);
+    await showWaitingDialog(payment.doPay);
   }
 }
