@@ -1,4 +1,5 @@
 import 'backend/API.dart';
+import 'wts_log.dart';
 
 class Wallet {
   String apiKey;
@@ -67,13 +68,21 @@ class Wallet {
     return keygap;
   }
 
-  pull() {
-    api.pull(apiKey)
-    .then((response){
-      api.output(response, apiKey);
+  Future<WtsLog> pull() async {
+    WtsLog log;
+    await api.pull(apiKey)
+    .then((response) async{
+      String status = "Running";
+      while (status == "Running") {
+        status = (await api.output(response, apiKey)).status;
+        await Future.delayed(const Duration(seconds: 2)); 
+      }
+      log = await api.output(response, apiKey);
     })
     .catchError((ex){
+      throw ex;
     });
+    return log;
   }
 
   Future<String> getId() async {

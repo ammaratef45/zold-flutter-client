@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert' show utf8;
+import '../wts_log.dart';
 
 class API {
   
@@ -168,7 +169,7 @@ class API {
     debugPrint(responseData);
   }
 
-  void output(String job, String apiKey) async {
+  Future<WtsLog> output(String job, String apiKey) async {
     var headers =  {
       "X-Zold-Wts": apiKey
     };
@@ -180,9 +181,11 @@ class API {
     final statusCode = response.statusCode;
     debugPrint("-------- ouput response -------");
     debugPrint(job);
-    debugPrint(statusCode.toString());
+    String status = response.headers["x-zold-jobstatus"];
+    debugPrint(response.headers.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);
+    return WtsLog(status, responseData);
   }
 
 }
