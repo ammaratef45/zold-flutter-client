@@ -43,7 +43,7 @@ abstract class HomePageViewModel extends State<HomePage> {
     this.id = wallet.id==null?"null":wallet.id;
     this.balance = wallet.balanceZents=="pull"?
       "Pulling, refresh in a minute":
-      (double.parse(wallet.balanceZents)/pow(2,32)).toString() +
+      (double.parse(wallet.balanceZents)/pow(2,32)).toStringAsFixed(3) +
       " ZLD" +
       "(" +
       wallet.balanceZents + " Zents" +
