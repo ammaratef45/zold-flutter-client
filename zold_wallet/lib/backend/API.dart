@@ -172,13 +172,14 @@ class API {
     var headers =  {
       "X-Zold-Wts": apiKey
     };
-    final url = "${BASE_URL}outpur?id=$job";
+    final url = "${BASE_URL}output?id=$job";
     final request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
     debugPrint("-------- ouput response -------");
+    debugPrint(job);
     debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
     debugPrint(responseData);

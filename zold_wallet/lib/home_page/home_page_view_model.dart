@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './home_page.dart';
 import '../wallet.dart';
 import 'dart:math';
-
+typedef Future<void> WaitingCallback();
 abstract class HomePageViewModel extends State<HomePage> {
   Wallet wallet = Wallet.wallet;
   String id = "";
@@ -16,6 +16,14 @@ abstract class HomePageViewModel extends State<HomePage> {
 
   void showMessageDialog(String message) {}
 
+  void showWaitingDialog(WaitingCallback callback) async {}
+
+  Future<bool> loginAction() async {
+    //replace the below line of code with your login request
+    await new Future.delayed(const Duration(seconds: 2));
+    return true;
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -24,10 +32,10 @@ abstract class HomePageViewModel extends State<HomePage> {
     messageController.dispose();
   }
 
-  void refresh() {
-    wallet.pull();
-    wallet.getId();
-    wallet.getBalanace();
+  Future<void> refresh() async {
+    await wallet.pull();
+    await wallet.getId();
+    await wallet.getBalanace();
     loadValues();
     setState((){});
   }

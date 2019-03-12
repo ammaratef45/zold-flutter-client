@@ -5,6 +5,17 @@ import '../pay_view/pay_view.dart';
 
 class HomePageView extends HomePageViewModel {
 
+  @override void showWaitingDialog(WaitingCallback callback) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(child: CircularProgressIndicator(),);
+        }
+    );
+    await callback();
+    Navigator.pop(context);
+  }
+
   @override showMessageDialog(String message) {
     showDialog(
       context: context,
@@ -43,7 +54,9 @@ class HomePageView extends HomePageViewModel {
                 child: InformationView(
                   idText: id,
                   balanceText: balance,
-                  onRefreshed: refresh,
+                  onRefreshed: (){
+                    showWaitingDialog(refresh);
+                  },
                 )
               );
             case 1:
