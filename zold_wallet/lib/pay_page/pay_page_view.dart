@@ -1,10 +1,9 @@
-import './home_page_view_model.dart';
+import './pay_page_viewmodel.dart';
 import 'package:flutter/material.dart';
-import '../information_view/information_view.dart';
 import '../pay_view/pay_view.dart';
 import '../wts_log.dart';
 
-class HomePageView extends HomePageViewModel {
+class PayPageView extends PayPageViewModel {
 
   @override Future<void> showWaitingDialog(WaitingCallback callback) async {
     showDialog(
@@ -68,27 +67,7 @@ class HomePageView extends HomePageViewModel {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Zold"),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Pay'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushReplacementNamed('/pay');
-              },
-            ),
-            ListTile(
-              title: Text('Sign Out'),
-              onTap: () {
-                Navigator.pop(context);
-                //signOut();
-              },
-            ),
-          ],
-        ),
+        title: Text("Pay"),
       ),
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
@@ -97,15 +76,12 @@ class HomePageView extends HomePageViewModel {
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
             case 0:
-              return Container(
-                height: 220.0,
-                child: InformationView(
-                  idText: id,
-                  balanceText: balance,
-                  onRefreshed: (){
-                    refresh();
-                  },
-                )
+              return PayView(
+                bnfController,
+                amountController,
+                messageController,
+                keygapController,
+                pay
               );
           }
         },
