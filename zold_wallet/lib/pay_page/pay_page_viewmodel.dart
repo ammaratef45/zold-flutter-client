@@ -26,7 +26,7 @@ abstract class PayPageViewModel extends State<PayPage> {
     messageController.dispose();
   }
 
-  
+  // @todo #18 add ability to scan details from QR.
   void pay(String bnf, String amount, String details, String keygap) async {
     Payment payment =Payment(bnf, amount, details, keygap);
     await showWaitingDialog(payment.doPay);
