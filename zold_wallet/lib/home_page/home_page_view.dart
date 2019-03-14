@@ -74,6 +74,13 @@ class HomePageView extends HomePageViewModel {
         child: ListView(
           children: <Widget>[
             ListTile(
+              title: Text('Request payment'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed('/create');
+              },
+            ),
+            ListTile(
               title: Text('Pay'),
               onTap: () {
                 Navigator.pop(context);
@@ -109,7 +116,7 @@ class HomePageView extends HomePageViewModel {
               );
           }
         },
-      )
+      ),
     );
   }
 
