@@ -77,7 +77,7 @@ class HomePageView extends HomePageViewModel {
               title: Text('Pay'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushReplacementNamed('/pay');
+                Navigator.of(context).pushNamed('/pay');
               },
             ),
             ListTile(
