@@ -12,6 +12,7 @@ abstract class PayPageViewModel extends State<PayPage> {
   final amountController = TextEditingController();
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
+  var snackKey = GlobalKey<ScaffoldState>();
 
   PayPageViewModel();
   void showMessageDialog(String message) {}

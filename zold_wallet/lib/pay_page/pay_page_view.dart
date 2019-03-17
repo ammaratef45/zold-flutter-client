@@ -2,6 +2,8 @@ import './pay_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import '../pay_view/pay_view.dart';
 import '../wts_log.dart';
+import 'package:flutter/services.dart';
+
 
 class PayPageView extends PayPageViewModel {
 
@@ -57,6 +59,14 @@ class PayPageView extends PayPageViewModel {
                 Navigator.of(context).pop();
               },
             ),
+            FlatButton(
+              child: Text("Copy"),
+              onPressed: () {
+                Clipboard.setData(new ClipboardData(text: message));
+                  snackKey.currentState.showSnackBar(SnackBar
+                    (content: Text('copied')));
+              },
+            ),
           ],
         );
       },
@@ -66,6 +76,7 @@ class PayPageView extends PayPageViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: snackKey,
       appBar: AppBar(
         title: Text("Pay"),
       ),

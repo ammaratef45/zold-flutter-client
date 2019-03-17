@@ -14,6 +14,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   final amountController = TextEditingController();
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
+  var snackKey = GlobalKey<ScaffoldState>();
 
   HomePageViewModel() {
     refresh();

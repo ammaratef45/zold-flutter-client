@@ -1,8 +1,8 @@
 import './home_page_view_model.dart';
 import 'package:flutter/material.dart';
 import '../information_view/information_view.dart';
-import '../pay_view/pay_view.dart';
 import '../wts_log.dart';
+import 'package:flutter/services.dart';
 
 class HomePageView extends HomePageViewModel {
 
@@ -58,6 +58,14 @@ class HomePageView extends HomePageViewModel {
                 Navigator.of(context).pop();
               },
             ),
+            FlatButton(
+              child: Text("Copy"),
+              onPressed: () {
+                Clipboard.setData(new ClipboardData(text: message));
+                  snackKey.currentState.showSnackBar(SnackBar
+                    (content: Text('copied')));
+              },
+            ),
           ],
         );
       },
@@ -67,6 +75,7 @@ class HomePageView extends HomePageViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: snackKey,
       appBar: AppBar(
         title: Text("Zold"),
       ),
