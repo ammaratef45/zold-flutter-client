@@ -32,9 +32,10 @@ abstract class HomePageViewModel extends State<HomePage> {
   }
 
   Future<void> refresh() async {
-    await showWaitingDialog(wallet.pull);
     await wallet.getId();
     await wallet.getBalanace();
+    if(wallet.balanceZents=="pull")
+      await showWaitingDialog(wallet.pull);
     loadValues();
     setState((){});
   }

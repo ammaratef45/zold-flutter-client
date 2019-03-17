@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 class InformationView extends StatelessWidget {
   final String idText;
@@ -21,7 +23,15 @@ class InformationView extends StatelessWidget {
               Text("ID: "),
               Flexible(
                 child: Text(idText),
-              )
+              ),
+              GestureDetector(
+                onTap: () {
+                  Clipboard.setData(new ClipboardData(text: idText));
+                  Scaffold.of(context).showSnackBar(SnackBar
+                    (content: Text('ID copied')));
+                },
+                child: Icon(Icons.content_copy,),
+              ),
             ],
           ),
           Container(
@@ -36,7 +46,7 @@ class InformationView extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: onRefreshed,
-            child: Text("Refresh"),
+            child: Text("Pull"),
           )
         ],
       ),

@@ -21,9 +21,7 @@ class API {
     request.followRedirects = false;
     http.StreamedResponse response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return responseData;
     }
@@ -38,9 +36,7 @@ class API {
     request.followRedirects = false;
     http.StreamedResponse response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return responseData;
     }
@@ -58,11 +54,8 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
-    debugPrint(apiKey);
     String job = response.headers["x-zold-job"].toString();
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
 
     if(statusCode == 302) {
       return job;
@@ -76,9 +69,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return "success";
     }
@@ -91,9 +82,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return responseData;
     }
@@ -108,9 +97,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return responseData;
     }
@@ -125,9 +112,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return responseData;
     }
@@ -142,9 +127,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    debugPrint(statusCode.toString());
     String responseData = await response.stream.transform(utf8.decoder).join();
-    debugPrint(responseData);
     if(statusCode == 200) {
       return "success";
     }

@@ -99,7 +99,7 @@ class Wallet {
   Future<String> getBalanace() async {
     await api.getBalance(apiKey)
     .then((res){
-      res=="pull"?balanceZents = null:balanceZents = res;
+      res=="pull"?balanceZents = "pull":balanceZents = res;
     })
     .catchError((ex){
       throw Exception("Error: " + ex.toString());
