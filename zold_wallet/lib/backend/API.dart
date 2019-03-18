@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 import 'dart:convert' show utf8;
 import '../wts_log.dart';
 
@@ -55,7 +54,7 @@ class API {
     final response = await client.send(request);
     final statusCode = response.statusCode;
     String job = response.headers["x-zold-job"].toString();
-    String responseData = await response.stream.transform(utf8.decoder).join();
+    //String responseData = await response.stream.transform(utf8.decoder).join();
 
     if(statusCode == 302) {
       return job;
@@ -69,7 +68,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    String responseData = await response.stream.transform(utf8.decoder).join();
+    //String responseData = await response.stream.transform(utf8.decoder).join();
     if(statusCode == 200) {
       return "success";
     }
@@ -127,7 +126,7 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    String responseData = await response.stream.transform(utf8.decoder).join();
+    //String responseData = await response.stream.transform(utf8.decoder).join();
     if(statusCode == 200) {
       return "success";
     }
@@ -146,9 +145,9 @@ class API {
     request.body = body;
     request.followRedirects = false;
     final response = await client.send(request);
-    final statusCode = response.statusCode;
+    //final statusCode = response.statusCode;
     String job = response.headers["x-zold-job"].toString();
-    String responseData = await response.stream.transform(utf8.decoder).join();
+    //String responseData = await response.stream.transform(utf8.decoder).join();
     return job;
   }
 
@@ -161,7 +160,7 @@ class API {
     request.headers.addAll(headers);
     request.followRedirects = false;
     final response = await client.send(request);
-    final statusCode = response.statusCode;
+    //final statusCode = response.statusCode;
     String status = response.headers["x-zold-jobstatus"];
     String responseData = await response.stream.transform(utf8.decoder).join();
     return WtsLog(status, responseData);

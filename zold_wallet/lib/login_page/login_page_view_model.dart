@@ -11,6 +11,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   Wallet wallet = Wallet.wallet;
   SharedPreferences prefs;
   
+  
   LoginPageViewModel() {
     lazyLogin();
   }
@@ -32,6 +33,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
+  // @todo #31 remove this function and make sure not to lose any functionality
   void showMessageDialog(String message, Function callback) {}
 
   void loginPhone() async {

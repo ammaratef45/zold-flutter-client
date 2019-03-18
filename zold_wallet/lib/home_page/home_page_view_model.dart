@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import './home_page.dart';
 import '../wallet.dart';
 import 'dart:math';
-import '../wts_log.dart';
-import '../payment.dart';
+import 'package:zold_wallet/dialogs.dart';
 
-typedef Future<WtsLog> WaitingCallback();
+
 abstract class HomePageViewModel extends State<HomePage> {
   Wallet wallet = Wallet.wallet;
   String id = "";
@@ -20,10 +19,6 @@ abstract class HomePageViewModel extends State<HomePage> {
     refresh();
   }
 
-  void showMessageDialog(String message) {}
-
-  Future<void> showWaitingDialog(WaitingCallback callback) async {}
-
   @override
   void dispose() {
     super.dispose();
@@ -36,7 +31,7 @@ abstract class HomePageViewModel extends State<HomePage> {
     await wallet.getId();
     await wallet.getBalanace();
     if(wallet.balanceZents=="pull")
-      await showWaitingDialog(wallet.pull);
+      await Dialogs.waitingDialog(context, wallet.pull, snackKey);
     loadValues();
     setState((){});
   }
@@ -50,10 +45,5 @@ abstract class HomePageViewModel extends State<HomePage> {
       "(" +
       wallet.balanceZents + " Zents" +
       ")";
-  }
-
-  void pay(String bnf, String amount, String details, String keygap) async {
-    Payment payment =Payment(bnf, amount, details, keygap);
-    await showWaitingDialog(payment.doPay);
   }
 }
