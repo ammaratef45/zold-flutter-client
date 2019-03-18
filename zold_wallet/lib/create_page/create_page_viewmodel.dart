@@ -42,8 +42,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
       final tempDir = await getTemporaryDirectory();
       final file = await new File('${tempDir.path}/image.png').create();
       await file.writeAsBytes(pngBytes);
-      // @todo #18 add share methods to native code.
-      final channel = const MethodChannel('channel:me.ammar.share/share');
+      final channel = const MethodChannel('channel:ammar.zold.share/share');
       channel.invokeMethod('shareFile', 'image.png');
 
     } catch(e) {
