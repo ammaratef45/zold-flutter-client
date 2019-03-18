@@ -1,76 +1,10 @@
 import './home_page_view_model.dart';
 import 'package:flutter/material.dart';
 import '../information_view/information_view.dart';
-import '../wts_log.dart';
-import 'package:flutter/services.dart';
+
+
 
 class HomePageView extends HomePageViewModel {
-
-  @override Future<void> showWaitingDialog(WaitingCallback callback) async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(child: CircularProgressIndicator(),);
-        }
-    );
-    WtsLog log = await callback();
-    Navigator.pop(context);
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(log.status==null?"null":log.status),
-          content: Text("The operation ended with ${log.status} status"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text("Full log"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                showMessageDialog(log.fullLog);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  @override showMessageDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Ooh"),
-          content: SingleChildScrollView(
-            child:Text(message),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text("Copy"),
-              onPressed: () {
-                Clipboard.setData(new ClipboardData(text: message));
-                  snackKey.currentState.showSnackBar(SnackBar
-                    (content: Text('copied')));
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
