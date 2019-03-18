@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import './create_page.dart';
 import '../wallet.dart';
 import '../wts_log.dart';
-import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 
 typedef Future<WtsLog> WaitingCallback();
@@ -28,11 +27,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
   }
 
   void captureAndSharePng() async {
-    Map<String, String> values =Map();
-    values["bnf"] = bnfController.text;
-    values["amount"] = amountController.text;
-    values["details"] = messageController.text;
-    debugPrint(json.encode(values));
+    
     try {
       RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
       var image = await boundary.toImage();

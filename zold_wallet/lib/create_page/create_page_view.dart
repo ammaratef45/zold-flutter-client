@@ -1,6 +1,7 @@
 import './create_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:convert';
 
 class CreatePageView extends CreatePageViewModel {
 
@@ -71,12 +72,24 @@ class CreatePageView extends CreatePageViewModel {
                     child: RepaintBoundary(
                       key: globalKey,
                       child: QrImage(
-                        version: 2,
+                        version: 6,
                         data: qrString,
                         onError: (ex) {
                           debugPrint("[QR] ERROR - $ex");
                         },
                       ),
+                    ),
+                  ),
+                  Center(
+                    child: RaisedButton(
+                      child: Text("Submit"),
+                      onPressed: ()=> setState(() {
+                        Map<String, String> values =Map();
+                        values["bnf"] = bnfController.text;
+                        values["amount"] = amountController.text;
+                        values["details"] = messageController.text;
+                        qrString = json.encode(values);
+                      }),
                     ),
                   ),
                 ],
