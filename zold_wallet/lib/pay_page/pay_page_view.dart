@@ -15,10 +15,17 @@ class PayPageView extends PayPageViewModel {
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
         shrinkWrap: true,
-        itemCount: 1,
+        itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
             case 0:
+              return Center(
+                child: RaisedButton(
+                  child: Text("Scan from QR"),
+                  onPressed: scan
+                )
+              );
+            case 1:
               return PayView(
                 bnfController,
                 amountController,
