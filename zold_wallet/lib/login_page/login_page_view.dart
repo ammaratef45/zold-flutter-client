@@ -3,32 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 
 class LoginPageView extends LoginPageViewModel {
-
-  @override showMessageDialog(String message, Function callback) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text("Ooh"),
-          content: new Text(message),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                callback();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: snackKey,
       appBar: AppBar(
         title: Text("Zold"),
       ),

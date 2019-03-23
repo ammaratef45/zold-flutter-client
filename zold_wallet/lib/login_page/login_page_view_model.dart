@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/dialogs.dart';
 import './login_page.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import '../wallet.dart';
@@ -10,6 +11,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   String dialCode = "+20";
   Wallet wallet = Wallet.wallet;
   SharedPreferences prefs;
+  var snackKey = GlobalKey<ScaffoldState>();
   
   
   LoginPageViewModel() {
@@ -33,9 +35,6 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
-  // @todo #31 remove this function and make sure not to lose any functionality
-  void showMessageDialog(String message, Function callback) {}
-
   void loginPhone() async {
     var phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
@@ -45,15 +44,17 @@ abstract class LoginPageViewModel extends State<LoginPage> {
         .then((w) async {
         })
         .catchError((error){
-          showMessageDialog(error.toString(), onDialogClosed);
+          Dialogs.messageDialog(context, "error", error.toString(), snackKey);
         });
     if(await wallet.isConfirmed()) {
       await prefs.setString('key', wallet.apiKey);
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
       String keygap = await wallet.getKeyGap();
-      showMessageDialog("You keygap is: $keygap please save it in a safe place\n"
-        + "once you press okay it will be deleted frpm our server", confirmTheKey);
+      await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
+        + "once you press okay it will be deleted from WTS server", snackKey);
+      // @todo #34 get the selected from dialog before calling this
+      confirmTheKey();
     }
   }
 
@@ -69,17 +70,14 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     wallet.setPhone(phoneNumber);
     wallet.sendCode()
       .then((w){
-        showMessageDialog("we sent a code to " + phoneNumber, onDialogClosed);
+        Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey);
       })
       .catchError((error) {
-        showMessageDialog(error.toString(), onDialogClosed);
+        Dialogs.messageDialog(context, "Error", error.toString(), snackKey);
       });
   }
 
   void pickedCode(CountryCode object) {
     dialCode =object.dialCode;
-  }
-
-  void onDialogClosed() {
   }
 }
