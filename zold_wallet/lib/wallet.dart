@@ -1,3 +1,5 @@
+import 'package:zold_wallet/transaction.dart';
+
 import 'backend/API.dart';
 import 'wts_log.dart';
 
@@ -105,6 +107,10 @@ class Wallet {
       throw Exception("Error: " + ex.toString());
     });
     return balanceZents;
+  }
+
+  Future<List<Transaction>> getTransactions() async {
+    return await api.transactions(apiKey);
   }
 
   Future<WtsLog> pay(String bnf, String amount, String details, String keygap) async {

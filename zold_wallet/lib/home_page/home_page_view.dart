@@ -43,7 +43,7 @@ class HomePageView extends HomePageViewModel {
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
         shrinkWrap: true,
-        itemCount: 1,
+        itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
             case 0:
@@ -57,6 +57,8 @@ class HomePageView extends HomePageViewModel {
                   },
                 )
               );
+            case 1:
+              return Text("blah");
           }
         },
       ),

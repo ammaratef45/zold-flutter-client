@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:zold_wallet/backend/API.dart';
+import 'package:zold_wallet/transaction.dart';
 import 'secret.dart';
 import 'package:zold_wallet/wts_log.dart';
 import 'package:zold_wallet/job.dart';
@@ -23,5 +24,11 @@ void main() {
     String job = await api.pull(Secrets.apiKey);
     Job res = await api.job(job, Secrets.apiKey);
     expect(res.id, job);
+  });
+
+  test('test API txns.json', () async {
+    API api = API();
+    List<Transaction> res = await api.transactions(Secrets.apiKey);
+    expect(res.length, isNonZero);
   });
 }

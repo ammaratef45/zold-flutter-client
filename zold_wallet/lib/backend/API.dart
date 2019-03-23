@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:zold_wallet/transaction.dart';
 import 'dart:convert';
 import 'package:zold_wallet/wts_log.dart';
 import 'package:zold_wallet/job.dart';
@@ -178,6 +179,19 @@ class API {
     final response = await client.send(request);
     String responseData = await response.stream.transform(utf8.decoder).join();
     return Job.fromJson(json.decode(responseData));
+  }
+
+  Future<List<Transaction>> transactions(String apiKey) async {
+    var headers =  {
+      "X-Zold-Wts": apiKey
+    };
+    final url = "${BASE_URL}txns.json";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    return Transaction.fromJsonList(json.decode(responseData));
   }
 
 }

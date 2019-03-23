@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/transaction.dart';
 import './home_page.dart';
 import '../wallet.dart';
 import 'dart:math';
@@ -14,6 +15,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
   var snackKey = GlobalKey<ScaffoldState>();
+  List<Transaction> transactions =List();
 
   HomePageViewModel() {
     refresh();
@@ -30,6 +32,9 @@ abstract class HomePageViewModel extends State<HomePage> {
   Future<void> refresh() async {
     await wallet.getId();
     await wallet.getBalanace();
+    List<Transaction> t = await wallet.getTransactions();
+    this.transactions.clear();
+    this.transactions.addAll(t);
     if(wallet.balanceZents=="pull")
       await Dialogs.waitingDialog(context, wallet.pull, snackKey);
     loadValues();
