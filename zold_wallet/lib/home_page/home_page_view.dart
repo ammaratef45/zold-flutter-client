@@ -58,7 +58,15 @@ class HomePageView extends HomePageViewModel {
                 )
               );
             case 1:
-              return Text("blah");
+              // @todo #27 sort desc, add more info and show better design
+              return ListView.builder(
+                padding: EdgeInsets.all(8.0),
+                shrinkWrap: true,
+                itemCount: transactions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Text(transactions[index].details);
+                },
+              );
           }
         },
       ),

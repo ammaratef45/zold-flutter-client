@@ -190,6 +190,9 @@ class API {
     request.headers.addAll(headers);
     request.followRedirects = false;
     final response = await client.send(request);
+    if(response.statusCode != 200) {
+      throw Exception("Status code is not 200");
+    }
     String responseData = await response.stream.transform(utf8.decoder).join();
     return Transaction.fromJsonList(json.decode(responseData));
   }

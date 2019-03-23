@@ -32,11 +32,16 @@ abstract class HomePageViewModel extends State<HomePage> {
   Future<void> refresh() async {
     await wallet.getId();
     await wallet.getBalanace();
-    List<Transaction> t = await wallet.getTransactions();
-    this.transactions.clear();
-    this.transactions.addAll(t);
-    if(wallet.balanceZents=="pull")
+    try {
+      // @todo #27 save transactions in the wallet and load it like balance
+      List<Transaction> t = await wallet.getTransactions();
+      this.transactions.clear();
+      this.transactions.addAll(t);
+    } catch (e) {}
+    if(wallet.balanceZents=="pull") {
       await Dialogs.waitingDialog(context, wallet.pull, snackKey);
+      await wallet.getBalanace();
+    }
     loadValues();
     setState((){});
   }
