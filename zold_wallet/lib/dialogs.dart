@@ -18,6 +18,11 @@ class Dialogs {
           return Center(child: CircularProgressIndicator(),);
         }
     );
+    /*
+     * @todo #26 get job id not a log from the callback.
+     *  make the waiting loop here and get job file to show.
+     */
+     
     WtsLog log = await callback();
     Navigator.pop(context);
     showDialog(
