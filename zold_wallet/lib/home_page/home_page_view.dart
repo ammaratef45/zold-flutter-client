@@ -57,6 +57,7 @@ class HomePageView extends HomePageViewModel {
                   },
                 )
               );
+            // @todo #27 show empty wallet if wallet has no transactions
             case 1:
               // @todo #27 sort desc, add more info and show better design
               return ListView.builder(
