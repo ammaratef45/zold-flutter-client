@@ -1,15 +1,63 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:zold_wallet/job.dart';
+import 'package:zold_wallet/wallet.dart';
 import 'wts_log.dart';
 
-typedef Future<WtsLog> WaitingCallback();
+typedef Future<String> WaitingCallback();
+
+class WaitingDialog extends StatefulWidget {
+  String _id;
+  Wallet _wallet;
+  WaitingDialog(this._id, this._wallet);
+  @override
+  State<StatefulWidget> createState() => WaitingDialogView(_id, _wallet);
+
+}
+
+class WaitingDialogView extends State<WaitingDialog> {
+  String id;
+  String progeessText = "got: 0 bytes";
+  Wallet wallet;
+  WaitingDialogView(this.id, this.wallet);
+  @override
+  void initState() {
+    super.initState();
+    wait();
+  }
+  void wait() async {
+    String status = "Running";
+    while (status == "Running") {
+      try {
+        Job job = await wallet.job(id);
+        setState(() {
+          progeessText = "got: ${job.outputLength} bytes";
+        });
+      } catch(ex) {}
+      await Future.delayed(const Duration(milliseconds: 500));
+      status = (await wallet.log(id)).status;  
+    }
+    Navigator.pop(context);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text(progeessText),
+        CircularProgressIndicator()
+      ],
+    );
+  }
+
+}
 class Dialogs {
   static Future<void> waitingDialog
   (
     BuildContext context,
     WaitingCallback callback,
-    GlobalKey<ScaffoldState> scaffoldKey
+    GlobalKey<ScaffoldState> scaffoldKey,
+    Wallet wallet
   ) async {
     showDialog(
         context: context,
@@ -18,13 +66,24 @@ class Dialogs {
           return Center(child: CircularProgressIndicator(),);
         }
     );
-    /*
-     * @todo #26 get job id not a log from the callback.
-     *  make the waiting loop here and get job file to show.
-     */
-     
-    WtsLog log = await callback();
+
+    String id = await callback();
+    WaitingDialog w = WaitingDialog(id, wallet);
     Navigator.pop(context);
+    await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("wait"),
+            content: SingleChildScrollView(
+              child: w,
+            ),
+          );
+        }
+    );
+
+    WtsLog log = await wallet.log(id);
     showDialog(
       context: context,
       builder: (BuildContext context) {

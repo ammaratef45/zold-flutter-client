@@ -39,7 +39,7 @@ abstract class HomePageViewModel extends State<HomePage> {
       this.transactions.addAll(t);
     } catch (e) {}
     if(wallet.balanceZents=="pull") {
-      await Dialogs.waitingDialog(context, wallet.pull, snackKey);
+      await Dialogs.waitingDialog(context, wallet.pull, snackKey, wallet);
       await wallet.getBalanace();
     }
     loadValues();

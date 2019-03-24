@@ -1,5 +1,4 @@
 import 'wallet.dart';
-import 'wts_log.dart';
 
 class Payment {
   String bnf;
@@ -8,7 +7,7 @@ class Payment {
   String keygap;
   Payment(this.bnf, this.amount, this.details, this.keygap);
 
-  Future<WtsLog> doPay() async {
+  Future<String> doPay() async {
     return Wallet.wallet.pay(bnf, amount, details, keygap);
   }
 }

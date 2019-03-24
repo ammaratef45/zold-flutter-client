@@ -32,7 +32,7 @@ abstract class PayPageViewModel extends State<PayPage> {
 
   void pay(String bnf, String amount, String details, String keygap) async {
     Payment payment =Payment(bnf, amount, details, keygap);
-    await Dialogs.waitingDialog(context, payment.doPay, snackKey);
+    await Dialogs.waitingDialog(context, payment.doPay, snackKey, wallet);
   }
 
   Future scan() async {

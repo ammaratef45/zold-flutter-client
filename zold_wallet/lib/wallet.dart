@@ -1,3 +1,4 @@
+import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/transaction.dart';
 
 import 'backend/API.dart';
@@ -70,21 +71,8 @@ class Wallet {
     return keygap;
   }
 
-  Future<WtsLog> pull() async {
-    WtsLog log;
-    await api.pull(apiKey)
-    .then((response) async{
-      String status = "Running";
-      while (status == "Running") {
-        status = (await api.output(response, apiKey)).status;
-        await Future.delayed(const Duration(seconds: 2)); 
-      }
-      log = await api.output(response, apiKey);
-    })
-    .catchError((ex){
-      throw ex;
-    });
-    return log;
+  Future<String> pull() async {
+    return await api.pull(apiKey);
   }
 
   Future<String> getId() async {
@@ -113,14 +101,17 @@ class Wallet {
     return await api.transactions(apiKey);
   }
 
-  Future<WtsLog> pay(String bnf, String amount, String details, String keygap) async {
+  Future<String> pay(String bnf, String amount, String details, String keygap) async {
     String jobId = await api.pay(bnf, amount, details, apiKey, keygap);
-    String status = "Running";
-    while (status == "Running") {
-      status = (await api.output(jobId, apiKey)).status;
-      await Future.delayed(const Duration(seconds: 2)); 
-    }
-    return api.output(jobId, apiKey);
+    return jobId;
+  }
+
+  Future<WtsLog> log(String job) async {
+    return await api.output(job, apiKey);
+  }
+
+  Future<Job> job(String id) async {
+    return await api.job(id, apiKey);
   }
 
 }
