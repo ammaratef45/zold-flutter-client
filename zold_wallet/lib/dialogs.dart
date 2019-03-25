@@ -8,8 +8,8 @@ import 'wts_log.dart';
 typedef Future<String> WaitingCallback();
 
 class WaitingDialog extends StatefulWidget {
-  String _id;
-  Wallet _wallet;
+  final String _id;
+  final Wallet _wallet;
   WaitingDialog(this._id, this._wallet);
   @override
   State<StatefulWidget> createState() => WaitingDialogView(_id, _wallet);

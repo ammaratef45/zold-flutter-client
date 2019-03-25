@@ -43,7 +43,7 @@ class HomePageView extends HomePageViewModel {
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
         shrinkWrap: true,
-        itemCount: 2,
+        itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
             case 0:
@@ -57,16 +57,27 @@ class HomePageView extends HomePageViewModel {
                   },
                 )
               );
-            // @todo #27 show empty wallet if wallet has no transactions
             case 1:
               // @todo #27 sort desc, add more info and show better design
-              return ListView.builder(
-                padding: EdgeInsets.all(8.0),
-                shrinkWrap: true,
-                itemCount: transactions.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Text(transactions[index].details);
-                },
+              return Visibility(
+                visible: transactions.isNotEmpty,
+                child: Center(
+                  child: ListView.builder(
+                    padding: EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    itemCount: transactions.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Text(transactions[index].details);
+                    },
+                  ),
+                ),
+              );
+            case 2:
+              return Visibility(
+                visible: transactions.isEmpty,
+                child: Center(
+                  child: Text('This wallet is Empty, make some transactions')
+                ),
               );
           }
         },

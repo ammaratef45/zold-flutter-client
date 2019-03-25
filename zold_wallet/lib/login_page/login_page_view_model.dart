@@ -53,7 +53,6 @@ abstract class LoginPageViewModel extends State<LoginPage> {
       String keygap = await wallet.getKeyGap();
       await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
         + "once you press okay it will be deleted from WTS server", snackKey);
-      // @todo #34 get the selected from dialog before calling this
       confirmTheKey();
     }
   }

@@ -11,6 +11,7 @@ class Wallet {
   String balanceZents="pull";
   String phone;
   API api =API();
+  List<Transaction> transactions = List();
   Wallet._();
   static final Wallet wallet = Wallet._();
   setPhone(String phone) {
@@ -97,8 +98,10 @@ class Wallet {
     return balanceZents;
   }
 
-  Future<List<Transaction>> getTransactions() async {
-    return await api.transactions(apiKey);
+  Future<void> getTransactions() async {
+    List<Transaction> t = await api.transactions(apiKey);
+    transactions.clear();
+    transactions.addAll(t);
   }
 
   Future<String> pay(String bnf, String amount, String details, String keygap) async {

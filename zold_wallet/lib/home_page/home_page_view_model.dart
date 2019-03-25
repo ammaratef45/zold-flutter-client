@@ -33,10 +33,7 @@ abstract class HomePageViewModel extends State<HomePage> {
     await wallet.getId();
     await wallet.getBalanace();
     try {
-      // @todo #27 save transactions in the wallet and load it like balance
-      List<Transaction> t = await wallet.getTransactions();
-      this.transactions.clear();
-      this.transactions.addAll(t);
+      await wallet.getTransactions();
     } catch (e) {}
     if(wallet.balanceZents=="pull") {
       await Dialogs.waitingDialog(context, wallet.pull, snackKey, wallet);
@@ -55,5 +52,7 @@ abstract class HomePageViewModel extends State<HomePage> {
       "(" +
       wallet.balanceZents + " Zents" +
       ")";
+    transactions.clear();
+    transactions.addAll(wallet.transactions);
   }
 }
