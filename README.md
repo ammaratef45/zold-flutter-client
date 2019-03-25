@@ -4,7 +4,7 @@
 [![Donate via Zerocracy](https://www.0crat.com/contrib-badge/CGC59KB9B.svg)](https://www.0crat.com/contrib/CGC59KB9B)
 [![DevOps By Rultor.com](http://www.rultor.com/b/ammaratef45/zold-flutter-client)](http://www.rultor.com/p/ammaratef45/zold-flutter-client)
 
-[![PDD status](http://www.0pdd.com/svg?name=yegor256/0pdd)](http://www.0pdd.com/p?name=yegor256/0pdd)
+[![PDD status](http://www.0pdd.com/svg?name=ammaratef45/zold-flutter-client)](http://www.0pdd.com/p?name=ammaratef45/zold-flutter-client)
 [![CircleCI](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master.svg?style=svg)](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master)
 
 Zold wallet built in flutter.
