@@ -5,4 +5,5 @@ jobs:
       - image: adamantium/flutter:latest
     steps:
       - checkout
+      - run: echo secrets_file > zold_wallet/test/secret.dart
       - run: flutter doctor && cd zold_wallet && flutter packages get && flutter test

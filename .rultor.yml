@@ -13,6 +13,7 @@ install: |-
 decrypt:
   repo/zold_wallet/android/api-project.json: "repo/zold_wallet/android/api-project.json.asc"
   repo/zold_wallet/android/key.properties: "repo/zold_wallet/android/key.properties.asc"
+  repo/zold_wallet/test/secret.dart: "repo/zold_wallet/test/secret.dart.asc"
 
 merge:
   script: |-
