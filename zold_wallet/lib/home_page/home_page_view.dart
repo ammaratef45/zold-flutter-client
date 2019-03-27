@@ -1,3 +1,5 @@
+import 'package:zold_wallet/transaction_view.dart';
+
 import './home_page_view_model.dart';
 import 'package:flutter/material.dart';
 import '../information_view/information_view.dart';
@@ -13,33 +15,6 @@ class HomePageView extends HomePageViewModel {
       appBar: AppBar(
         title: Text("Zold"),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Request payment'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/create');
-              },
-            ),
-            ListTile(
-              title: Text('Pay'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/pay');
-              },
-            ),
-            ListTile(
-              title: Text('Sign Out'),
-              onTap: () {
-                Navigator.pop(context);
-                //signOut();
-              },
-            ),
-          ],
-        ),
-      ),
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
         shrinkWrap: true,
@@ -48,7 +23,7 @@ class HomePageView extends HomePageViewModel {
           switch(index) {
             case 0:
               return Container(
-                height: 220.0,
+                height: 120.0,
                 child: InformationView(
                   idText: id,
                   balanceText: balance,
@@ -58,7 +33,6 @@ class HomePageView extends HomePageViewModel {
                 )
               );
             case 1:
-              // @todo #27 sort desc, add more info and show better design
               return Visibility(
                 visible: transactions.isNotEmpty,
                 child: Center(
@@ -67,7 +41,7 @@ class HomePageView extends HomePageViewModel {
                     shrinkWrap: true,
                     itemCount: transactions.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Text(transactions[index].details);
+                      return TransactionView(transactions[index]);
                     },
                   ),
                 ),
@@ -81,6 +55,28 @@ class HomePageView extends HomePageViewModel {
               );
           }
         },
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 4.0,
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/pay');
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.receipt),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/create');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

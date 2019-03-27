@@ -21,9 +21,6 @@ class PayView extends StatelessWidget {
     Widget widget = Container(
       child: Column(
         children: <Widget>[
-          Center(
-            child: Text("Pay"),
-          ),
           Row(
             children: <Widget>[
               Flexible(

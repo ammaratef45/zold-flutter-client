@@ -185,7 +185,7 @@ class API {
     var headers =  {
       "X-Zold-Wts": apiKey
     };
-    final url = "${BASE_URL}txns.json";
+    final url = "${BASE_URL}txns.json?sort=desc";
     final request = http.Request('GET', Uri.parse(url));
     request.headers.addAll(headers);
     request.followRedirects = false;

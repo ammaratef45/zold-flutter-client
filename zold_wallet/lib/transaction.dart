@@ -8,6 +8,8 @@
  "sign": null,
  "tid": "e5b5fc7379d80ed7:239"
  */
+import 'dart:math';
+
 class Transaction {
  num id;
  String date;
@@ -29,4 +31,8 @@ class Transaction {
    }
    return result;
  }
+
+  String amount() {
+    return (zents/pow(2,32)).toStringAsFixed(2);
+  }
 }
