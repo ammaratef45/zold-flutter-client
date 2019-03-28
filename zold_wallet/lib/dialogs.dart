@@ -84,6 +84,8 @@ class Dialogs {
     );
 
     WtsLog log = await wallet.log(id);
+    //Job job = await wallet.job(id);
+    //if(log.status!=null && log.status)
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -101,7 +103,7 @@ class Dialogs {
               child: Text("Full log"),
               onPressed: () {
                 Navigator.of(context).pop();
-                messageDialog(context, "Log", log.fullLog, scaffoldKey);
+                Navigator.of(context).pushNamed('/log', arguments: log);
               },
             ),
           ],

@@ -45,7 +45,7 @@ class PayView extends StatelessWidget {
               Flexible(
                 child: TextField(
                   controller: amountController,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.numberWithOptions(decimal:true),
                   decoration: InputDecoration(
                     hintText: 'eg. 1.2'
                   ),
@@ -61,7 +61,7 @@ class PayView extends StatelessWidget {
               Flexible(
                 child: TextField(
                   controller: keygapController,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: 'keygap'
                   ),

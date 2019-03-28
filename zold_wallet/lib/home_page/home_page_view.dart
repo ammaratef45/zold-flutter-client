@@ -27,9 +27,7 @@ class HomePageView extends HomePageViewModel {
                 child: InformationView(
                   idText: id,
                   balanceText: balance,
-                  onRefreshed: (){
-                    refresh();
-                  },
+                  balanceZents: balanceZent,
                 )
               );
             case 1:
@@ -67,6 +65,12 @@ class HomePageView extends HomePageViewModel {
               icon: Icon(Icons.send),
               onPressed: () {
                 Navigator.of(context).pushNamed('/pay');
+              },
+            ),
+            RaisedButton(
+              child: Text('Pull'),
+              onPressed: () {
+                refresh();
               },
             ),
             IconButton(

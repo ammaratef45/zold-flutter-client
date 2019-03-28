@@ -24,6 +24,7 @@ void main() {
     String job = await api.pull(Secrets.apiKey);
     Job res = await api.job(job, Secrets.apiKey);
     expect(res.id, job);
+    expect(res.errorMessage, null);
   });
 
   test('test API txns.json', () async {

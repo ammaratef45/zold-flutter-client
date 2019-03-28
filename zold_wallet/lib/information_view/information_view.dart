@@ -5,12 +5,12 @@ import 'package:flutter/services.dart';
 class InformationView extends StatelessWidget {
   final String idText;
   final String balanceText;
-  final VoidCallback onRefreshed;
+  final String balanceZents;
   const InformationView(
     {
       this.idText="",
       this.balanceText="",
-      @required this.onRefreshed
+      this.balanceZents=""
     }
   );
   @override
@@ -40,14 +40,17 @@ class InformationView extends StatelessWidget {
                 Text("Balance: "),
                 Flexible(
                   child: Text(balanceText),
-                )
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Scaffold.of(context).showSnackBar(SnackBar
+                      (content: Text(balanceZents)));
+                  },
+                  child: Icon(Icons.help,),
+                ),
               ],
             ),
           ),
-          RaisedButton(
-            onPressed: onRefreshed,
-            child: Text("Pull"),
-          )
         ],
       ),
     );

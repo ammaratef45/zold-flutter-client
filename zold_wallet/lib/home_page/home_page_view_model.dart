@@ -10,6 +10,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   Wallet wallet = Wallet.wallet;
   String id = "";
   String balance = "";
+  String balanceZent = "";
   final bnfController = TextEditingController();
   final amountController = TextEditingController();
   final messageController = TextEditingController();
@@ -31,14 +32,9 @@ abstract class HomePageViewModel extends State<HomePage> {
 
   Future<void> refresh() async {
     await wallet.getId();
+    await Dialogs.waitingDialog(context, wallet.pull, snackKey, wallet);
     await wallet.getBalanace();
-    try {
-      await wallet.getTransactions();
-    } catch (e) {}
-    if(wallet.balanceZents=="pull") {
-      await Dialogs.waitingDialog(context, wallet.pull, snackKey, wallet);
-      await wallet.getBalanace();
-    }
+    await wallet.getTransactions();
     loadValues();
     setState((){});
   }
@@ -48,10 +44,8 @@ abstract class HomePageViewModel extends State<HomePage> {
     this.balance = wallet.balanceZents=="pull"?
       "Pulling, refresh in a minute":
       (double.parse(wallet.balanceZents)/pow(2,32)).toStringAsFixed(3) +
-      " ZLD" +
-      "(" +
-      wallet.balanceZents + " Zents" +
-      ")";
+      " ZLD";
+    this.balanceZent =wallet.balanceZents + " Zents";
     transactions.clear();
     transactions.addAll(wallet.transactions);
   }
