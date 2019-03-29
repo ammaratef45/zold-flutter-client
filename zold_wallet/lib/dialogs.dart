@@ -84,14 +84,17 @@ class Dialogs {
     );
 
     WtsLog log = await wallet.log(id);
-    //Job job = await wallet.job(id);
-    //if(log.status!=null && log.status)
+    Job job = await wallet.job(id);
+    String message = "The operation ended with ${log.status} status\n";
+    if(job.status!=null && job.status=='Error' && job.errorMessage!=null) {
+      message += message + job.errorMessage;
+    }
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(log.status==null?"null":log.status),
-          content: Text("The operation ended with ${log.status} status"),
+          content: Text(message),
           actions: <Widget>[
             FlatButton(
               child: Text("Close"),
