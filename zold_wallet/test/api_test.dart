@@ -29,6 +29,7 @@ void main() {
 
   test('test API txns.json', () async {
     API api = API();
+    await api.pull(Secrets.apiKey);
     List<Transaction> res = await api.transactions(Secrets.apiKey);
     expect(res.length, isNonZero);
   });
