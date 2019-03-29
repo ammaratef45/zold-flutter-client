@@ -1,8 +1,8 @@
+import 'package:zold_wallet/home_page/home_page_view_model.dart';
+import 'package:zold_wallet/information_view/information_view.dart';
 import 'package:zold_wallet/transaction_view.dart';
 
-import './home_page_view_model.dart';
 import 'package:flutter/material.dart';
-import '../information_view/information_view.dart';
 
 
 

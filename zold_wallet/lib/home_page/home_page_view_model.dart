@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/home_page/home_page.dart';
 import 'package:zold_wallet/transaction.dart';
-import './home_page.dart';
-import '../wallet.dart';
 import 'dart:math';
 import 'package:zold_wallet/dialogs.dart';
+import 'package:zold_wallet/wallet.dart';
 
 
 abstract class HomePageViewModel extends State<HomePage> {

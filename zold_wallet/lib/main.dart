@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/create_page/create_page.dart';
+import 'package:zold_wallet/home_page/home_page.dart';
 import 'package:zold_wallet/log_page/log_page.dart';
-import './home_page/home_page.dart';
-import './login_page/login_page.dart';
-import './pay_page/pay_page.dart';
-import './create_page/create_page.dart';
+import 'package:zold_wallet/login_page/login_page.dart';
+import 'package:zold_wallet/pay_page/pay_page.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import './pay_page.dart';
-import '../wallet.dart';
-import '../wts_log.dart';
-import '../payment.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
+import 'package:zold_wallet/pay_page/pay_page.dart';
+import 'package:zold_wallet/payment.dart';
+import 'package:zold_wallet/wallet.dart';
 import 'dart:convert';
+
+import 'package:zold_wallet/wts_log.dart';
 
 
 typedef Future<WtsLog> WaitingCallback();

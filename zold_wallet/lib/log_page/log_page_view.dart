@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
+import 'package:zold_wallet/log_page/log_page_viewmodel.dart';
 import 'package:zold_wallet/wts_log.dart';
 
-import './log_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 

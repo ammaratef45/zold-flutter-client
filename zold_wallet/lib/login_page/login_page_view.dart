@@ -1,6 +1,6 @@
-import './login_page_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:zold_wallet/login_page/login_page_view_model.dart';
 
 class LoginPageView extends LoginPageViewModel {
   

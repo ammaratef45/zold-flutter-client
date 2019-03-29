@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/dialogs.dart';
-import './login_page.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import '../wallet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zold_wallet/login_page/login_page.dart';
+import 'package:zold_wallet/wallet.dart';
 
 abstract class LoginPageViewModel extends State<LoginPage> {
   final phoneNumberController = TextEditingController();
