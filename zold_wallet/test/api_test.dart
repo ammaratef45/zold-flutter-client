@@ -11,6 +11,17 @@ void main() {
     String res =await api.pull(Secrets.apiKey);
     expect(res, isNot(null));
   });
+  test('test API failed pull', () async {
+    API api = API();
+    String jobID = await api.pull(Secrets.lostWalletApiKey);
+    Job job = await api.job(jobID, Secrets.lostWalletApiKey);
+    while (job.status == 'Running') {
+      await Future.delayed(const Duration(seconds: 3));
+      job = await api.job(jobID, Secrets.lostWalletApiKey);
+    }
+    expect(job.status, 'Error');
+    expect(job.errorMessage, isNotNull);
+  });
   test('test API output', () async {
     API api = API();
     String job =await api.pull(Secrets.apiKey);
