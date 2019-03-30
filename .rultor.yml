@@ -8,7 +8,6 @@ install: |-
   curl -sSL https://get.rvm.io | bash -s stable --ruby
   source /usr/local/rvm/scripts/rvm
   gem install pdd
-  gem install fastlane --no-document
 
 decrypt:
   repo/zold_wallet/android/api-project.json: "repo/zold_wallet/android/api-project.json.asc"
@@ -23,11 +22,3 @@ merge:
     flutter test
     flutter -v build apk
     pdd -f /dev/null -v
-    
-deploy:
-  script: |-
-    flutter doctor
-    cd zold_wallet
-    flutter -v build apk
-    cd android
-    fastlane beta
