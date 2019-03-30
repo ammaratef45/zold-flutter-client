@@ -21,7 +21,7 @@ iOS Beta version is not available for public right now, to join internal testing
 * [x] Generate QR code to accept payment.
 * [x] Pay by scanning QR or by entering data.
 * [ ] Login with fingerprint sensor.
-* [ ] Restart wallet.
+* [x] Restart wallet.
 
 ## Getting Started with Flutter
 
