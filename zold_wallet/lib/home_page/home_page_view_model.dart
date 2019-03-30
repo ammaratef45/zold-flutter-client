@@ -48,7 +48,7 @@ abstract class HomePageViewModel extends State<HomePage> {
     DialogResult res = await Dialogs.messageDialog(context, 'Sure?',
     'the old wallet will be lost forever', snackKey, true);
     if(res==DialogResult.OK) {
-      await wallet.restart;
+      await wallet.restart();
       String keygap = await wallet.getKeyGap();
       DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
         + "once you press okay it will be deleted from WTS server", snackKey, true);
