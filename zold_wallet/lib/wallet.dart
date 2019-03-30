@@ -21,7 +21,7 @@ class Wallet {
   Future<Wallet> sendCode() async{
     await api.getCode(phone)
       .catchError((ex){
-        throw Exception("Error: " + ex.toString());
+        throw ex;
       });
       return this;
   }
@@ -36,7 +36,7 @@ class Wallet {
         apiKey =token;
       })
       .catchError((ex){
-        throw Exception("Error: " + ex.toString());
+        throw ex;
       });
       return this;
   }
@@ -44,7 +44,7 @@ class Wallet {
   Future<Wallet> confirm() async {
     await api.confirm(apiKey, keygap)
       .catchError((ex){
-        throw Exception("Error: " + ex.toString());
+        throw ex;
       });
       return this;
   }
@@ -56,7 +56,7 @@ class Wallet {
         result =  res=="yes";
       })
       .catchError((ex){
-        throw Exception("Error: " + ex.toString());
+        throw ex;
       });
     return result;
   }
@@ -67,7 +67,7 @@ class Wallet {
         keygap = res;
       })
       .catchError((ex){
-        throw Exception("Error: " + ex.toString());
+        throw ex;
       });
     return keygap;
   }
@@ -76,13 +76,17 @@ class Wallet {
     return await api.pull(apiKey);
   }
 
+  Future<String> restart() async {
+    return await api.recreate(apiKey);
+  }
+
   Future<String> getId() async {
     await api.getId(apiKey)
     .then((res){
       id= res;
     })
     .catchError((ex){
-      throw Exception("Error: " + ex.toString());
+      throw ex;
     });
     return id;
   }
@@ -93,7 +97,7 @@ class Wallet {
       res=="pull"?balanceZents = "pull":balanceZents = res;
     })
     .catchError((ex){
-      throw Exception("Error: " + ex.toString());
+      throw ex;
     });
     return balanceZents;
   }

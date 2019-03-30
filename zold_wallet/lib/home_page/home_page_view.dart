@@ -73,6 +73,12 @@ class HomePageView extends HomePageViewModel {
                 refresh();
               },
             ),
+            RaisedButton(
+              child: Text('RESTART'),
+              onPressed: () {
+                restart();
+              },
+            ),
             IconButton(
               icon: Icon(Icons.receipt),
               onPressed: () {

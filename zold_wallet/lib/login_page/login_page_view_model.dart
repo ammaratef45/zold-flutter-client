@@ -44,16 +44,18 @@ abstract class LoginPageViewModel extends State<LoginPage> {
         .then((w) async {
         })
         .catchError((error){
-          Dialogs.messageDialog(context, "error", error.toString(), snackKey);
+          Dialogs.messageDialog(context, "error", error.toString(), snackKey, false);
         });
     if(await wallet.isConfirmed()) {
       await prefs.setString('key', wallet.apiKey);
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
       String keygap = await wallet.getKeyGap();
-      await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
-        + "once you press okay it will be deleted from WTS server", snackKey);
-      confirmTheKey();
+      DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
+        + "once you press okay it will be deleted from WTS server", snackKey, true);
+      if(res==DialogResult.OK) {
+        confirmTheKey();
+      }
     }
   }
 
@@ -69,10 +71,10 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     wallet.setPhone(phoneNumber);
     wallet.sendCode()
       .then((w){
-        Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey);
+        Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey, false);
       })
       .catchError((error) {
-        Dialogs.messageDialog(context, "Error", error.toString(), snackKey);
+        Dialogs.messageDialog(context, "Error", error.toString(), snackKey, false);
       });
   }
 

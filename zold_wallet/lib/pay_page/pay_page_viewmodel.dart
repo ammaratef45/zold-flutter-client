@@ -59,6 +59,6 @@ abstract class PayPageViewModel extends State<PayPage> {
     } catch (e) {
       setState(() => this.scanResult = 'Unknown error: $e');
     }
-    Dialogs.messageDialog(context, "Scan", scanResult, snackKey);
+    Dialogs.messageDialog(context, "Scan", scanResult, snackKey, false);
   }
 }

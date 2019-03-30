@@ -26,7 +26,7 @@ class API {
     if(statusCode == 200) {
       return responseData;
     }
-    throw new Exception("Error: status code is not 200");
+    throw new Exception("status code is not 200\n" + responseData);
   }
 
   Future<String> getBalance(String apiKey) async {
@@ -62,6 +62,22 @@ class API {
       return job;
     }
     throw new Exception("Error: status code is not 302");
+  }
+
+  Future<String> recreate(String apiKey) async {
+    var headers =  {"X-Zold-Wts": apiKey};
+    final url = "${BASE_URL}create?noredirect=1";
+    final request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(headers);
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    String responseData = await response.stream.transform(utf8.decoder).join();
+
+    if(statusCode == 200) {
+      return responseData;
+    }
+    throw new Exception("status code is not 200\n" + responseData);
   }
 
   Future<String> getCode(String phone) async {

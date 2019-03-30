@@ -7,6 +7,12 @@ import 'wts_log.dart';
 
 typedef Future<String> WaitingCallback();
 
+enum DialogResult {
+  OK,
+  CANCEL,
+  CLOSE
+}
+
 class WaitingDialog extends StatefulWidget {
   final String _id;
   final Wallet _wallet;
@@ -115,14 +121,15 @@ class Dialogs {
     );
   }
 
-  static Future<void> messageDialog
+  static Future<DialogResult> messageDialog
   (
     BuildContext context,
     String title,
     String message,
-    GlobalKey<ScaffoldState> scaffoldKey
+    GlobalKey<ScaffoldState> scaffoldKey,
+    bool prompt
   ) async {
-    showDialog(
+    return await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -134,8 +141,17 @@ class Dialogs {
             FlatButton(
               child: Text("Close"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(DialogResult.CLOSE);
               },
+            ),
+            Visibility(
+              visible: prompt,
+              child: FlatButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop(DialogResult.OK);
+                },
+              ),
             ),
             FlatButton(
               child: Text("Copy"),
