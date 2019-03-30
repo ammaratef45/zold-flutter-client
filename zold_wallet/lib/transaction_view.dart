@@ -33,7 +33,9 @@ class TransactionView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text(transaction.details),
+              Flexible(
+                child: Text(transaction.details),
+              ),
             ],
           ),
         ],

@@ -8,6 +8,7 @@ import 'package:zold_wallet/wallet.dart';
 abstract class LoginPageViewModel extends State<LoginPage> {
   final phoneNumberController = TextEditingController();
   final secretCodeController = TextEditingController();
+  final apiKeyController = TextEditingController();
   String dialCode = "+20";
   Wallet wallet = Wallet.wallet;
   SharedPreferences prefs;
@@ -32,6 +33,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   void dispose() {
     phoneNumberController.dispose();
     secretCodeController.dispose();
+    apiKeyController.dispose();
     super.dispose();
   }
 
@@ -39,10 +41,9 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     var phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
     wallet.setPhone(phoneNumber);
+    wallet.apiKey = apiKeyController.text;
     if(!wallet.keyLoaded()) await
       wallet.getKey(secretCodeController.text)
-        .then((w) async {
-        })
         .catchError((error){
           Dialogs.messageDialog(context, "error", error.toString(), snackKey, false);
         });

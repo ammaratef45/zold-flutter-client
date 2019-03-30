@@ -13,7 +13,28 @@ class HomePageView extends HomePageViewModel {
     return Scaffold(
       key: snackKey,
       appBar: AppBar(
-        title: Text("Zold"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: (){
+              logout();
+            },
+          )
+        ],
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'assets/icon/icon.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(wallet.title()),
+            )
+          ],
+        ),
       ),
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),

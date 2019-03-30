@@ -49,6 +49,14 @@ class LoginPageView extends LoginPageViewModel {
                 ),
               ],
             ),
+            Text("OR"),
+            TextField(
+              controller: apiKeyController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                hintText: 'API Key'
+              ),
+            ),
             RaisedButton(
               onPressed: loginPhone,
               child: Text("Login"),

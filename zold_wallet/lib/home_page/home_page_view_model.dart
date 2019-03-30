@@ -71,4 +71,10 @@ abstract class HomePageViewModel extends State<HomePage> {
     transactions.clear();
     transactions.addAll(wallet.transactions);
   }
+
+  void logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('key', '0');
+    Navigator.of(context).pushReplacementNamed('/login');
+  }
 }

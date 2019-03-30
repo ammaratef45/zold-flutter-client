@@ -121,4 +121,8 @@ class Wallet {
     return await api.job(id, apiKey);
   }
 
+  String title() {
+    return apiKey.split("-")[0];
+  }
+
 }
