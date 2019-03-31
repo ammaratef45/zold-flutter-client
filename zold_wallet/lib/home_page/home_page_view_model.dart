@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
 
-
 abstract class HomePageViewModel extends State<HomePage> {
   Wallet wallet = Wallet.wallet;
   String id = "";

@@ -7,13 +7,15 @@ class PayView extends StatelessWidget {
   final messageController;
   final keygapController;
   final PayCallback payCallback;
+  final VoidCallback authCallback;
 
   PayView(
     this.bnfController,
     this.amountController,
     this.messageController,
     this.keygapController,
-    this.payCallback
+    this.payCallback,
+    this.authCallback
   );
 
   @override
@@ -67,6 +69,10 @@ class PayView extends StatelessWidget {
                   ),
                 ),
               ),
+              IconButton(
+                icon: Icon(Icons.fingerprint),
+                onPressed: authCallback,
+              )
             ],
           ),
           Row(

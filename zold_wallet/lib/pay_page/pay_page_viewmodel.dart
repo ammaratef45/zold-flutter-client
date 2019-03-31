@@ -8,6 +8,8 @@ import 'package:zold_wallet/wallet.dart';
 import 'dart:convert';
 
 import 'package:zold_wallet/wts_log.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
+import 'package:local_auth/local_auth.dart';
 
 
 typedef Future<WtsLog> WaitingCallback();
@@ -29,6 +31,31 @@ abstract class PayPageViewModel extends State<PayPage> {
     bnfController.dispose();
     amountController.dispose();
     messageController.dispose();
+  }
+
+  /*
+  * @todo #54 save and retreaive keygap from shared prefs.
+  *  make keygap password shown.
+  *  allow user to login with fingerprint too (lazy login only).
+  *  forget keygap when signout like apikey.
+  */ 
+  Future<bool> authenticate() async {
+    bool result = false;
+    try {
+        var localAuth = new LocalAuthentication();
+
+        bool didAuthenticate = await localAuth.authenticateWithBiometrics(
+            localizedReason: 'Please authenticate yourself');
+        if(didAuthenticate) {
+          result = true;
+        }
+      } on PlatformException catch (e) {
+        if (e.code == auth_error.notAvailable) {
+          await Dialogs.messageDialog(context, 'error',
+           "local auth isn't available in your device", snackKey, false);
+        }
+      }
+      return result;
   }
 
   void pay(String bnf, String amount, String details, String keygap) async {
