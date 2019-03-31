@@ -6,6 +6,7 @@
 
 [![PDD status](http://www.0pdd.com/svg?name=ammaratef45/zold-flutter-client)](http://www.0pdd.com/p?name=ammaratef45/zold-flutter-client)
 [![CircleCI](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master.svg?style=svg)](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master)
+[![Codemagic build status](https://api.codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/status_badge.svg)](https://codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/latest_build)
 
 Zold wallet built in flutter.
 
