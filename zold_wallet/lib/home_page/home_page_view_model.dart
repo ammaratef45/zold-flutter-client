@@ -47,6 +47,8 @@ abstract class HomePageViewModel extends State<HomePage> {
     DialogResult res = await Dialogs.messageDialog(context, 'Sure?',
     'the old wallet will be lost forever', snackKey, true);
     if(res==DialogResult.OK) {
+      await Dialogs.waitingDialog(context, wallet.restart, snackKey,
+      wallet, returnsJobId: false);
       await wallet.restart();
       String keygap = await wallet.getKeyGap();
       DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
@@ -74,6 +76,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   void logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('key', '0');
+    await prefs.setString('keygap', '0');
     Navigator.of(context).pushReplacementNamed('/login');
   }
 }

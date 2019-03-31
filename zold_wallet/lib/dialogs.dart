@@ -58,12 +58,14 @@ class WaitingDialogView extends State<WaitingDialog> {
 
 }
 class Dialogs {
+  
   static Future<void> waitingDialog
   (
     BuildContext context,
     WaitingCallback callback,
     GlobalKey<ScaffoldState> scaffoldKey,
-    Wallet wallet
+    Wallet wallet,
+    {bool returnsJobId = true}
   ) async {
     showDialog(
         context: context,
@@ -72,7 +74,9 @@ class Dialogs {
           return Center(child: CircularProgressIndicator(),);
         }
     );
-
+    if(!returnsJobId) {
+      Navigator.of(context).pop(await callback());
+    }
     String id = await callback();
     WaitingDialog w = WaitingDialog(id, wallet);
     Navigator.pop(context);

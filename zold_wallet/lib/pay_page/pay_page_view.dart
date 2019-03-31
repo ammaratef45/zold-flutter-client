@@ -32,7 +32,7 @@ class PayPageView extends PayPageViewModel {
                 messageController,
                 keygapController,
                 pay,
-                authenticate
+                fillKeyGap
               );
           }
         },

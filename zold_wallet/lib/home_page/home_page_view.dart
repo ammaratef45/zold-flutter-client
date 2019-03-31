@@ -39,6 +39,7 @@ class HomePageView extends HomePageViewModel {
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
         shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
@@ -52,18 +53,14 @@ class HomePageView extends HomePageViewModel {
                 )
               );
             case 1:
-              return Visibility(
-                visible: transactions.isNotEmpty,
-                child: Center(
-                  child: ListView.builder(
-                    padding: EdgeInsets.all(8.0),
-                    shrinkWrap: true,
-                    itemCount: transactions.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return TransactionView(transactions[index]);
-                    },
-                  ),
-                ),
+              return ListView.builder(
+                padding: EdgeInsets.all(8.0),
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemCount: transactions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return TransactionView(transactions[index]);
+                },
               );
             case 2:
               return Visibility(

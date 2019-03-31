@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
@@ -33,12 +34,20 @@ abstract class PayPageViewModel extends State<PayPage> {
     messageController.dispose();
   }
 
-  /*
-  * @todo #54 save and retreaive keygap from shared prefs.
-  *  make keygap password shown.
-  *  allow user to login with fingerprint too (lazy login only).
-  *  forget keygap when signout like apikey.
-  */ 
+  void fillKeyGap() async {
+    if(await authenticate()) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String keygap = prefs.getString('keygap')??'0';
+      if(keygap=='0') {
+        Dialogs.messageDialog(context, 'error',
+        'Keygap not found\nenter it and we will save it for next time',
+        snackKey, false);
+      } else {
+        keygapController.text = keygap;
+      }
+    }
+  }
+
   Future<bool> authenticate() async {
     bool result = false;
     try {
@@ -59,6 +68,10 @@ abstract class PayPageViewModel extends State<PayPage> {
   }
 
   void pay(String bnf, String amount, String details, String keygap) async {
+    if(keygap!=null && keygap!='') {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('keygap', keygap);
+    }
     Payment payment =Payment(bnf, amount, details, keygap);
     await Dialogs.waitingDialog(context, payment.doPay, snackKey, wallet);
   }

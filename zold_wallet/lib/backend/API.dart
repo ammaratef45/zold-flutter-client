@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:zold_wallet/transaction.dart';
 import 'dart:convert';
@@ -56,12 +57,12 @@ class API {
     final response = await client.send(request);
     final statusCode = response.statusCode;
     String job = response.headers["x-zold-job"].toString();
-    //String responseData = await response.stream.transform(utf8.decoder).join();
+    String responseData = await response.stream.transform(utf8.decoder).join();
 
     if(statusCode == 302) {
       return job;
     }
-    throw new Exception("Error: status code is not 302");
+    throw new Exception("status code is not 302\n" + responseData);
   }
 
   Future<String> recreate(String apiKey) async {
@@ -73,6 +74,8 @@ class API {
     final response = await client.send(request);
     final statusCode = response.statusCode;
     String responseData = await response.stream.transform(utf8.decoder).join();
+    //String job = response.headers["x-zold-job"].toString();
+    debugPrint(response.headers.toString());
 
     if(statusCode == 200) {
       return responseData;
