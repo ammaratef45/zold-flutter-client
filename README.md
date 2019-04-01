@@ -13,7 +13,7 @@ Zold wallet built in flutter.
 # Download
 Android Beta version can be downloaded from [here](https://play.google.com/store/apps/details?id=com.ammar.zold.wallet)
 
-iOS Beta version is not available for public right now, to join internal testing, Drop a message in [telegram](https://t.me/zold_io)
+iOS Beta version can be downloaded from[here](https://testflight.apple.com/join/cqdKZoig), to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
 
 ### Features
 
@@ -21,7 +21,7 @@ iOS Beta version is not available for public right now, to join internal testing
 * [x] See Transactions History.
 * [x] Generate QR code to accept payment.
 * [x] Pay by scanning QR or by entering data.
-* [ ] Login with fingerprint sensor.
+* [x] Login with fingerprint sensor.
 * [x] Restart wallet.
 
 ## Getting Started with Flutter
