@@ -1,4 +1,6 @@
-# zold-flutter-client
+![logo](https://github.com/ammaratef45/zold-flutter-client/raw/master/zold_wallet/assets/icon/icon.png)
+
+# Zold Mobile Wallet
 
 [![Managed by Zerocrat](https://www.0crat.com/badge/CGC59KB9B.svg)](https://www.0crat.com/p/CGC59KB9B)
 [![Donate via Zerocracy](https://www.0crat.com/contrib-badge/CGC59KB9B.svg)](https://www.0crat.com/contrib/CGC59KB9B)
