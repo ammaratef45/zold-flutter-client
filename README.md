@@ -13,7 +13,7 @@ Zold wallet built in flutter.
 # Download
 Android Beta version can be downloaded from [here](https://play.google.com/store/apps/details?id=com.ammar.zold.wallet)
 
-iOS Beta version can be downloaded from[here](https://testflight.apple.com/join/cqdKZoig), to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
+iOS Beta version can be downloaded from [here](https://testflight.apple.com/join/cqdKZoig), to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
 
 ### Features
 
