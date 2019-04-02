@@ -15,18 +15,16 @@ enum DialogResult {
 
 class WaitingDialog extends StatefulWidget {
   final String _id;
-  final Wallet _wallet;
-  WaitingDialog(this._id, this._wallet);
+  WaitingDialog(this._id);
   @override
-  State<StatefulWidget> createState() => WaitingDialogView(_id, _wallet);
+  State<StatefulWidget> createState() => WaitingDialogView(_id);
 
 }
 
 class WaitingDialogView extends State<WaitingDialog> {
   String id;
   String progeessText = "got: 0 bytes";
-  Wallet wallet;
-  WaitingDialogView(this.id, this.wallet);
+  WaitingDialogView(this.id);
   @override
   void initState() {
     super.initState();
@@ -36,13 +34,13 @@ class WaitingDialogView extends State<WaitingDialog> {
     String status = "Running";
     while (status == "Running") {
       try {
-        Job job = await wallet.job(id);
+        Job job = await Wallet.instance().job(id);
         setState(() {
           progeessText = "got: ${job.outputLength} bytes";
         });
       } catch(ex) {}
       await Future.delayed(const Duration(milliseconds: 500));
-      status = (await wallet.log(id)).status;  
+      status = (await Wallet.instance().log(id)).status;  
     }
     Navigator.pop(context);
   }
@@ -64,7 +62,6 @@ class Dialogs {
     BuildContext context,
     WaitingCallback callback,
     GlobalKey<ScaffoldState> scaffoldKey,
-    Wallet wallet,
     {bool returnsJobId = true}
   ) async {
     showDialog(
@@ -76,9 +73,17 @@ class Dialogs {
     );
     if(!returnsJobId) {
       Navigator.of(context).pop(await callback());
+      return;
     }
-    String id = await callback();
-    WaitingDialog w = WaitingDialog(id, wallet);
+    String id = "";
+    try {
+      id = await callback();
+    } catch (e) {
+      Navigator.of(context).pop();
+      messageDialog(context, 'Error', e.toString(), scaffoldKey, false);
+      return;
+    }
+    WaitingDialog w = WaitingDialog(id);
     Navigator.pop(context);
     await showDialog(
         context: context,
@@ -93,11 +98,14 @@ class Dialogs {
         }
     );
 
-    WtsLog log = await wallet.log(id);
-    Job job = await wallet.job(id);
+    WtsLog log = await Wallet.instance().log(id);
+    Job job = await Wallet.instance().job(id);
     String message = "The operation ended with ${log.status} status\n";
     if(job.status!=null && job.status=='Error' && job.errorMessage!=null) {
       message += message + job.errorMessage;
+    }
+    if(log.status.toLowerCase() == "ok") {
+      return;
     }
     showDialog(
       context: context,

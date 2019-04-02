@@ -13,7 +13,15 @@ class Wallet {
   API api =API();
   List<Transaction> transactions = List();
   Wallet._();
-  static final Wallet wallet = Wallet._();
+  static Wallet _wallet;
+
+  static Wallet instance() {
+    if(_wallet == null) {
+      _wallet = Wallet._();
+    }
+    return _wallet;
+  }
+
   setPhone(String phone) {
     this.phone =phone;
   }
@@ -27,7 +35,7 @@ class Wallet {
   }
 
   bool keyLoaded() {
-    return apiKey != null;
+    return apiKey != null && apiKey != "";
   }
 
   Future<Wallet> getKey(String code) async {
@@ -109,8 +117,7 @@ class Wallet {
   }
 
   Future<String> pay(String bnf, String amount, String details, String keygap) async {
-    String jobId = await api.pay(bnf, amount, details, apiKey, keygap);
-    return jobId;
+    return await api.pay(bnf, amount, details, apiKey, keygap);
   }
 
   Future<WtsLog> log(String job) async {

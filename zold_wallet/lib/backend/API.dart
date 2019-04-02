@@ -27,7 +27,7 @@ class API {
     if(statusCode == 200) {
       return responseData;
     }
-    throw new Exception("status code is not 200\n" + responseData);
+    throw Exception("status code is not 200\n" + responseData);
   }
 
   Future<String> getBalance(String apiKey) async {
@@ -45,7 +45,7 @@ class API {
     if(statusCode == 500) {
       return "pull";
     }
-    throw Exception("Error: status code is not 200 or 500, it's $statusCode");
+    throw Exception("status code is not 200 or 500, it's $statusCode");
   }
 
   Future<String> pull(String apiKey) async {
@@ -62,7 +62,7 @@ class API {
     if(statusCode == 302) {
       return job;
     }
-    throw new Exception("status code is not 302\n" + responseData);
+    throw Exception("status code is not 302\n" + responseData);
   }
 
   Future<String> recreate(String apiKey) async {
@@ -74,13 +74,11 @@ class API {
     final response = await client.send(request);
     final statusCode = response.statusCode;
     String responseData = await response.stream.transform(utf8.decoder).join();
-    //String job = response.headers["x-zold-job"].toString();
-    debugPrint(response.headers.toString());
 
     if(statusCode == 200) {
       return responseData;
     }
-    throw new Exception("status code is not 200\n" + responseData);
+    throw Exception("status code is not 200\n" + responseData);
   }
 
   Future<String> getCode(String phone) async {
@@ -89,11 +87,11 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    //String responseData = await response.stream.transform(utf8.decoder).join();
+    String responseData = await response.stream.transform(utf8.decoder).join();
     if(statusCode == 200) {
       return "success";
     }
-    throw new Exception("Error: status code is not 200");
+    throw Exception("status code is not 200\n" + responseData);
   }
 
   Future<String> getToken(String phone, String key) async {
@@ -106,7 +104,7 @@ class API {
     if(statusCode == 200) {
       return responseData;
     }
-    throw new Exception("Error: status code is not 200");
+    throw Exception("status code is not 200\n" + responseData);
   }
 
   Future<String> confirmed(String apiKey) async {
@@ -121,7 +119,7 @@ class API {
     if(statusCode == 200) {
       return responseData;
     }
-    throw new Exception("Error: status code is not 200");
+    throw Exception("Error: status code is not 200");
   }
 
   Future<String> keygap(String apiKey) async {
@@ -136,7 +134,7 @@ class API {
     if(statusCode == 200) {
       return responseData;
     }
-    throw new Exception("Error: status code is not 200");
+    throw Exception("Error: status code is not 200");
   }
 
   Future<String> confirm(String apiKey, String keygap) async {
@@ -147,11 +145,11 @@ class API {
     request.followRedirects = false;
     final response = await client.send(request);
     final statusCode = response.statusCode;
-    //String responseData = await response.stream.transform(utf8.decoder).join();
+    String responseData = await response.stream.transform(utf8.decoder).join();
     if(statusCode == 200) {
       return "success";
     }
-    throw new Exception("Error: status code is not 200");
+    throw Exception("Error: status code is not 200\n" + responseData);
   }
 
   Future<String> pay(String bnf, String amount, String details, String apiKey, String keygap) async {
@@ -166,10 +164,14 @@ class API {
     request.body = body;
     request.followRedirects = false;
     final response = await client.send(request);
-    //final statusCode = response.statusCode;
+    final statusCode = response.statusCode;
     String job = response.headers["x-zold-job"].toString();
-    //String responseData = await response.stream.transform(utf8.decoder).join();
-    return job;
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    debugPrint(statusCode.toString());
+    if(statusCode==200) {
+      return job;
+    }
+    throw Exception("status code is not 200\n" + responseData);
   }
 
   Future<WtsLog> output(String job, String apiKey) async {

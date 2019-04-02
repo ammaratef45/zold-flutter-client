@@ -10,7 +10,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   final secretCodeController = TextEditingController();
   final apiKeyController = TextEditingController();
   String dialCode = "+20";
-  Wallet wallet = Wallet.wallet;
+  Wallet wallet = Wallet.instance();
   SharedPreferences prefs;
   var snackKey = GlobalKey<ScaffoldState>();
   

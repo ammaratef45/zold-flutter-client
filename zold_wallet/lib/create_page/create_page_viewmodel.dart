@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 
 typedef Future<WtsLog> WaitingCallback();
 abstract class CreatePageViewModel extends State<CreatePage> {
-  Wallet wallet = Wallet.wallet;
+  Wallet wallet = Wallet.instance();
   final bnfController = TextEditingController();
   final amountController = TextEditingController();
   final messageController = TextEditingController();

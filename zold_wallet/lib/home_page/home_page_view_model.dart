@@ -7,7 +7,7 @@ import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
 
 abstract class HomePageViewModel extends State<HomePage> {
-  Wallet wallet = Wallet.wallet;
+  Wallet wallet = Wallet.instance();
   String id = "";
   String balance = "";
   String balanceZent = "";
@@ -33,7 +33,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   Future<void> refresh() async {
     try {
       await wallet.getId();
-      await Dialogs.waitingDialog(context, wallet.pull, snackKey, wallet);
+      await Dialogs.waitingDialog(context, wallet.pull, snackKey);
       await wallet.getBalanace();
       await wallet.getTransactions();
       loadValues();
@@ -48,7 +48,7 @@ abstract class HomePageViewModel extends State<HomePage> {
     'the old wallet will be lost forever', snackKey, true);
     if(res==DialogResult.OK) {
       await Dialogs.waitingDialog(context, wallet.restart, snackKey,
-      wallet, returnsJobId: false);
+      returnsJobId: false);
       await wallet.restart();
       String keygap = await wallet.getKeyGap();
       DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"

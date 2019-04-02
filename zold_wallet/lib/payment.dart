@@ -8,6 +8,6 @@ class Payment {
   Payment(this.bnf, this.amount, this.details, this.keygap);
 
   Future<String> doPay() async {
-    return Wallet.wallet.pay(bnf, amount, details, keygap);
+    return await Wallet.instance().pay(bnf, amount, details, keygap);
   }
 }

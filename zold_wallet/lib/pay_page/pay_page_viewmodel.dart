@@ -15,7 +15,7 @@ import 'package:local_auth/local_auth.dart';
 
 typedef Future<WtsLog> WaitingCallback();
 abstract class PayPageViewModel extends State<PayPage> {
-  Wallet wallet = Wallet.wallet;
+  Wallet wallet = Wallet.instance();
   final bnfController = TextEditingController();
   final amountController = TextEditingController();
   final messageController = TextEditingController();
@@ -73,7 +73,7 @@ abstract class PayPageViewModel extends State<PayPage> {
       await prefs.setString('keygap', keygap);
     }
     Payment payment =Payment(bnf, amount, details, keygap);
-    await Dialogs.waitingDialog(context, payment.doPay, snackKey, wallet);
+    await Dialogs.waitingDialog(context, payment.doPay, snackKey);
   }
 
   Future scan() async {
