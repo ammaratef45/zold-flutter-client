@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/home_page/home_page.dart';
@@ -30,7 +32,9 @@ abstract class HomePageViewModel extends State<HomePage> {
     amountController.dispose();
     messageController.dispose();
   }
-
+  Future<void> onRefresh() async {
+    return await refresh(doPull: false);
+  }
   Future<void> refresh({bool doPull=true}) async {
     try {
       await wallet.getId();
