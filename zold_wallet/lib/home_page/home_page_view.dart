@@ -66,7 +66,7 @@ class HomePageView extends HomePageViewModel {
               return Visibility(
                 visible: transactions.isEmpty,
                 child: Center(
-                  child: Text('This wallet is Empty, make some transactions')
+                  child: Text(message)
                 ),
               );
           }

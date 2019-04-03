@@ -11,6 +11,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   String id = "";
   String balance = "";
   String balanceZent = "";
+  String message = 'This wallet is Empty, make some transactions';
   final bnfController = TextEditingController();
   final amountController = TextEditingController();
   final messageController = TextEditingController();
@@ -19,7 +20,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   List<Transaction> transactions =List();
 
   HomePageViewModel() {
-    refresh();
+    refresh(doPull: false);
   }
 
   @override
@@ -30,12 +31,20 @@ abstract class HomePageViewModel extends State<HomePage> {
     messageController.dispose();
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh({bool doPull=true}) async {
     try {
       await wallet.getId();
-      await Dialogs.waitingDialog(context, wallet.pull, snackKey);
-      await wallet.getBalanace();
-      await wallet.getTransactions();
+      if(doPull)
+        await Dialogs.waitingDialog(context, wallet.pull, snackKey);
+      try {
+        await wallet.getBalanace();
+        await wallet.getTransactions();
+        if(wallet.transactions.length==0) {
+          message = 'This wallet is Empty, make some transactions';
+        }
+      } catch (e) {
+        message = 'you need to pull your wallet';
+      }
       loadValues();
       setState((){});
     } catch(ex) {
