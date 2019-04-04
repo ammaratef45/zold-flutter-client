@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/home_page/home_page.dart';
 import 'package:zold_wallet/transaction.dart';
-import 'dart:math';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
 
@@ -78,10 +77,9 @@ abstract class HomePageViewModel extends State<HomePage> {
   void loadValues() {
     this.id = wallet.id==null?"null":wallet.id;
     this.balance = wallet.balanceZents=="pull"?
-      "Pulling, refresh in a minute":
-      (double.parse(wallet.balanceZents)/pow(2,32)).toStringAsFixed(3) +
-      " ZLD";
-    this.balanceZent =wallet.balanceZents + " Zents";
+      "not available":
+      wallet.balance() + " ZLD";
+    this.balanceZent = wallet.balanceZents + " Zents";
     transactions.clear();
     transactions.addAll(wallet.transactions);
   }

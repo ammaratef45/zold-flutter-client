@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/transaction.dart';
 
@@ -130,6 +132,10 @@ class Wallet {
 
   String title() {
     return apiKey.split("-")[0];
+  }
+
+  String balance() {
+    return (double.parse(balanceZents)/pow(2,32)).toStringAsFixed(3);
   }
 
 }

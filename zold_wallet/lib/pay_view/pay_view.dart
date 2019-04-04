@@ -8,12 +8,14 @@ class PayView extends StatelessWidget {
   final keygapController;
   final PayCallback payCallback;
   final VoidCallback authCallback;
+  final total;
 
   PayView(
     this.bnfController,
     this.amountController,
     this.messageController,
     this.keygapController,
+    this.total,
     this.payCallback,
     this.authCallback
   );
@@ -51,6 +53,22 @@ class PayView extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: 'eg. 1.2'
                   ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                "Balance: ",
+                style: TextStyle(
+                  color: Colors.red
+                ),
+              ),
+              Text(
+                total+" ZLD",
+                style: TextStyle(
+                  color: Colors.red
                 ),
               ),
             ],
