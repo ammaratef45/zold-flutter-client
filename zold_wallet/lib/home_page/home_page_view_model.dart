@@ -8,17 +8,12 @@ import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
 
 abstract class HomePageViewModel extends State<HomePage> {
-  Wallet wallet = Wallet.instance();
-  String id = "";
-  String balance = "";
-  String balanceZent = "";
   String message = 'This wallet is Empty, make some transactions';
   final bnfController = TextEditingController();
   final amountController = TextEditingController();
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
   var snackKey = GlobalKey<ScaffoldState>();
-  List<Transaction> transactions =List();
 
   HomePageViewModel() {
     refresh(doPull: false);
@@ -36,19 +31,16 @@ abstract class HomePageViewModel extends State<HomePage> {
   }
   Future<void> refresh({bool doPull=true}) async {
     try {
-      await wallet.getId();
       if(doPull)
-        await Dialogs.waitingDialog(context, wallet.pull, snackKey);
+        await Dialogs.waitingDialog(context, Wallet.instance().pull, snackKey);
       try {
-        await wallet.getBalanace();
-        await wallet.getTransactions();
-        if(wallet.transactions.length==0) {
+        await Wallet.instance().update();
+        if(Wallet.instance().transactions.length==0) {
           message = 'This wallet is Empty, make some transactions';
         }
       } catch (e) {
         message = 'you need to pull your wallet';
       }
-      loadValues();
       setState((){});
     } catch(ex) {
       await Dialogs.messageDialog(context, 'error', ex.toString(), snackKey, false);
@@ -59,29 +51,19 @@ abstract class HomePageViewModel extends State<HomePage> {
     DialogResult res = await Dialogs.messageDialog(context, 'Sure?',
     'the old wallet will be lost forever', snackKey, true);
     if(res==DialogResult.OK) {
-      await Dialogs.waitingDialog(context, wallet.restart, snackKey,
+      await Dialogs.waitingDialog(context, Wallet.instance().restart, snackKey,
       returnsJobId: false);
-      await wallet.restart();
-      String keygap = await wallet.getKeyGap();
+      await Wallet.instance().restart();
+      String keygap = await Wallet.instance().getKeyGap();
       DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
         + "once you press okay it will be deleted from WTS server", snackKey, true);
       if(res==DialogResult.OK) {
-        await wallet.confirm();
+        await Wallet.instance().confirm();
       } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('key', '0');
       }
     }
-  }
-
-  void loadValues() {
-    this.id = wallet.id==null?"null":wallet.id;
-    this.balance = wallet.balanceZents=="pull"?
-      "not available":
-      wallet.balance() + " ZLD";
-    this.balanceZent = wallet.balanceZents + " Zents";
-    transactions.clear();
-    transactions.addAll(wallet.transactions);
   }
 
   void logout() async {

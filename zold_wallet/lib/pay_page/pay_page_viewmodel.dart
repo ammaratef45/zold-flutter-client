@@ -74,6 +74,7 @@ abstract class PayPageViewModel extends State<PayPage> {
     }
     Payment payment =Payment(bnf, amount, details, keygap);
     await Dialogs.waitingDialog(context, payment.doPay, snackKey);
+    await Wallet.instance().update();
   }
 
   Future scan() async {

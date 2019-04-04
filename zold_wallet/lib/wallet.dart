@@ -7,11 +7,11 @@ import 'backend/API.dart';
 import 'wts_log.dart';
 
 class Wallet {
-  String apiKey;
-  String keygap;
-  String id;
+  String apiKey="";
+  String keygap="";
+  String id="";
   String balanceZents="pull";
-  String phone;
+  String phone="";
   API api =API();
   List<Transaction> transactions = List();
   Wallet._();
@@ -24,61 +24,38 @@ class Wallet {
     return _wallet;
   }
 
-  setPhone(String phone) {
-    this.phone =phone;
+  changePhone(String phone) {
+    this.phone = phone;
   }
 
-  Future<Wallet> sendCode() async{
-    await api.getCode(phone)
-      .catchError((ex){
-        throw ex;
-      });
-      return this;
+  Future<void> update() async {
+    await updateId();
+    await updateBalanace();
+    await updateTransactions();
+  }
+
+  Future<void> sendCode() async{
+    await api.getCode(phone);
   }
 
   bool keyLoaded() {
     return apiKey != null && apiKey != "";
   }
 
-  Future<Wallet> getKey(String code) async {
-    await api.getToken(phone, code)
-      .then((token){
-        apiKey =token;
-      })
-      .catchError((ex){
-        throw ex;
-      });
-      return this;
+  Future<void> getKey(String code) async {
+    apiKey = await api.getToken(phone, code);
   }
 
-  Future<Wallet> confirm() async {
-    await api.confirm(apiKey, keygap)
-      .catchError((ex){
-        throw ex;
-      });
-      return this;
+  Future<void> confirm() async {
+    await api.confirm(apiKey, keygap);
   }
 
-  Future<bool> isConfirmed() async {
-    bool result = false;
-    await api.confirmed(apiKey)
-      .then((res){
-        result =  res=="yes";
-      })
-      .catchError((ex){
-        throw ex;
-      });
-    return result;
+  Future<bool> confirmed() async {
+    return await api.confirmed(apiKey) == "yes";
   }
 
   Future<String> getKeyGap() async {
-    await api.keygap(apiKey)
-      .then((res){
-        keygap = res;
-      })
-      .catchError((ex){
-        throw ex;
-      });
+    keygap = await api.keygap(apiKey);
     return keygap;
   }
 
@@ -90,29 +67,15 @@ class Wallet {
     return await api.recreate(apiKey);
   }
 
-  Future<String> getId() async {
-    await api.getId(apiKey)
-    .then((res){
-      id= res;
-    })
-    .catchError((ex){
-      throw ex;
-    });
-    return id;
+  Future<void> updateId() async {
+    id = await api.getId(apiKey);
   }
 
-  Future<String> getBalanace() async {
-    await api.getBalance(apiKey)
-    .then((res){
-      res=="pull"?balanceZents = "pull":balanceZents = res;
-    })
-    .catchError((ex){
-      throw ex;
-    });
-    return balanceZents;
+  Future<void> updateBalanace() async {
+    balanceZents = await api.getBalance(apiKey);
   }
 
-  Future<void> getTransactions() async {
+  Future<void> updateTransactions() async {
     List<Transaction> t = await api.transactions(apiKey);
     transactions.clear();
     transactions.addAll(t);
@@ -134,8 +97,14 @@ class Wallet {
     return apiKey.split("-")[0];
   }
 
-  String balance() {
-    return (double.parse(balanceZents)/pow(2,32)).toStringAsFixed(3);
+  String balance({String suffix="ZLD"}) {
+    String res = "";
+    try {
+      res = (double.parse(balanceZents)/pow(2,32)).toStringAsFixed(3) + suffix;
+    } catch (e) {
+      res = "not available";
+    }
+    return res;
   }
 
 }

@@ -3,6 +3,7 @@ import 'package:zold_wallet/information_view/information_view.dart';
 import 'package:zold_wallet/transaction_view.dart';
 
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/wallet.dart';
 
 
 
@@ -31,7 +32,7 @@ class HomePageView extends HomePageViewModel {
             ),
             Container(
               padding: const EdgeInsets.all(8.0),
-              child: Text(wallet.title()),
+              child: Text(Wallet.instance().title()),
             )
           ],
         ),
@@ -48,9 +49,9 @@ class HomePageView extends HomePageViewModel {
                 return Container(
                   height: 120.0,
                   child: InformationView(
-                    idText: id,
-                    balanceText: balance,
-                    balanceZents: balanceZent,
+                    idText: Wallet.instance().id,
+                    balanceText: Wallet.instance().balance(),
+                    balanceZents: Wallet.instance().balanceZents,
                   )
                 );
               case 1:
@@ -58,14 +59,14 @@ class HomePageView extends HomePageViewModel {
                   padding: EdgeInsets.all(8.0),
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
-                  itemCount: transactions.length,
+                  itemCount: Wallet.instance().transactions.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return TransactionView(transactions[index]);
+                    return TransactionView(Wallet.instance().transactions[index]);
                   },
                 );
               case 2:
                 return Visibility(
-                  visible: transactions.isEmpty,
+                  visible: Wallet.instance().transactions.isEmpty,
                   child: Center(
                     child: Text(message)
                   ),

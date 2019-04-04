@@ -40,14 +40,14 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   void loginPhone() async {
     var phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
-    wallet.setPhone(phoneNumber);
+    wallet.changePhone(phoneNumber);
     wallet.apiKey = apiKeyController.text;
     if(!wallet.keyLoaded()) await
       wallet.getKey(secretCodeController.text)
         .catchError((error){
           Dialogs.messageDialog(context, "error", error.toString(), snackKey, false);
         });
-    if(await wallet.isConfirmed()) {
+    if(await wallet.confirmed()) {
       await prefs.setString('key', wallet.apiKey);
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
@@ -69,7 +69,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   void getCode() {
     var phoneNumber = dialCode + phoneNumberController.text;
     phoneNumber = phoneNumber.replaceAll("+", "");
-    wallet.setPhone(phoneNumber);
+    wallet.changePhone(phoneNumber);
     wallet.sendCode()
       .then((w){
         Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey, false);
