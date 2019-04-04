@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/wallet.dart';
 typedef void PayCallback(String bnf, String amount, String details, String keygap);
 class PayView extends StatelessWidget {
 
@@ -8,14 +9,12 @@ class PayView extends StatelessWidget {
   final keygapController;
   final PayCallback payCallback;
   final VoidCallback authCallback;
-  final total;
 
   PayView(
     this.bnfController,
     this.amountController,
     this.messageController,
     this.keygapController,
-    this.total,
     this.payCallback,
     this.authCallback
   );
@@ -66,7 +65,7 @@ class PayView extends StatelessWidget {
                 ),
               ),
               Text(
-                total+" ZLD",
+                Wallet.instance().balance(),
                 style: TextStyle(
                   color: Colors.red
                 ),
@@ -109,15 +108,25 @@ class PayView extends StatelessWidget {
               ),
             ],
           ),
-          RaisedButton(
-            onPressed: (){
-              payCallback(bnfController.text, amountController.text, messageController.text, keygapController.text);
-              bnfController.clear();
-              amountController.clear();
-              messageController.clear();
-              keygapController.clear();
-            },
-            child: Text("Send"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                onPressed: (){
+                  payCallback(bnfController.text, amountController.text, messageController.text, keygapController.text);
+                },
+                child: Text("Send"),
+              ),
+              RaisedButton(
+                onPressed: (){
+                  bnfController.clear();
+                  amountController.clear();
+                  messageController.clear();
+                  keygapController.clear();
+                },
+                child: Text("Clear"),
+              ),
+            ],
           )
         ],
       ),

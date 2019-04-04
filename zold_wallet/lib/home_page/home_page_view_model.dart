@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/home_page/home_page.dart';
-import 'package:zold_wallet/transaction.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
 
@@ -43,20 +42,20 @@ abstract class HomePageViewModel extends State<HomePage> {
       }
       setState((){});
     } catch(ex) {
-      await Dialogs.messageDialog(context, 'error', ex.toString(), snackKey, false);
+      await Dialogs.messageDialog(context, 'error', ex.toString(), snackKey);
     }
   }
 
   Future<void> restart() async {
     DialogResult res = await Dialogs.messageDialog(context, 'Sure?',
-    'the old wallet will be lost forever', snackKey, true);
+    'the old wallet will be lost forever', snackKey, prompt: true);
     if(res==DialogResult.OK) {
       await Dialogs.waitingDialog(context, Wallet.instance().restart, snackKey,
       returnsJobId: false);
       await Wallet.instance().restart();
       String keygap = await Wallet.instance().getKeyGap();
       DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
-        + "once you press okay it will be deleted from WTS server", snackKey, true);
+        + "once you press okay it will be deleted from WTS server", snackKey, prompt: true);
       if(res==DialogResult.OK) {
         await Wallet.instance().confirm();
       } else {

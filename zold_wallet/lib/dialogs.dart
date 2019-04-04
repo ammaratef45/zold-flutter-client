@@ -80,7 +80,7 @@ class Dialogs {
       id = await callback();
     } catch (e) {
       Navigator.of(context).pop();
-      messageDialog(context, 'Error', e.toString(), scaffoldKey, false);
+      messageDialog(context, 'Error', e.toString(), scaffoldKey);
       return;
     }
     WaitingDialog w = WaitingDialog(id);
@@ -139,7 +139,7 @@ class Dialogs {
     String title,
     String message,
     GlobalKey<ScaffoldState> scaffoldKey,
-    bool prompt
+    {bool prompt=false}
   ) async {
     return await showDialog(
       context: context,

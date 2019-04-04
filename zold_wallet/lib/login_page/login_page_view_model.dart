@@ -45,7 +45,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     if(!wallet.keyLoaded()) await
       wallet.getKey(secretCodeController.text)
         .catchError((error){
-          Dialogs.messageDialog(context, "error", error.toString(), snackKey, false);
+          Dialogs.messageDialog(context, "error", error.toString(), snackKey);
         });
     if(await wallet.confirmed()) {
       await prefs.setString('key', wallet.apiKey);
@@ -53,7 +53,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     } else {
       String keygap = await wallet.getKeyGap();
       DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
-        + "once you press okay it will be deleted from WTS server", snackKey, true);
+        + "once you press okay it will be deleted from WTS server", snackKey, prompt: true);
       if(res==DialogResult.OK) {
         confirmTheKey();
       }
@@ -72,10 +72,10 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     wallet.changePhone(phoneNumber);
     wallet.sendCode()
       .then((w){
-        Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey, false);
+        Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey);
       })
       .catchError((error) {
-        Dialogs.messageDialog(context, "Error", error.toString(), snackKey, false);
+        Dialogs.messageDialog(context, "Error", error.toString(), snackKey);
       });
   }
 

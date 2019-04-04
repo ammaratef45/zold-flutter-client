@@ -31,7 +31,6 @@ class PayPageView extends PayPageViewModel {
                 amountController,
                 messageController,
                 keygapController,
-                wallet.balance(),
                 pay,
                 fillKeyGap
               );

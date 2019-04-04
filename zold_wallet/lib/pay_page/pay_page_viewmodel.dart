@@ -41,7 +41,7 @@ abstract class PayPageViewModel extends State<PayPage> {
       if(keygap=='0') {
         Dialogs.messageDialog(context, 'error',
         'Keygap not found\nenter it and we will save it for next time',
-        snackKey, false);
+        snackKey);
       } else {
         keygapController.text = keygap;
       }
@@ -61,13 +61,19 @@ abstract class PayPageViewModel extends State<PayPage> {
       } on PlatformException catch (e) {
         if (e.code == auth_error.notAvailable) {
           await Dialogs.messageDialog(context, 'error',
-           "local auth isn't available in your device", snackKey, false);
+           "local auth isn't available in your device", snackKey);
         }
       }
       return result;
   }
 
-  void pay(String bnf, String amount, String details, String keygap) async {
+  Future<void> pay(String bnf, String amount, String details, String keygap) async {
+    String message = "You are going to send $amount ZLD"
+    + " to $bnf. This operation is not refundable! Are you sure?";
+    DialogResult res = await Dialogs.messageDialog(context, 'confirm', message, snackKey, prompt: true);
+    if(res!=DialogResult.OK) {
+      return;
+    }
     if(keygap!=null && keygap!='') {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('keygap', keygap);
@@ -100,6 +106,6 @@ abstract class PayPageViewModel extends State<PayPage> {
     } catch (e) {
       setState(() => this.scanResult = 'Unknown error: $e');
     }
-    Dialogs.messageDialog(context, "Scan", scanResult, snackKey, false);
+    Dialogs.messageDialog(context, "Scan", scanResult, snackKey);
   }
 }
