@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/dialogs.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/login_page/login_page.dart';
 import 'package:zold_wallet/wallet.dart';
+
+enum CurrentVisiblePage {
+  phonePage,
+  authPage,
+  codePage
+}
 
 abstract class LoginPageViewModel extends State<LoginPage> {
   final phoneNumberController = TextEditingController();
   final secretCodeController = TextEditingController();
   final apiKeyController = TextEditingController();
-  String dialCode = "+20";
   Wallet wallet = Wallet.instance();
   SharedPreferences prefs;
   var snackKey = GlobalKey<ScaffoldState>();
+  CurrentVisiblePage page = CurrentVisiblePage.phonePage;
+
   
   
   LoginPageViewModel() {
@@ -38,8 +44,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   }
 
   void loginPhone() async {
-    var phoneNumber = dialCode + phoneNumberController.text;
-    phoneNumber = phoneNumber.replaceAll("+", "");
+    var phoneNumber = phoneNumberController.text;
     wallet.changePhone(phoneNumber);
     wallet.apiKey = apiKeyController.text;
     if(!wallet.keyLoaded()) await
@@ -66,20 +71,16 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     Navigator.of(context).pushReplacementNamed('/home');
   }
 
-  void getCode() {
-    var phoneNumber = dialCode + phoneNumberController.text;
-    phoneNumber = phoneNumber.replaceAll("+", "");
+  void getCode(String phoneNumber) async {
     wallet.changePhone(phoneNumber);
-    wallet.sendCode()
-      .then((w){
-        Dialogs.messageDialog(context, "Alert", "we sent a code to " + phoneNumber, snackKey);
-      })
-      .catchError((error) {
-        Dialogs.messageDialog(context, "Error", error.toString(), snackKey);
+    try {
+      await Dialogs.waitingDialog(context, wallet.sendCode, snackKey, returnsJobId: false);
+      setState(() {
+        page = CurrentVisiblePage.codePage;
       });
-  }
-
-  void pickedCode(CountryCode object) {
-    dialCode =object.dialCode;
+    } catch (e) {
+      Navigator.of(context).pop();
+      Dialogs.messageDialog(context, "Error", e.toString(), snackKey);
+    }
   }
 }

@@ -9,7 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   http: 0.12.0+1
-  country_code_picker: 1.1.1
   shared_preferences: 0.4.2
   qr_flutter: 1.1.3
   path_provider: 0.4.1

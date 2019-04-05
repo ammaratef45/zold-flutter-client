@@ -72,7 +72,8 @@ class Dialogs {
         }
     );
     if(!returnsJobId) {
-      Navigator.of(context).pop(await callback());
+      String res = await callback();
+      Navigator.of(context).pop(res);
       return;
     }
     String id = "";

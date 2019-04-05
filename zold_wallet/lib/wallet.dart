@@ -34,8 +34,8 @@ class Wallet {
     await updateTransactions();
   }
 
-  Future<void> sendCode() async{
-    await api.getCode(phone);
+  Future<String> sendCode() async{
+    return await api.getCode(phone);
   }
 
   bool keyLoaded() {
