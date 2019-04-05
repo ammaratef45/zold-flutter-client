@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/auth_view.dart';
+import 'package:zold_wallet/code_view.dart';
 import 'package:zold_wallet/login_page/login_page_view_model.dart';
 import 'package:zold_wallet/phone_view.dart';
 
@@ -18,33 +20,33 @@ class LoginPageView extends LoginPageViewModel {
               visible: page==CurrentVisiblePage.phonePage,
               child: PhoneView(
                 onSendCode: getCode,
+                authCallback: (){
+                  setState(() {
+                    page = CurrentVisiblePage.authPage;
+                  });
+                },
               ),
             ),
             Visibility(
               visible: page==CurrentVisiblePage.codePage,
-              child: Row(
-                children: <Widget>[
-                  Flexible(
-                    child: TextField(
-                      controller: secretCodeController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        hintText: 'Secret Code'
-                      ),
-                    ),
-                  ),
-                  
-                ],
+              child: CodeView(
+                onLogin: loginPhone,
+                backCallback: (){
+                  setState(() {
+                    page = CurrentVisiblePage.phonePage;
+                  });
+                },
               ),
             ),
             Visibility(
               visible: page==CurrentVisiblePage.authPage,
-              child: TextField(
-                controller: apiKeyController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  hintText: 'API Key'
-                ),
+              child: AuthView(
+                onLogin: loginWithKey,
+                phoneCallback: (){
+                  setState(() {
+                    page = CurrentVisiblePage.phonePage;
+                  });
+                },
               ),
             ),
 

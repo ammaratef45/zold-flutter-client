@@ -28,7 +28,6 @@ abstract class LoginPageViewModel extends State<LoginPage> {
   lazyLogin() async {
     prefs = await SharedPreferences.getInstance();
     String key = prefs.getString('key')?? "0";
-    debugPrint(key);
     if( key != "0") {
       wallet.apiKey = key;
       Navigator.of(context).pushReplacementNamed('/home');
@@ -43,15 +42,24 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
-  void loginPhone() async {
-    var phoneNumber = phoneNumberController.text;
-    wallet.changePhone(phoneNumber);
-    wallet.apiKey = apiKeyController.text;
-    if(!wallet.keyLoaded()) await
-      wallet.getKey(secretCodeController.text)
-        .catchError((error){
-          Dialogs.messageDialog(context, "error", error.toString(), snackKey);
-        });
+  void loginPhone(String code) async {
+    try {
+      await wallet.getKey(code);
+    } catch(e) {
+      Dialogs.messageDialog(context, "Error", e.toString(), snackKey);
+    }
+    login();
+  }
+
+  void loginWithKey(String apiKey) async {
+    wallet.apiKey = apiKey;
+    login();
+  }
+
+  void login() async {
+    if(!wallet.keyLoaded()) {
+      throw Exception("apikey is unknown");
+    }
     if(await wallet.confirmed()) {
       await prefs.setString('key', wallet.apiKey);
       Navigator.of(context).pushReplacementNamed('/home');

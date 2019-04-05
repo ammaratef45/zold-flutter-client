@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 typedef StringCallback = void Function(String);
-class PhoneView extends StatelessWidget {
-  final StringCallback onSendCode;
-  final VoidCallback authCallback;
-  final phoneController = TextEditingController();
-  PhoneView({this.onSendCode, this.authCallback});
+class AuthView extends StatelessWidget {
+  final StringCallback onLogin;
+  final VoidCallback phoneCallback;
+  final tokenController = TextEditingController();
+  AuthView({this.onLogin, this.phoneCallback});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,8 +23,7 @@ class PhoneView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Text(
-            'To login you need to give us your phone number\n'
-            +'we will send you a secret code',
+            'To login you need to give us your API Key',
             style: TextStyle(
               fontSize: 22,
             ),
@@ -36,17 +35,15 @@ class PhoneView extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 4),
-              ),
-              Text('+'),
-              
+              ),              
               Container(
                 padding: EdgeInsets.only(left: 2),
-                width: 140,
+                width: 240,
                 child: TextField(
-                  controller: phoneController,
+                  controller: tokenController,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    hintText: 'Phone Number',
+                    hintText: 'API Key',
                     border: OutlineInputBorder()
                   ),
                 ),
@@ -58,20 +55,20 @@ class PhoneView extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: (){
-              onSendCode(phoneController.text);
+              onLogin(tokenController.text);
             },
             color: Colors.blue,
-            child: Text("Send me the code"),
+            child: Text("Login"),
           ),
           Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           InkWell(
             child: Text(
-              'login with API token',
+              'login with phone number',
               style: TextStyle(color: Colors.blue),
             ),
-            onTap: authCallback,
+            onTap: phoneCallback,
           )
         ],
       )
