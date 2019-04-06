@@ -89,14 +89,14 @@ class HomePageView extends HomePageViewModel {
                 Navigator.of(context).pushNamed('/pay');
               },
             ),
-            RaisedButton(
-              child: Text('Pull'),
+            IconButton(
+              icon: Icon(Icons.file_download),
               onPressed: () {
                 refresh();
               },
             ),
-            RaisedButton(
-              child: Text('RESTART'),
+            IconButton(
+              icon: Icon(Icons.delete),
               onPressed: () {
                 restart();
               },
