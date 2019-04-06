@@ -1,7 +1,6 @@
 import 'package:zold_wallet/create_page/create_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'dart:convert';
 
 class CreatePageView extends CreatePageViewModel {
 
@@ -20,22 +19,6 @@ class CreatePageView extends CreatePageViewModel {
             case 0:
               return Column(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Text("bnf: "),
-                      ),
-                      Flexible(
-                        child: TextField(
-                          controller: bnfController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            hintText: 'eg. ammaratef45'
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Row(
                     children: <Widget>[
                       Flexible(
@@ -69,6 +52,13 @@ class CreatePageView extends CreatePageViewModel {
                     ],
                   ),
                   Center(
+                    child: RaisedButton(
+                      child: Text("Submit"),
+                      onPressed: ()=> createQR(),
+                    ),
+                  ),
+                  Visibility(
+                    visible: created,
                     child: RepaintBoundary(
                       key: globalKey,
                       child: QrImage(
@@ -78,18 +68,6 @@ class CreatePageView extends CreatePageViewModel {
                           debugPrint("[QR] ERROR - $ex");
                         },
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: RaisedButton(
-                      child: Text("Submit"),
-                      onPressed: ()=> setState(() {
-                        Map<String, String> values =Map();
-                        values["bnf"] = bnfController.text;
-                        values["amount"] = amountController.text;
-                        values["details"] = messageController.text;
-                        qrString = json.encode(values);
-                      }),
                     ),
                   ),
                 ],

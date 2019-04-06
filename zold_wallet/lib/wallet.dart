@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:zold_wallet/invoice.dart';
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/transaction.dart';
 
@@ -44,6 +45,10 @@ class Wallet {
 
   Future<void> getKey(String code) async {
     apiKey = await api.getToken(phone, code);
+  }
+
+  Future<Invoice> invoice() async {
+    return await api.invoice(apiKey);
   }
 
   Future<void> confirm() async {

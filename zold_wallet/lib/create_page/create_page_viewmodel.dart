@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -5,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:zold_wallet/invoice.dart';
 import './create_page.dart';
 import '../wallet.dart';
 import '../wts_log.dart';
@@ -13,17 +15,28 @@ import 'package:path_provider/path_provider.dart';
 typedef Future<WtsLog> WaitingCallback();
 abstract class CreatePageViewModel extends State<CreatePage> {
   Wallet wallet = Wallet.instance();
-  final bnfController = TextEditingController();
   final amountController = TextEditingController();
   final messageController = TextEditingController();
   GlobalKey globalKey = new GlobalKey();
   String qrString = "";
+  bool created = false;
   @override
   void dispose() {
     super.dispose();
-    bnfController.dispose();
     amountController.dispose();
     messageController.dispose();
+  }
+
+  Future<void> createQR() async {
+    Invoice invoice = await wallet.invoice();
+    setState(() {
+      Map<String, String> values =Map();
+      values["bnf"] = invoice.invoice;
+      values["amount"] = amountController.text;
+      values["details"] = messageController.text;
+      qrString = json.encode(values);
+      created = true;
+    });
   }
 
   void captureAndSharePng() async {
