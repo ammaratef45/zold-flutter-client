@@ -9,6 +9,7 @@
  "tid": "e5b5fc7379d80ed7:239"
  */
 import 'dart:math';
+import 'package:timeago/timeago.dart' as timeago;
 
 class Transaction {
  num id;
@@ -34,5 +35,10 @@ class Transaction {
 
   String amount() {
     return (zents/pow(2,32)).toStringAsFixed(2);
+  }
+
+  String timeAgo() {
+    final datetime = DateTime.tryParse(this.date);
+    return timeago.format(datetime);
   }
 }

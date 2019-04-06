@@ -16,25 +16,25 @@ class TransactionView extends StatelessWidget {
         children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(transaction.date),
+              Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: Text('#' + transaction.id.toString()),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: Text(transaction.amount()),
+              ),
+              Text(transaction.timeAgo())
             ],
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Text(transaction.sender),
-              Text(transaction.amount() + 'ZLD'),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Flexible(
-                child: Text(transaction.details),
+                child: Text(transaction.sender + ": " + transaction.details),
               ),
             ],
           ),
