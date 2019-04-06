@@ -39,9 +39,10 @@ class CodeView extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 2),
                 width: 110,
-                child: TextField(
+                child: TextFormField(
                   controller: codeController,
-                  keyboardType: TextInputType.phone,
+                  //keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: 'Code',
                     border: OutlineInputBorder()

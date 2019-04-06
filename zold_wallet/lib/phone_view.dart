@@ -42,9 +42,10 @@ class PhoneView extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 2),
                 width: 140,
-                child: TextField(
+                child: TextFormField(
                   controller: phoneController,
-                  keyboardType: TextInputType.phone,
+                  //keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: 'Phone Number',
                     border: OutlineInputBorder()

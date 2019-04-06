@@ -41,7 +41,8 @@ class AuthView extends StatelessWidget {
                 width: 240,
                 child: TextField(
                   controller: tokenController,
-                  keyboardType: TextInputType.phone,
+                  //keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     hintText: 'API Key',
                     border: OutlineInputBorder()
