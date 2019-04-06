@@ -22,8 +22,11 @@ abstract class PayPageViewModel extends State<PayPage> {
   final keygapController = TextEditingController();
   var snackKey = GlobalKey<ScaffoldState>();
   String scanResult="";
+  bool keyGapAvailable = false;
 
-  PayPageViewModel();
+  PayPageViewModel(){
+    checkKeyGap();
+  }
 
 
   @override
@@ -32,6 +35,18 @@ abstract class PayPageViewModel extends State<PayPage> {
     bnfController.dispose();
     amountController.dispose();
     messageController.dispose();
+  }
+
+  void checkKeyGap() {
+    SharedPreferences.getInstance().then((prefs) {
+      String keygap = prefs.getString('keygap')??'0';
+      if(keygap=='0') {
+      } else {
+        setState(() {
+          keyGapAvailable = true;
+        });
+      }
+    });
   }
 
   void fillKeyGap() async {
