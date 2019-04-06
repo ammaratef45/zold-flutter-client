@@ -1,7 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:zold_wallet/backend/API.dart';
-import 'package:zold_wallet/invoice.dart';
-import 'package:zold_wallet/transaction.dart';
 import 'secret.dart';
 import 'package:zold_wallet/wts_log.dart';
 import 'package:zold_wallet/job.dart';
@@ -28,7 +26,13 @@ void main() {
     expect(res.errorMessage, null);
   });
 
-  test('test API invoice.json', () async {
+  test('test API rate', () async {
+    API api = API();
+    String res = await api.rate();
+    expect(res, isNotNull);
+  });
+
+  /*test('test API invoice.json', () async {
     API api = API();
     String job = await api.pull(Secrets.apiKey);
     String state = 'Running';
@@ -50,5 +54,5 @@ void main() {
     }
     List<Transaction> res = await api.transactions(Secrets.apiKey);
     expect(res.length, isNonZero);
-  });
+  });*/
 }

@@ -6,11 +6,13 @@ class InformationView extends StatelessWidget {
   final String idText;
   final String balanceText;
   final String balanceZents;
+  final String balanceUSD;
   const InformationView(
     {
       this.idText="",
       this.balanceText="",
-      this.balanceZents=""
+      this.balanceZents="",
+      this.balanceUSD=""
     }
   );
   @override
@@ -44,7 +46,7 @@ class InformationView extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Scaffold.of(context).showSnackBar(SnackBar
-                      (content: Text(balanceZents)));
+                      (content: Text(balanceZents + " - " + balanceUSD)));
                   },
                   child: Icon(Icons.help,),
                 ),

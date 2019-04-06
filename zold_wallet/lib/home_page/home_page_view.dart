@@ -51,7 +51,8 @@ class HomePageView extends HomePageViewModel {
                   child: InformationView(
                     idText: Wallet.instance().id,
                     balanceText: Wallet.instance().balance(),
-                    balanceZents: Wallet.instance().balanceZents,
+                    balanceZents: Wallet.instance().zents(),
+                    balanceUSD: Wallet.instance().usd(),
                   )
                 );
               case 1:

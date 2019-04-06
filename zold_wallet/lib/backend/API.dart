@@ -95,6 +95,19 @@ class API {
     throw Exception("status code is not 200\n" + responseData);
   }
 
+  Future<String> rate() async {
+    final url = "${BASE_URL}usd_rate";
+    final request = http.Request('GET', Uri.parse(url));
+    request.followRedirects = false;
+    final response = await client.send(request);
+    final statusCode = response.statusCode;
+    String responseData = await response.stream.transform(utf8.decoder).join();
+    if(statusCode == 200) {
+      return responseData;
+    }
+    throw Exception("status code is not 200\n" + responseData);
+  }
+
   Future<String> getToken(String phone, String key) async {
     final url = "${BASE_URL}mobile/token?phone=" + phone + "&code=" + key + "&noredirect=1";
     final request = http.Request('GET', Uri.parse(url));

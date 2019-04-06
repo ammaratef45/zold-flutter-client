@@ -15,6 +15,8 @@ class Wallet {
   String phone="";
   API api =API();
   List<Transaction> transactions = List();
+
+  String rate="rate";
   Wallet._();
   static Wallet _wallet;
 
@@ -33,6 +35,7 @@ class Wallet {
     await updateId();
     await updateBalanace();
     await updateTransactions();
+    await updateRate();
   }
 
   Future<String> sendCode() async{
@@ -110,6 +113,28 @@ class Wallet {
       res = "not available";
     }
     return res;
+  }
+
+  Future<void> updateRate() async {
+    this.rate = await api.rate();
+  }
+
+  String usd({suffix="USD"}) {
+    String res = "";
+    try {
+      res = (double.parse(this.balance(suffix: "")) * double.parse(rate)).toStringAsFixed(2);
+      res += suffix;
+    } catch (e) {
+      res = "USD not available";
+    }
+    return res;
+  }
+
+  String zents({suffix="zents"}) {
+    if(balanceZents!='pull') {
+      return balanceZents + suffix;
+    }
+    return balanceZents;
   }
 
 }
