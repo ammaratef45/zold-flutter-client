@@ -23,7 +23,7 @@ class AuthView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Text(
-            'To login you need to give us your API Key',
+            'Enter your API token:',
             style: TextStyle(
               fontSize: 22,
             ),
@@ -35,7 +35,7 @@ class AuthView extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 4),
-              ),              
+              ),
               Container(
                 padding: EdgeInsets.only(left: 2),
                 width: 240,
@@ -44,7 +44,7 @@ class AuthView extends StatelessWidget {
                   //keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    hintText: 'API Key',
+                    hintText: 'Token...',
                     border: OutlineInputBorder()
                   ),
                 ),
@@ -66,7 +66,7 @@ class AuthView extends StatelessWidget {
           ),
           InkWell(
             child: Text(
-              'login with phone number',
+              'Login with mobile phone',
               style: TextStyle(color: Colors.blue),
             ),
             onTap: phoneCallback,

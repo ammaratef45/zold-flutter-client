@@ -23,7 +23,8 @@ class CodeView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Text(
-            'Enter the code you got in SMS',
+            'Enter the code you received to your mobile phone'
+            + ' via in the text message we just sent you (four digits):',
             style: TextStyle(
               fontSize: 22,
             ),
@@ -35,7 +36,7 @@ class CodeView extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 4),
-              ),              
+              ),
               Container(
                 padding: EdgeInsets.only(left: 2),
                 width: 110,
@@ -66,7 +67,7 @@ class CodeView extends StatelessWidget {
           ),
           InkWell(
             child: Text(
-              'Go Back',
+              'Go back and try again',
               style: TextStyle(color: Colors.blue),
             ),
             onTap: backCallback,

@@ -23,8 +23,8 @@ class PhoneView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Text(
-            'To login you need to give us your phone number\n'
-            +'we will send you a secret code',
+            'Enter your mobile phone number (digits only) and'
+            +' we will send you a secret code in a few seconds.',
             style: TextStyle(
               fontSize: 22,
             ),
@@ -37,17 +37,21 @@ class PhoneView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 4),
               ),
-              Text('+'),
-              
+              Text(
+                '+',
+                style: TextStyle(
+                  fontSize: 22,
+                ),
+              ),
               Container(
                 padding: EdgeInsets.only(left: 2),
-                width: 140,
+                width: 220,
                 child: TextFormField(
                   controller: phoneController,
                   //keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    hintText: 'Phone Number',
+                    hintText: 'Digits only...',
                     border: OutlineInputBorder()
                   ),
                 ),
@@ -69,7 +73,7 @@ class PhoneView extends StatelessWidget {
           ),
           InkWell(
             child: Text(
-              'login with API token',
+              'Login with an API token',
               style: TextStyle(color: Colors.blue),
             ),
             onTap: authCallback,
