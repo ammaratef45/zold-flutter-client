@@ -24,7 +24,7 @@ class PhoneView extends StatelessWidget {
           ),
           Text(
             'Enter your mobile phone number (digits only) and'
-            +' we will send you a secret code in a few seconds.',
+            +' we will send you a secret code in a few seconds:',
             style: TextStyle(
               fontSize: 22,
             ),
