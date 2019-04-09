@@ -37,18 +37,17 @@ class InformationView extends StatelessWidget {
             ],
           ),
           Container(
+            padding: EdgeInsets.only(top: 18),
             child: Row(
               children: <Widget>[
                 Text("Balance: "),
-                Flexible(
-                  child: Text(balanceText),
-                ),
+                
                 GestureDetector(
                   onTap: () {
                     Scaffold.of(context).showSnackBar(SnackBar
-                      (content: Text(balanceZents + " - " + balanceUSD)));
+                      (content: Text(balanceZents)));
                   },
-                  child: Icon(Icons.help,),
+                  child: Text(balanceText + " - " + balanceUSD),
                 ),
               ],
             ),
