@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:zold_wallet/invoice.dart';
@@ -84,7 +85,8 @@ class Wallet {
   }
 
   Future<void> updateTransactions() async {
-    List<Transaction> t = await api.transactions(apiKey);
+    String response = await api.transactions(apiKey);
+    List<Transaction> t = Transaction.fromJsonList(json.decode(response));
     transactions.clear();
     transactions.addAll(t);
   }

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:zold_wallet/invoice.dart';
-import 'package:zold_wallet/transaction.dart';
 import 'dart:convert';
 import 'package:zold_wallet/wts_log.dart';
 import 'package:zold_wallet/job.dart';
@@ -229,7 +228,7 @@ class API {
     return Invoice.fromJson(json.decode(responseData));
   }
 
-  Future<List<Transaction>> transactions(String apiKey) async {
+  Future<String> transactions(String apiKey) async {
     var headers =  {
       "X-Zold-Wts": apiKey
     };
@@ -241,8 +240,7 @@ class API {
     if(response.statusCode != 200) {
       throw Exception("Status code is not 200");
     }
-    String responseData = await response.stream.transform(utf8.decoder).join();
-    return Transaction.fromJsonList(json.decode(responseData));
+    return await response.stream.transform(utf8.decoder).join();
   }
 
 }

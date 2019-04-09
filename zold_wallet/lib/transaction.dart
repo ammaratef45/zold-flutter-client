@@ -12,17 +12,27 @@ import 'dart:math';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Transaction {
- num id;
- String date;
- num zents;
- String details;
- String sender;
+ num _id;
+ num get id => _id;
+
+ String _date;
+ String get date => _date;
+
+ num _zents;
+ num get zents => _zents;
+
+ String _details;
+ String get details => _details;
+
+ String _sender;
+ String get sender => _sender;
+
  Transaction.fromJson(Map<String, dynamic> map) {
-   this.id = map["id"];
-   this.date = map["date"];
-   this.zents = map["amount"];
-   this.details = map["details"];
-   this.sender = map["bnf"];
+   this._id = map["id"];
+   this._date = map["date"];
+   this._zents = map["amount"];
+   this._details = map["details"];
+   this._sender = map["bnf"];
  }
 
  static List<Transaction> fromJsonList(List<dynamic> list) {
@@ -38,7 +48,19 @@ class Transaction {
   }
 
   String timeAgo() {
-    final datetime = DateTime.tryParse(this.date);
+    final datetime = this.dateTime();
     return timeago.format(datetime);
+  }
+
+  DateTime dateTime({trunc=false}) {
+    if(trunc) {
+      return DateTime.tryParse(this.date.split('T')[0]); 
+    } else {
+      return DateTime.tryParse(this.date); 
+    }
+  }
+
+  bool isAfter(Transaction other) {
+    return this.dateTime(trunc: true).isAfter(other.dateTime());
   }
 }

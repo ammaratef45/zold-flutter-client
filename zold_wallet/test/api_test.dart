@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:zold_wallet/backend/API.dart';
+import 'package:zold_wallet/invoice.dart';
 import 'secret.dart';
 import 'package:zold_wallet/wts_log.dart';
 import 'package:zold_wallet/job.dart';
@@ -32,27 +33,27 @@ void main() {
     expect(res, isNotNull);
   });
 
-  /*test('test API invoice.json', () async {
+  test('test API invoice.json', () async {
     API api = API();
-    String job = await api.pull(Secrets.apiKey);
+    /*String job = await api.pull(Secrets.apiKey);
     String state = 'Running';
     while (state.toLowerCase()=='running') {
       Future.delayed(Duration(seconds: 3));
       state = (await api.job(job, Secrets.apiKey)).status;
-    }
+    }*/
     Invoice res = await api.invoice(Secrets.apiKey);
     expect(res.id, '25a9cac1715a3726');
   });
 
   test('test API txns.json', () async {
     API api = API();
-    String job = await api.pull(Secrets.apiKey);
+    /*String job = await api.pull(Secrets.apiKey);
     String state = 'Running';
     while (state.toLowerCase()=='running') {
       Future.delayed(Duration(seconds: 3));
       state = (await api.job(job, Secrets.apiKey)).status;
-    }
-    List<Transaction> res = await api.transactions(Secrets.apiKey);
-    expect(res.length, isNonZero);
-  });*/
+    }*/
+    String res = await api.transactions(Secrets.apiKey);
+    expect(res, isNotNull);
+  });
 }
