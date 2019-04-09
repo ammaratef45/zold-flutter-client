@@ -52,9 +52,8 @@ abstract class CreatePageViewModel extends State<CreatePage> {
   void copyContent() {
     if(canCopy) {
       canCopy = false;
-      Clipboard.setData(new ClipboardData(text:  qrString);
-      snackKey.currentState.showSnackBar(SnackBar
-        (content: Text('invoice copied')));
+      Clipboard.setData(new ClipboardData(text:  qrString));
+      snackKey.currentState.showSnackBar(SnackBar(content: Text('invoice copied')));
       Future.delayed(new Duration(seconds:2)).then((_){
         canCopy = true;
       });
