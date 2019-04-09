@@ -1,14 +1,16 @@
 import 'package:zold_wallet/create_page/create_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:zold_wallet/dialogs.dart';
 
 class CreatePageView extends CreatePageViewModel {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: snackKey,
       appBar: AppBar(
-        title: Text("Create QR"),
+        title: Text("Invoice"),
       ),
       body: ListView.builder(
         padding: EdgeInsets.all(8.0),
@@ -53,7 +55,7 @@ class CreatePageView extends CreatePageViewModel {
                   ),
                   Center(
                     child: RaisedButton(
-                      child: Text("Submit"),
+                      child: Text("Create"),
                       onPressed: ()=> createQR(),
                     ),
                   ),
@@ -65,11 +67,17 @@ class CreatePageView extends CreatePageViewModel {
                         version: 6,
                         data: qrString,
                         onError: (ex) {
-                          debugPrint("[QR] ERROR - $ex");
+                          Dialogs.messageDialog(context, "[QR] ERROR",
+                           ex.toString(), snackKey);
                         },
                       ),
                     ),
                   ),
+                  Visibility(
+                    visible: created,
+                    child: Text(qrString),
+                  )
+                  
                 ],
               );
           }

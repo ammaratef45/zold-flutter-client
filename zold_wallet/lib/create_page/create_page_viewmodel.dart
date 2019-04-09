@@ -6,11 +6,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/invoice.dart';
 import './create_page.dart';
 import '../wallet.dart';
 import '../wts_log.dart';
 import 'package:path_provider/path_provider.dart';
+
+// @todo #86 add animated floating action to allow share and copy to clipboard
 
 typedef Future<WtsLog> WaitingCallback();
 abstract class CreatePageViewModel extends State<CreatePage> {
@@ -18,6 +21,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
   final amountController = TextEditingController();
   final messageController = TextEditingController();
   GlobalKey globalKey = new GlobalKey();
+  var snackKey = GlobalKey<ScaffoldState>();
   String qrString = "";
   bool created = false;
   @override
@@ -28,7 +32,13 @@ abstract class CreatePageViewModel extends State<CreatePage> {
   }
 
   Future<void> createQR() async {
-    Invoice invoice = await wallet.invoice();
+    Invoice invoice;
+    try {
+      invoice = await wallet.invoice();
+    } catch (e) {
+      Dialogs.messageDialog(context, 'Error', e.toString(), snackKey);
+      return;
+    }
     setState(() {
       Map<String, String> values =Map();
       values["bnf"] = invoice.invoice;
