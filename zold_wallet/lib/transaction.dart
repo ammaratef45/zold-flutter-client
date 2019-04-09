@@ -63,4 +63,9 @@ class Transaction {
   bool isAfter(Transaction other) {
     return this.dateTime(trunc: true).isAfter(other.dateTime());
   }
+
+  int compare(Transaction other) {
+    return this.dateTime().difference(other.dateTime()).inHours;
+  }
+
 }

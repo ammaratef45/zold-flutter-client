@@ -11,10 +11,7 @@ void main() {
     await wallet.updateTransactions();
     expect(wallet.transactions.length, isNot(0));
     for(int i=0; i<wallet.transactions.length-1; i++) {
-      for(int j=1; j<wallet.transactions.length; j++) {
-        expect(wallet.transactions[i].isAfter(wallet.transactions[j]),
-        true);
-      }
+      expect(wallet.transactions[i+1].isAfter(wallet.transactions[i]), false);
     }
   });
 }

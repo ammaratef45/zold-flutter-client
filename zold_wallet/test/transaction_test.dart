@@ -25,15 +25,14 @@ void main() {
     expect(map, isNotNull);
     Transaction last = Transaction.fromJson(map[0]);
     for (var i = 1; i < map.length; i++) {
-     expect(last.isAfter(Transaction.fromJson(map[i])), false);
-     last = Transaction.fromJson(map[i]);
+      Transaction t = Transaction.fromJson(map[i]);
+      expect(t.isAfter(last), false);
+      last = t;
     }
-    /*List<Transaction> transactionList = Transaction.fromJsonList(map);
+    List<Transaction> transactionList = Transaction.fromJsonList(map);
     expect(transactionList.length, isNonZero);
     for(int i=0; i<transactionList.length-1; i++) {
-      for(int j=1; j<transactionList.length; j++) {
-        expect(transactionList[i].isAfter(transactionList[j]), false);
-      }
-    }*/
+      expect(transactionList[i+1].isAfter(transactionList[i]), false);
+    }
   });
 }

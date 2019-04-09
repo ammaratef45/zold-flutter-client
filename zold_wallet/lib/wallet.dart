@@ -89,6 +89,9 @@ class Wallet {
     List<Transaction> t = Transaction.fromJsonList(json.decode(response));
     transactions.clear();
     transactions.addAll(t);
+    transactions.sort((t1, t2) {
+      return t2.compare(t1);
+    });
   }
 
   Future<String> pay(String bnf, String amount, String details, String keygap) async {
