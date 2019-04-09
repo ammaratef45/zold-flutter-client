@@ -13,7 +13,6 @@ import '../wallet.dart';
 import '../wts_log.dart';
 import 'package:path_provider/path_provider.dart';
 
-// @todo #86 add animated floating action to allow share and copy to clipboard
 
 typedef Future<WtsLog> WaitingCallback();
 abstract class CreatePageViewModel extends State<CreatePage> {
@@ -24,6 +23,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
   var snackKey = GlobalKey<ScaffoldState>();
   String qrString = "";
   bool created = false;
+  bool canCopy = true;
   @override
   void dispose() {
     super.dispose();
@@ -47,6 +47,18 @@ abstract class CreatePageViewModel extends State<CreatePage> {
       qrString = json.encode(values);
       created = true;
     });
+  }
+
+  void copyContent() {
+    if(canCopy) {
+      canCopy = false;
+      Clipboard.setData(new ClipboardData(text:  qrString);
+      snackKey.currentState.showSnackBar(SnackBar
+        (content: Text('invoice copied')));
+      Future.delayed(new Duration(seconds:2)).then((_){
+        canCopy = true;
+      });
+    }
   }
 
   void captureAndSharePng() async {

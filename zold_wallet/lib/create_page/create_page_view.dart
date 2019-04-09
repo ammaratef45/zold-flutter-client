@@ -2,8 +2,31 @@ import 'package:zold_wallet/create_page/create_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:zold_wallet/dialogs.dart';
+import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
+
 
 class CreatePageView extends CreatePageViewModel {
+  Widget copy() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: copyContent,
+        tooltip: 'Copy',
+        heroTag: "Copy",
+        child: Icon(Icons.content_copy),
+      ),
+    );
+  }
+
+  Widget share() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: captureAndSharePng,
+        tooltip: 'Share',
+        heroTag: "Share",
+        child: Icon(Icons.share),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +106,14 @@ class CreatePageView extends CreatePageViewModel {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: captureAndSharePng,
-        tooltip: 'Share QR',
-        child: Icon(Icons.share),
-        elevation: 2.0,
+      floatingActionButton: AnimatedFloatingActionButton(
+        fabButtons: <Widget>[
+          copy(),
+          share(),
+        ],
+        colorStartAnimation: Colors.blue,
+        colorEndAnimation: Colors.red,
+        animatedIconData: AnimatedIcons.menu_close,
       ),
     );
   }
