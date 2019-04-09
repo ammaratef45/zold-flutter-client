@@ -65,7 +65,7 @@ class Transaction {
   }
 
   int compare(Transaction other) {
-    return this.dateTime().difference(other.dateTime()).inHours;
+    return this.dateTime().difference(other.dateTime()).inSeconds;
   }
 
 }
