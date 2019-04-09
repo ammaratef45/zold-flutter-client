@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/home_page/home_page.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
+import 'package:flutter/services.dart';
+
 
 abstract class HomePageViewModel extends State<HomePage> {
   String message = 'This wallet is Empty, make some transactions';
@@ -13,6 +15,7 @@ abstract class HomePageViewModel extends State<HomePage> {
   final messageController = TextEditingController();
   final keygapController = TextEditingController();
   var snackKey = GlobalKey<ScaffoldState>();
+  bool canCopy = true;
 
   HomePageViewModel() {
     refresh(doPull: false);
@@ -43,6 +46,18 @@ abstract class HomePageViewModel extends State<HomePage> {
       setState((){});
     } catch(ex) {
       await Dialogs.messageDialog(context, 'error', ex.toString(), snackKey);
+    }
+  }
+
+  void copyid() {
+    if(canCopy) {
+      canCopy = false;
+      Clipboard.setData(new ClipboardData(text:  Wallet.instance().id));
+      snackKey.currentState.showSnackBar(SnackBar
+        (content: Text('ID copied')));
+      Future.delayed(new Duration(seconds:2)).then((_){
+        canCopy = true;
+      });
     }
   }
 

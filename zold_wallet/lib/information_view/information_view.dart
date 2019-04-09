@@ -7,12 +7,14 @@ class InformationView extends StatelessWidget {
   final String balanceText;
   final String balanceZents;
   final String balanceUSD;
+  final VoidCallback copyCallback;
   const InformationView(
     {
       this.idText="",
       this.balanceText="",
       this.balanceZents="",
-      this.balanceUSD=""
+      this.balanceUSD="",
+      this.copyCallback
     }
   );
   @override
@@ -28,9 +30,8 @@ class InformationView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Clipboard.setData(new ClipboardData(text: idText));
-                  Scaffold.of(context).showSnackBar(SnackBar
-                    (content: Text('ID copied')));
+                  copyCallback();
+                  
                 },
                 child: Icon(Icons.content_copy,),
               ),

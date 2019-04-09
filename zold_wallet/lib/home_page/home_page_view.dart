@@ -53,6 +53,7 @@ class HomePageView extends HomePageViewModel {
                     balanceText: Wallet.instance().balance(),
                     balanceZents: Wallet.instance().zents(),
                     balanceUSD: Wallet.instance().usd(),
+                    copyCallback: copyid
                   )
                 );
               case 1:
