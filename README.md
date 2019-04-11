@@ -32,6 +32,9 @@ For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
 
 # How to contribute
+ You can follow [this guide](steps_guide.md) to get started without prior knoledge about flutter.
+ 
+ However, I recommend you go through the steps below if you have enough time.
 
 ## Installation ##
 
