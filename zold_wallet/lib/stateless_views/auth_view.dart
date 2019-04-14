@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/stateless_views/text_field.dart';
 typedef StringCallback = void Function(String);
-class PhoneView extends StatelessWidget {
-  final StringCallback onSendCode;
-  final VoidCallback authCallback;
-  final phoneController = TextEditingController();
-  PhoneView({this.onSendCode, this.authCallback});
+class AuthView extends StatelessWidget {
+  final StringCallback onLogin;
+  final VoidCallback phoneCallback;
+  final tokenController = TextEditingController();
+  AuthView({this.onLogin, this.phoneCallback});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,8 +24,7 @@ class PhoneView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Text(
-            'Enter your mobile phone number (digits only) and'
-            +' we will send you a secret code in a few seconds:',
+            'Enter your API token:',
             style: TextStyle(
               fontSize: 22,
             ),
@@ -37,24 +37,10 @@ class PhoneView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 4),
               ),
-              Text(
-                '+',
-                style: TextStyle(
-                  fontSize: 22,
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 2),
-                width: 220,
-                child: TextFormField(
-                  controller: phoneController,
-                  //keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    hintText: 'Digits only...',
-                    border: OutlineInputBorder()
-                  ),
-                ),
+              ZoldTextField(
+                width: 240,
+                controller: tokenController,
+                hint: 'Token...',
               ),
             ],
           ),
@@ -63,20 +49,20 @@ class PhoneView extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: (){
-              onSendCode(phoneController.text);
+              onLogin(tokenController.text);
             },
             color: Colors.blue,
-            child: Text("Send me the code"),
+            child: Text("Login"),
           ),
           Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           InkWell(
             child: Text(
-              'Login with an API token',
+              'Login with mobile phone',
               style: TextStyle(color: Colors.blue),
             ),
-            onTap: authCallback,
+            onTap: phoneCallback,
           )
         ],
       )

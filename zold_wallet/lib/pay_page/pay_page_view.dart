@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/pay_page/pay_page_viewmodel.dart';
-import 'package:zold_wallet/pay_view/pay_view.dart';
+import 'package:zold_wallet/stateless_views/pay_view.dart';
 
 
 class PayPageView extends PayPageViewModel {
