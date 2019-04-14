@@ -19,8 +19,8 @@ class PhoneView extends StatelessWidget {
   final TextEditingController _phoneController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) =>
+    Container(
       padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
@@ -85,6 +85,5 @@ class PhoneView extends StatelessWidget {
         ],
       )
     );
-  }
 
 }

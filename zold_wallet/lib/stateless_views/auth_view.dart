@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/stateless_views/text_field.dart';
 typedef StringCallback = void Function(String);
+
+/// view that prompt for api key
 class AuthView extends StatelessWidget {
+  /// constructor
+  AuthView(
+    {
+      this.onLogin,
+      this.phoneCallback
+    }
+  );
+
+  /// callback for login pressed
   final StringCallback onLogin;
+  /// callback for pressing login with phone number
   final VoidCallback phoneCallback;
-  final tokenController = TextEditingController();
-  AuthView({this.onLogin, this.phoneCallback});
+
+  final TextEditingController _tokenController = TextEditingController();
+  
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
+  Widget build(BuildContext context) =>
+    Container(
+      padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           Image.asset(
@@ -20,7 +33,7 @@ class AuthView extends StatelessWidget {
             fit: BoxFit.contain,
             height: 64,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           Text(
@@ -29,32 +42,32 @@ class AuthView extends StatelessWidget {
               fontSize: 22,
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           Row(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(left: 4),
               ),
               ZoldTextField(
                 width: 240,
-                controller: tokenController,
+                controller: _tokenController,
                 hint: 'Token...',
               ),
             ],
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           RaisedButton(
             onPressed: (){
-              onLogin(tokenController.text);
+              onLogin(_tokenController.text);
             },
             color: Colors.blue,
-            child: Text("Login"),
+            child: const Text('Login'),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           InkWell(
@@ -67,6 +80,5 @@ class AuthView extends StatelessWidget {
         ],
       )
     );
-  }
 
 }

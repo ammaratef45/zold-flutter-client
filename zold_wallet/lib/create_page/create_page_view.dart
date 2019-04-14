@@ -3,40 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
+import 'package:zold_wallet/stateless_views/text_field.dart';
 
-
+/// view of invoice page
 class CreatePageView extends CreatePageViewModel {
-  Widget copy() {
-    return Container(
+  Widget _copy() =>
+    Container(
       child: FloatingActionButton(
         onPressed: copyContent,
         tooltip: 'Copy',
-        heroTag: "Copy",
-        child: Icon(Icons.content_copy),
+        heroTag: 'Copy',
+        child: const Icon(Icons.content_copy),
       ),
     );
-  }
 
-  Widget share() {
-    return Container(
+  Widget _share() =>
+    Container(
       child: FloatingActionButton(
         onPressed: captureAndSharePng,
         tooltip: 'Share',
-        heroTag: "Share",
-        child: Icon(Icons.share),
+        heroTag: 'Share',
+        child: const Icon(Icons.share),
       ),
     );
-  }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>
+    Scaffold(
       key: snackKey,
       appBar: AppBar(
-        title: Text("Invoice"),
+        title: const Text('Invoice'),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         shrinkWrap: true,
         itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
@@ -44,43 +43,19 @@ class CreatePageView extends CreatePageViewModel {
             case 0:
               return Column(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Text("Amount: "),
-                      ),
-                      Flexible(
-                        child: TextField(
-                          controller: amountController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: 'eg. 1.2'
-                          ),
-                        ),
-                      ),
-                    ],
+                  ZoldTextField(
+                    controller: amountController,
+                    width: 210,
+                    hint: 'Amount: eg. 1.2',
                   ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Text("Details: "),
-                      ),
-                      Flexible(
-                        child: TextField(
-                          controller: messageController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            hintText: 'eg. for selling me the book'
-                          ),
-                        ),
-                      ),
-                    ],
+                  ZoldTextField(
+                    controller: messageController,
+                    width: 210,
+                    hint: 'Details: eg. for selling me the book',
                   ),
-                  Center(
-                    child: RaisedButton(
-                      child: Text("Create"),
-                      onPressed: ()=> createQR(),
-                    ),
+                  RaisedButton(
+                    child: const Text('Create'),
+                    onPressed: createQR,
                   ),
                   Visibility(
                     visible: created,
@@ -89,8 +64,8 @@ class CreatePageView extends CreatePageViewModel {
                       child: QrImage(
                         version: 6,
                         data: qrString,
-                        onError: (ex) {
-                          Dialogs.messageDialog(context, "[QR] ERROR",
+                        onError: (dynamic ex) {
+                          Dialogs.messageDialog(context, '[QR] ERROR',
                            ex.toString(), snackKey);
                         },
                       ),
@@ -108,14 +83,13 @@ class CreatePageView extends CreatePageViewModel {
       ),
       floatingActionButton: AnimatedFloatingActionButton(
         fabButtons: <Widget>[
-          copy(),
-          share(),
+          _copy(),
+          _share(),
         ],
         colorStartAnimation: Colors.blue,
         colorEndAnimation: Colors.red,
         animatedIconData: AnimatedIcons.menu_close,
       ),
     );
-  }
 
 }

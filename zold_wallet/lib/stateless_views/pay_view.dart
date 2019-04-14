@@ -1,142 +1,101 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/stateless_views/text_field.dart';
 import 'package:zold_wallet/wallet.dart';
-typedef void PayCallback(String bnf, String amount, String details, String keygap);
+
+typedef PayCallback = void Function(
+  String bnf, String amount, String details, String keygap
+);
+
+/// payview that prompt for pay details
 class PayView extends StatelessWidget {
-
-  final bnfController;
-  final amountController;
-  final messageController;
-  final keygapController;
-  final PayCallback payCallback;
-  final VoidCallback authCallback;
-  final bool keyGapAvailable;
-
-  PayView(
-    this.bnfController,
-    this.amountController,
-    this.messageController,
-    this.keygapController,
+  /// constructor
+  PayView({
     this.payCallback,
     this.authCallback,
     this.keyGapAvailable
-  );
+  });
+
+  final TextEditingController _bnfController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+  final TextEditingController _keygapController = TextEditingController();
+  /// callback when pressing pay
+  final PayCallback payCallback;
+  /// callback when fingerprint is clicked
+  final VoidCallback authCallback;
+  /// determine if keygap is available in shared preferences
+  final bool keyGapAvailable;
 
   @override
-  Widget build(BuildContext context) {
-    Widget widget = Container(
+  Widget build(BuildContext context) =>
+    Container(
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: Text("bnf: "),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: bnfController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: 'eg. ammaratef45'
-                  ),
-                ),
-              ),
-            ],
+          ZoldTextField(
+            controller: _bnfController,
+            width: 210,
+            hint: 'bnf: eg. ammaratef45',
+          ),
+          ZoldTextField(
+            controller: _amountController,
+            width: 210,
+            hint: 'Amount: eg. 1.2',
+          ),
+          Text(
+            'Balance: ${Wallet.instance().balance()}',
+            style: TextStyle(
+              color: Colors.red
+            ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Flexible(
-                child: Text("Amount: "),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: amountController,
-                  keyboardType: TextInputType.numberWithOptions(decimal:true),
-                  decoration: InputDecoration(
-                    hintText: 'eg. 1.2'
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                "Balance: ",
-                style: TextStyle(
-                  color: Colors.red
-                ),
-              ),
-              Text(
-                Wallet.instance().balance(),
-                style: TextStyle(
-                  color: Colors.red
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: Text("Keygap: "),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: keygapController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: 'keygap'
-                  ),
-                ),
+              ZoldTextField(
+                controller: _keygapController,
+                width: 210,
+                hint: 'keygap',
               ),
               Visibility(
                 visible: keyGapAvailable,
                 child: IconButton(
-                  icon: Icon(Icons.fingerprint),
+                  icon: const Icon(Icons.fingerprint),
                   onPressed: authCallback,
                 )
               )
             ],
           ),
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: Text("Details: "),
-              ),
-              Flexible(
-                child: TextField(
-                  controller: messageController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: 'eg. for selling me the book'
-                  ),
-                ),
-              ),
-            ],
+          ZoldTextField(
+            controller: _messageController,
+            width: 210,
+            hint: 'Details: eg. for selling me the book',
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               RaisedButton(
                 onPressed: (){
-                  payCallback(bnfController.text, amountController.text, messageController.text, keygapController.text);
+                  payCallback(
+                    _bnfController.text,
+                    _amountController.text,
+                    _messageController.text,
+                    _keygapController.text
+                  );
                 },
-                child: Text("Send"),
+                child: const Text('Send'),
               ),
               RaisedButton(
                 onPressed: (){
-                  bnfController.clear();
-                  amountController.clear();
-                  messageController.clear();
-                  keygapController.clear();
+                  _bnfController.clear();
+                  _amountController.clear();
+                  _messageController.clear();
+                  _keygapController.clear();
                 },
-                child: Text("Clear"),
+                child: const Text('Clear'),
               ),
             ],
           )
         ],
       ),
     );
-    return widget;
-  }
-  
+    
 }

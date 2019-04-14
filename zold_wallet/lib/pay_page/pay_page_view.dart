@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:zold_wallet/pay_page/pay_page_viewmodel.dart';
 import 'package:zold_wallet/stateless_views/pay_view.dart';
 
-
+/// view of the pay page
 class PayPageView extends PayPageViewModel {
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>
+    Scaffold(
       key: snackKey,
       appBar: AppBar(
-        title: Text("Pay"),
+        title: const Text('Pay'),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         shrinkWrap: true,
         itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
@@ -21,24 +21,19 @@ class PayPageView extends PayPageViewModel {
             case 0:
               return Center(
                 child: RaisedButton(
-                  child: Text("Scan from QR"),
+                  child: const Text('Scan from QR'),
                   onPressed: scan
                 )
               );
             case 1:
               return PayView(
-                bnfController,
-                amountController,
-                messageController,
-                keygapController,
-                pay,
-                fillKeyGap,
-                keyGapAvailable
+                payCallback: pay,
+                authCallback: fillKeyGap,
+                keyGapAvailable: keyGapAvailable,
               );
           }
         },
       )
     );
-  }
 
 }
