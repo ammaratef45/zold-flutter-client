@@ -25,7 +25,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     lazyLogin();
   }
 
-  lazyLogin() async {
+  void lazyLogin() async {
     prefs = await SharedPreferences.getInstance();
     String key = prefs.getString('key')?? "0";
     if( key != "0") {

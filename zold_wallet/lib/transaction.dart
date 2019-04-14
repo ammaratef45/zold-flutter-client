@@ -52,7 +52,7 @@ class Transaction {
     return timeago.format(datetime);
   }
 
-  DateTime dateTime({trunc=false}) {
+  DateTime dateTime({bool trunc=false}) {
     if(trunc) {
       return DateTime.tryParse(this.date.split('T')[0]); 
     } else {

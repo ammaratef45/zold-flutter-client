@@ -39,7 +39,7 @@ class WaitingDialogView extends State<WaitingDialog> {
           progeessText = "got: ${job.outputLength} bytes";
         });
       } catch(ex) {}
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
       status = (await Wallet.instance().log(id)).status;  
     }
     Navigator.pop(context);
@@ -64,7 +64,7 @@ class Dialogs {
     GlobalKey<ScaffoldState> scaffoldKey,
     {bool returnsJobId = true}
   ) async {
-    showDialog(
+    showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -86,7 +86,7 @@ class Dialogs {
     }
     WaitingDialog w = WaitingDialog(id);
     Navigator.pop(context);
-    await showDialog(
+    await showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -108,7 +108,7 @@ class Dialogs {
     if(log.status.toLowerCase() == "ok") {
       return;
     }
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(

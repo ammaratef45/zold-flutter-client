@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   }
 
   MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {
-    return new MaterialPageRoute(
+    return MaterialPageRoute<dynamic>(
         settings: settings,
         builder: (ctx) => builder,
     );

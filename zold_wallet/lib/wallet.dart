@@ -28,7 +28,7 @@ class Wallet {
     return _wallet;
   }
 
-  changePhone(String phone) {
+  void changePhone(String phone) {
     this.phone = phone;
   }
 
@@ -124,7 +124,7 @@ class Wallet {
     this.rate = await api.rate();
   }
 
-  String usd({suffix="USD"}) {
+  String usd({String suffix="USD"}) {
     String res = "";
     try {
       res = (double.parse(this.balance(suffix: "")) * double.parse(rate)).toStringAsFixed(2);
@@ -135,7 +135,7 @@ class Wallet {
     return res;
   }
 
-  String zents({suffix="zents"}) {
+  String zents({String suffix="zents"}) {
     if(balanceZents!='pull') {
       return balanceZents + suffix;
     }

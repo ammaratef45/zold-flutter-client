@@ -55,7 +55,7 @@ abstract class HomePageViewModel extends State<HomePage> {
       Clipboard.setData(new ClipboardData(text:  Wallet.instance().id));
       snackKey.currentState.showSnackBar(SnackBar
         (content: Text('ID copied')));
-      Future.delayed(new Duration(seconds:2)).then((_){
+      Future<void>.delayed(new Duration(seconds:2)).then((_){
         canCopy = true;
       });
     }

@@ -7,7 +7,7 @@ import 'package:zold_wallet/transaction.dart';
 import 'transaction_data.dart';
 
 void main() {
-  Map<String, dynamic> values = Map();
+  Map<String, dynamic> values = Map<String, dynamic>();
   values["id"] = 123;
   values["date"] = '2019-04-07T07:42:57Z';
   values["amount"] = 12;

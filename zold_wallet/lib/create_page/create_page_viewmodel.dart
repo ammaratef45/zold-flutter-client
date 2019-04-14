@@ -54,7 +54,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
       canCopy = false;
       Clipboard.setData(new ClipboardData(text:  qrString));
       snackKey.currentState.showSnackBar(SnackBar(content: Text('invoice copied')));
-      Future.delayed(new Duration(seconds:2)).then((_){
+      Future<void>.delayed(new Duration(seconds:2)).then((_){
         canCopy = true;
       });
     }
@@ -72,7 +72,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
       final file = await new File('${tempDir.path}/image.png').create();
       await file.writeAsBytes(pngBytes);
       final channel = const MethodChannel('channel:ammar.zold.share/share');
-      channel.invokeMethod('shareFile', 'image.png');
+      await channel.invokeMethod<void>('shareFile', 'image.png');
 
     } catch(e) {
       print(e.toString());
