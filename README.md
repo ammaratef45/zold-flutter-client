@@ -9,12 +9,15 @@
 [![Codemagic build status](https://api.codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/status_badge.svg)](https://codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/latest_build)
 
 Zold wallet built in flutter (Android and iOS platform).
+
 Use it to pay or receive zolds and view your wallet balance and transactions.
 
 # Download
 Android Beta version can be downloaded from [here](https://play.google.com/store/apps/details?id=com.ammar.zold.wallet)
 
-iOS Beta version can be downloaded from [here](https://testflight.apple.com/join/cqdKZoig), to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
+iOS Beta version can be downloaded from [here](https://testflight.apple.com/join/cqdKZoig).
+
+to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
 
 ### Features
 
