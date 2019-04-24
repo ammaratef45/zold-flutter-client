@@ -1,6 +1,4 @@
-![logo](https://github.com/ammaratef45/zold-flutter-client/raw/master/zold_wallet/assets/icon/icon.png)
-
-# Zold Mobile Wallet
+<img src="https://github.com/ammaratef45/zold-flutter-client/raw/master/zold_wallet/assets/icon/icon.png" height="100px"/>
 
 [![Managed by Zerocrat](https://www.0crat.com/badge/CGC59KB9B.svg)](https://www.0crat.com/p/CGC59KB9B)
 [![Donate via Zerocracy](https://www.0crat.com/contrib-badge/CGC59KB9B.svg)](https://www.0crat.com/contrib/CGC59KB9B)
@@ -10,12 +8,16 @@
 [![CircleCI](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master.svg?style=svg)](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master)
 [![Codemagic build status](https://api.codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/status_badge.svg)](https://codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/latest_build)
 
-Zold wallet built in flutter.
+Zold wallet built in flutter (Android and iOS platform).
+
+Use it to pay or receive zolds and view your wallet balance and transactions.
 
 # Download
 Android Beta version can be downloaded from [here](https://play.google.com/store/apps/details?id=com.ammar.zold.wallet)
 
-iOS Beta version can be downloaded from [here](https://testflight.apple.com/join/cqdKZoig), to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
+iOS Beta version can be downloaded from [here](https://testflight.apple.com/join/cqdKZoig).
+
+to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
 
 ### Features
 
@@ -32,6 +34,9 @@ For help getting started with Flutter, view our online
 [documentation](https://flutter.io/).
 
 # How to contribute
+ You can follow [this guide](steps_guide.md) to get started without prior knoledge about flutter.
+ 
+ However, I recommend you go through the steps below if you have enough time.
 
 ## Installation ##
 
