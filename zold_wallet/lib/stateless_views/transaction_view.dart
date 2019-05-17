@@ -14,7 +14,7 @@ class TransactionView extends StatelessWidget {
   Widget build(BuildContext context) =>
     Container(
       margin: const EdgeInsets.only(top: 10, left: 2, right: 2),
-      color: Color(transaction.zents>0?0xFF00FF00:0xFFFF0000),
+      color: const Color(0xCCCCCCCC),
       child: Column(
         children: <Widget>[
           Row(
@@ -25,8 +25,9 @@ class TransactionView extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: Text('#${transaction.id.toString()}'),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                color: Color(transaction.zents>0?0xFF00FF00:0xFFFF0000),
                 child: Text(transaction.amount()),
               ),
               Text(transaction.timeAgo())
