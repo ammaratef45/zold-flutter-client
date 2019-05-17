@@ -47,7 +47,7 @@ For help getting started with Flutter, view our online
   - We prefer using [VSCode](https://code.visualstudio.com/)
   
 ## Building ##
-
+  - Run `flutter packages get` first to download the dependencies.
 Before running tests, create a file `zold_wallet/test/secret.dart`
 execute all commands in the die `zold_wallet`
   - Run `flutter test` to execute tests.
