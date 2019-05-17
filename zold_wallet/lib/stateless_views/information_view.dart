@@ -1,53 +1,55 @@
 import 'package:flutter/material.dart';
 
-
+/// the main info of wallet.
 class InformationView extends StatelessWidget {
-  final String idText;
-  final String balanceText;
-  final String balanceZents;
-  final String balanceUSD;
-  final VoidCallback copyCallback;
+  /// constructor
   const InformationView(
     {
-      this.idText="",
-      this.balanceText="",
-      this.balanceZents="",
-      this.balanceUSD="",
+      this.idText='',
+      this.balanceText='',
+      this.balanceZents='',
+      this.balanceUSD='',
       this.copyCallback
     }
   );
+  /// The text represents the wallet id
+  final String idText;
+  /// The text represents the balance of the wallet
+  final String balanceText;
+  /// Balance in zents as a String
+  final String balanceZents;
+  /// Balance in USD as a String
+  final String balanceUSD;
+  /// the callback when copy is clicked
+  final VoidCallback copyCallback;
   @override
-  Widget build(BuildContext context) {
-    Widget widget = Container(
+  Widget build(BuildContext context) =>
+    Container(
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
-              Text("ID: "),
+              const Text('ID: '),
               Flexible(
                 child: Text(idText),
               ),
               GestureDetector(
-                onTap: () {
-                  copyCallback();
-                  
-                },
-                child: Icon(Icons.content_copy,),
+                onTap: copyCallback,
+                child: const Icon(Icons.content_copy,),
               ),
             ],
           ),
           Container(
-            padding: EdgeInsets.only(top: 18),
+            padding: const EdgeInsets.only(top: 18),
             child: Row(
               children: <Widget>[
-                Text("Balance: "),
-                
+                const Text('Balance: '),
                 GestureDetector(
                   onTap: () {
                     Scaffold.of(context).showSnackBar(SnackBar
                       (content: Text(balanceZents)));
                   },
-                  child: Text(balanceText + " - " + balanceUSD),
+                  child: Text('$balanceText - $balanceUSD'),
                 ),
               ],
             ),
@@ -55,7 +57,5 @@ class InformationView extends StatelessWidget {
         ],
       ),
     );
-    return widget;
-  }
   
 }
