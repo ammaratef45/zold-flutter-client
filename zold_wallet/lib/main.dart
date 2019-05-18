@@ -14,8 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Zold Wallet',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.blue,
+          fontFamily: 'Monospace',
+          appBarTheme: AppBarTheme(
+              textTheme: TextTheme(title: TextStyle(fontSize: 18))),
+          textTheme: TextTheme(
+            body1: TextStyle(fontSize: 16),
+          )),
       home: myHome,
       onGenerateRoute: _getRoute,
       routes: {
@@ -27,17 +32,17 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Route<dynamic>  _getRoute(RouteSettings settings) {
+  Route<dynamic> _getRoute(RouteSettings settings) {
     if (settings.name == '/log') {
-        return _buildRoute(settings, LogPage(log: settings.arguments));
+      return _buildRoute(settings, LogPage(log: settings.arguments));
     }
     return null;
   }
 
   MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {
     return MaterialPageRoute<dynamic>(
-        settings: settings,
-        builder: (ctx) => builder,
+      settings: settings,
+      builder: (ctx) => builder,
     );
-}
+  }
 }

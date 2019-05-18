@@ -33,3 +33,9 @@ flutter_icons:
   android: "launcher_icon" 
   ios: true
   image_path: "assets/icon/icon.png"
+
+  fonts:
+  - family: Monospace
+    fonts:
+      - asset: assets/fonts/Monospace.ttf
+        weight: 300
