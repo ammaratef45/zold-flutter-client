@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Zold Wallet',
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          fontFamily: 'Monospace',
+          fontFamily: 'RobotoMono',
           appBarTheme: AppBarTheme(
               textTheme: TextTheme(title: TextStyle(fontSize: 18))),
           textTheme: TextTheme(

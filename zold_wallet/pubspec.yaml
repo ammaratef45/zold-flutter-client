@@ -35,7 +35,7 @@ flutter_icons:
   image_path: "assets/icon/icon.png"
 
   fonts:
-  - family: Monospace
+  - family: RobotoMono
     fonts:
-      - asset: assets/fonts/Monospace.ttf
+      - asset: assets/fonts/RobotoMono-Regular.ttf
         weight: 300
