@@ -49,7 +49,7 @@ class InformationView extends StatelessWidget {
                     Scaffold.of(context).showSnackBar(SnackBar
                       (content: Text(balanceZents)));
                   },
-                  child: Text('$balanceText - $balanceUSD'),
+                  child: Text('$balanceText ($balanceUSD)'),
                 ),
               ],
             ),

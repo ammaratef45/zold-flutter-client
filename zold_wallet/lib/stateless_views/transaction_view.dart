@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/transaction.dart';
 
+/// transaction record.
 class TransactionView extends StatelessWidget {
-  final Transaction transaction;
-  TransactionView(
+  /// constructor
+  const TransactionView(
     this.transaction
   );
+  /// model of the view
+  final Transaction transaction;
 
   @override
-  Widget build(BuildContext context) {
-    Widget widget = Container(
-      margin: EdgeInsets.only(top: 10, left: 2, right: 2),
-      color: Color(transaction.zents>0?0xFF00FF00:0xFFFF0000),
+  Widget build(BuildContext context) =>
+    Container(
+      margin: const EdgeInsets.only(top: 10, left: 2, right: 2),
+      color: const Color(0xCCCCCCCC),
       child: Column(
         children: <Widget>[
           Row(
@@ -19,11 +22,12 @@ class TransactionView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(right: 8),
-                child: Text('#' + transaction.id.toString()),
+                padding: const EdgeInsets.only(right: 8),
+                child: Text('#${transaction.id.toString()}'),
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 8),
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                color: Color(transaction.zents>0?0xFF00FF00:0xFFFF0000),
                 child: Text(transaction.amount()),
               ),
               Text(transaction.timeAgo())
@@ -34,14 +38,12 @@ class TransactionView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Flexible(
-                child: Text(transaction.sender + ": " + transaction.details),
+                child: Text('${transaction.sender}: ${transaction.details}'),
               ),
             ],
           ),
         ],
       ),
     );
-    return widget;
-  }
-  
+
 }

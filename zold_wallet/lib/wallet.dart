@@ -110,12 +110,15 @@ class Wallet {
     return apiKey.split("-")[0];
   }
 
-  String balance({String suffix="ZLD"}) {
-    String res = "";
+  /// returns zold balance
+  /// can change the suffix by passing it.
+  String balance({String suffix=' ZLD'}) {
+    String res = '';
     try {
       res = (double.parse(balanceZents)/pow(2,32)).toStringAsFixed(3) + suffix;
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      res = "not available";
+      res = 'not available';
     }
     return res;
   }
@@ -124,13 +127,18 @@ class Wallet {
     this.rate = await api.rate();
   }
 
-  String usd({String suffix="USD"}) {
-    String res = "";
+  /// return value in usd for example $12
+  /// to change the prefix and suffix pass them as optional params
+  String usd({String prefix='\$', String suffix=''}) {
+    String res = '';
     try {
-      res = (double.parse(this.balance(suffix: "")) * double.parse(rate)).toStringAsFixed(2);
+      res += prefix;
+      res += (double.parse(balance(suffix: '')) *
+        double.parse(rate)).toStringAsFixed(2);
       res += suffix;
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      res = "USD not available";
+      res = 'USD not available';
     }
     return res;
   }
