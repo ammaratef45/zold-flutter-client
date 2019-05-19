@@ -11,9 +11,6 @@ class LoginPageView extends LoginPageViewModel {
     Scaffold(
       resizeToAvoidBottomPadding: true,
       key: snackKey,
-      appBar: AppBar(
-        title: const Text('Zold'),
-      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
