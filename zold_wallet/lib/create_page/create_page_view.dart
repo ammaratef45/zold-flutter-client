@@ -31,9 +31,6 @@ class CreatePageView extends CreatePageViewModel {
   Widget build(BuildContext context) =>
     Scaffold(
       key: snackKey,
-      appBar: AppBar(
-        title: const Text('Invoice'),
-      ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
         shrinkWrap: true,
@@ -41,42 +38,51 @@ class CreatePageView extends CreatePageViewModel {
         itemBuilder: (BuildContext context, int index) {
           switch(index) {
             case 0:
-              return Column(
-                children: <Widget>[
-                  ZoldTextField(
-                    controller: amountController,
-                    width: 210,
-                    hint: 'Amount: eg. 1.2',
-                  ),
-                  ZoldTextField(
-                    controller: messageController,
-                    width: 210,
-                    hint: 'Details: eg. for selling me the book',
-                  ),
-                  RaisedButton(
-                    child: const Text('Create'),
-                    onPressed: createQR,
-                  ),
-                  Visibility(
-                    visible: created,
-                    child: RepaintBoundary(
-                      key: globalKey,
-                      child: QrImage(
-                        version: 6,
-                        data: qrString,
-                        onError: (dynamic ex) {
-                          Dialogs.messageDialog(context, '[QR] ERROR',
-                           ex.toString(), snackKey);
-                        },
+              return SafeArea(
+                  child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ZoldTextField(
+                      controller: amountController,
+                      width: 150,
+                      hint: 'Amount: eg. 1.2',
+                    ),
+                    ZoldTextField(
+                      controller: messageController,
+                      width: 310,
+                      hint: 'Details: eg. for selling me the book',
+                    ),
+                    RaisedButton(
+                      child: const Text('Create'),
+                      onPressed: createQR,
+                    ),
+                    Visibility(
+                      visible: created,
+                      child: RepaintBoundary(
+                        key: globalKey,
+                        child: QrImage(
+                          version: 6,
+                          data: qrString,
+                          onError: (dynamic ex) {
+                            Dialogs.messageDialog(context, '[QR] ERROR',
+                             ex.toString(), snackKey);
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                    visible: created,
-                    child: Text(qrString),
-                  )
-                  
-                ],
+                    Visibility(
+                      visible: created,
+                      child: Text(qrString),
+                    ),
+                    InkWell(
+                      child: Text(
+                        'Go back to home screen',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),
+                  ],
+                ),
               );
           }
         },

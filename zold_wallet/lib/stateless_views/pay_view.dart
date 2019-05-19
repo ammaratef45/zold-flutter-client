@@ -82,7 +82,7 @@ class PayView extends StatelessWidget {
             },
             child: const Text('Send'),
           ),
-           InkWell(
+          InkWell(
             child: Text(
               'Go back to home screen',
               style: TextStyle(color: Colors.blue),
