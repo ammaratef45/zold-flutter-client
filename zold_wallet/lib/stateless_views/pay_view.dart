@@ -30,6 +30,8 @@ class PayView extends StatelessWidget {
   Widget build(BuildContext context) =>
     Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ZoldTextField(
             controller: _bnfController,
@@ -38,7 +40,7 @@ class PayView extends StatelessWidget {
           ),
           ZoldTextField(
             controller: _amountController,
-            width: 210,
+            width: 150,
             hint: 'Amount: eg. 1.2',
           ),
           Text(
@@ -48,11 +50,11 @@ class PayView extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               ZoldTextField(
                 controller: _keygapController,
-                width: 210,
+                width: 110,
                 hint: 'keygap',
               ),
               Visibility(
@@ -66,34 +68,27 @@ class PayView extends StatelessWidget {
           ),
           ZoldTextField(
             controller: _messageController,
-            width: 210,
+            width: 310,
             hint: 'Details: eg. for selling me the book',
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: (){
-                  payCallback(
-                    _bnfController.text,
-                    _amountController.text,
-                    _messageController.text,
-                    _keygapController.text
-                  );
-                },
-                child: const Text('Send'),
-              ),
-              RaisedButton(
-                onPressed: (){
-                  _bnfController.clear();
-                  _amountController.clear();
-                  _messageController.clear();
-                  _keygapController.clear();
-                },
-                child: const Text('Clear'),
-              ),
-            ],
-          )
+          RaisedButton(
+            onPressed: (){
+              payCallback(
+                _bnfController.text,
+                _amountController.text,
+                _messageController.text,
+                _keygapController.text
+              );
+            },
+            child: const Text('Send'),
+          ),
+           InkWell(
+            child: Text(
+              'Go back to home screen',
+              style: TextStyle(color: Colors.blue),
+            ),
+            onTap: ()=>Navigator.pop(context),
+          ),
         ],
       ),
     );

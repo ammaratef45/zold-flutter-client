@@ -9,30 +9,21 @@ class PayPageView extends PayPageViewModel {
   Widget build(BuildContext context) =>
     Scaffold(
       key: snackKey,
-      appBar: AppBar(
-        title: const Text('Pay'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: scan,
+        tooltip: 'Scan',
+        heroTag: 'Scan',
+        child: const Icon(Icons.scanner),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        shrinkWrap: true,
-        itemCount: 2,
-        itemBuilder: (BuildContext context, int index) {
-          switch(index) {
-            case 0:
-              return Center(
-                child: RaisedButton(
-                  child: const Text('Scan from QR'),
-                  onPressed: scan
-                )
-              );
-            case 1:
-              return PayView(
-                payCallback: pay,
-                authCallback: fillKeyGap,
-                keyGapAvailable: keyGapAvailable,
-              );
-          }
-        },
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          child: PayView(
+            payCallback: pay,
+            authCallback: fillKeyGap,
+            keyGapAvailable: keyGapAvailable,
+          ),
+        )
       )
     );
 
