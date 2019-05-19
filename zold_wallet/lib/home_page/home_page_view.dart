@@ -16,14 +16,14 @@ class HomePageView extends HomePageViewModel {
       body: RefreshIndicator(
         onRefresh: onRefresh,
         child: SafeArea(
-                  child: ListView.builder(
-            padding: const EdgeInsets.all(8),
+            child: ListView.builder(
             shrinkWrap: true,
             itemCount: 3,
             itemBuilder: (BuildContext context, int index) {
               switch(index) {
                 case 0:
                   return Container(
+                    padding: const EdgeInsets.only(left: 6, top: 6),
                     child: InformationView(
                       idText: Wallet.instance().id,
                       balanceText: Wallet.instance().balance(),
@@ -34,7 +34,7 @@ class HomePageView extends HomePageViewModel {
                   );
                 case 1:
                   return ListView.builder(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.only(left: 6, top: 3),
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     itemCount: Wallet.instance().transactions.length,
