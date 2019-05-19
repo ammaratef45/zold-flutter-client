@@ -21,6 +21,7 @@ class CodeView extends StatelessWidget {
     Container(
       padding: const EdgeInsets.all(8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 18),
