@@ -6,20 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:zold_wallet/wallet.dart';
 
 
-
+/// view of home page
 class HomePageView extends HomePageViewModel {
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) =>
+    Scaffold(
       key: snackKey,
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: (){
-              logout();
-            },
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: logout,
           )
         ],
         title: Row(
@@ -31,7 +29,7 @@ class HomePageView extends HomePageViewModel {
               height: 32,
             ),
             Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Text(Wallet.instance().title()),
             )
           ],
@@ -40,14 +38,14 @@ class HomePageView extends HomePageViewModel {
       body: RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView.builder(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           shrinkWrap: true,
           itemCount: 3,
           itemBuilder: (BuildContext context, int index) {
             switch(index) {
               case 0:
                 return Container(
-                  height: 120.0,
+                  height: 120,
                   child: InformationView(
                     idText: Wallet.instance().id,
                     balanceText: Wallet.instance().balance(),
@@ -58,13 +56,12 @@ class HomePageView extends HomePageViewModel {
                 );
               case 1:
                 return ListView.builder(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   itemCount: Wallet.instance().transactions.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return TransactionView(Wallet.instance().transactions[index]);
-                  },
+                  itemBuilder: (BuildContext context, int index) =>
+                    TransactionView(Wallet.instance().transactions[index]),
                 );
               case 2:
                 return Visibility(
@@ -78,32 +75,28 @@ class HomePageView extends HomePageViewModel {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 4.0,
-        child: new Row(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 4,
+        child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.send),
+              icon: const Icon(Icons.send),
               onPressed: () {
                 Navigator.of(context).pushNamed('/pay');
               },
             ),
             IconButton(
-              icon: Icon(Icons.file_download),
-              onPressed: () {
-                refresh();
-              },
+              icon: const Icon(Icons.file_download),
+              onPressed: refresh,
             ),
             IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                restart();
-              },
+              icon: const Icon(Icons.delete),
+              onPressed: restart
             ),
             IconButton(
-              icon: Icon(Icons.receipt),
+              icon: const Icon(Icons.receipt),
               onPressed: () {
                 Navigator.of(context).pushNamed('/create');
               },
@@ -112,6 +105,5 @@ class HomePageView extends HomePageViewModel {
         ),
       ),
     );
-  }
 
 }
