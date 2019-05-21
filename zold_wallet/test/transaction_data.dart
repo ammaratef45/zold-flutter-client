@@ -26,6 +26,7 @@ class TransactionData {
               '    "amount": 429496,\n'
               '    "prefix": "rZUiptBR",\n'
               '    "bnf": "f79ba357dfa846d3",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "this is a very very long message, this is a very very long message,this is a very very long message, this is a very very long message, this is a very very long message",\n'
               '    "sign": null,\n'
               '    "tid": "f79ba357dfa846d3:3"\n'
@@ -106,6 +107,7 @@ class TransactionData {
               '    "amount": -210453397504,\n'
               '    "prefix": "CAQEAuuN",\n'
               '    "bnf": "860261987eb8d2d3",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "ZLD exchange to 63.54 PayPal, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "ivuqLhwx5FD642hMp/fOXIooGNhxEVswKNElOYmeeO4JkqN88XK1fc7xhPZxtFB+wfmyI+jiKxc6tzj49Se7xVbZcdyHoZac2U6I9yLEYkB7ucs/CkHLmRVqXG7RPzigIPeAh5rRKYnkHRx7Mglt4UXMvpGE98flcHfXgUnVhQfWieXeivAvwbt9FBqcfNIsKK7OY/4hn0AXAJHZ/1aE2Guk4kDBJPE1PHTgZgNlQZ+niNzhVqTwV1pk08+e0ZmZlKeKhAW8ca7ZHi4DO6e4eKJUQtZeTkCI8v0XDSWuJYas2Fy1j6Uo2yPa9DxXOf7Ql++CZqZ/bl51Fb0W4q4GrA==",\n'
               '    "tid": "25a9cac1715a3726:10"\n'
@@ -116,6 +118,7 @@ class TransactionData {
               '    "amount": -4294967296,\n'
               '    "prefix": "gjnmO7bP",\n'
               '    "bnf": "72e0b23d95a983d6",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "Fee for exchange of 63.54 PayPal, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "GyYiyWgQWd4OF5UKaCTyGeJswNUOj5FafThht2NjgHW2OR93pMuEOpaMKZWrdBU8/53x7L1AiPe+Nvvy9QvHl9JLdAUKULFxrias9Wp/7tHcjhn0zoXso25Q31w8GpBvBm6vgKbmF4Jsj4MPMTsMCBBfZil4qOoOHjjkuwR9yRXT/1RpTrU12Oz+y4Ivx4J32RFnHD7MJ4UzB/54ZepbuGETzAT/DhICysy/ENulgy+/l5QQ7Tuo2QEDDJZTrEVtidhTm5tVsPh4DbgYpSL1ulh/1VExgwroHQzH9ig6xagJ3F0rEc8XhzTeG4GlIDqrMuxGozAKn0YuHH1KQmhDog==",\n'
               '    "tid": "25a9cac1715a3726:11"\n'
@@ -226,6 +229,7 @@ class TransactionData {
               '    "amount": -6871947673,\n'
               '    "prefix": "wz6fOxCf",\n'
               '    "bnf": "72e0b23d95a983d6",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "Fee for exchange of 88.73 PayPal, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "Eq7qLKEM6uaDf3eM5qJ32k8O6ZsjzbUYviwp2QxBH7WOQr3vlRbS9b3WB1MPdbEGZN5uyZ24nuni4+QAwwATEKBuD6jDFrVeVHeyBgVcuRmFCqo3sgoVPCgaXVtFJs+Gts4yrkERosDIElxuCKZp6vDv5P/pswGMAG75t5+bEOE6jEQMDHE5aiEvpEI7+AGwnJSIDskPIRrgIC62PdyB9HF2lRPPw9Jw0n/h6UjE0ESAvWwpKRnJpau0LkNOz90TETF1E3bPHfnEJOGmB7H3SgRPJsoak8zn/EgTQE3MXT0/PAa7zHUPeR654XPaVO67mGH4nhV8AnaCE/GFzQX3Bw==",\n'
               '    "tid": "25a9cac1715a3726:7"\n'
@@ -236,6 +240,7 @@ class TransactionData {
               '    "amount": -336725436006,\n'
               '    "prefix": "tNWX5SiX",\n'
               '    "bnf": "860261987eb8d2d3",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "ZLD exchange to 88.73 PayPal, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "0kElHOfoJp/fwS2PLqJIzRYjMdl48nNEymyeATkV+Vdhuce4apwf2CKOm+Q0S6idt783o26Zlq1N1+Jjn6lsVPB6yLmQXwC53ZGNXXD8UQQ6oB+Q9d5+f1J/+B7bPElhh3fijp1/crAht7+kU3dp+FeI8ZEJZwdSbynnFn1BEc+ZvaerYknmYmHecoaTjxWGKInrc9O/hxmhiucRHtbqq4qafLyVwdN/H9FfF1uQdbCfJ1uH/LD+PkRT2jO07OOeYJkZi5I8lAg2NPkjMPA6xYUkhyfZy3O2LOtespAO+QCWpXJZFqGYrjWaimVOcBwfRHnYoTD6R+bCNoZf+8D33A==",\n'
               '    "tid": "25a9cac1715a3726:6"\n'
@@ -336,6 +341,7 @@ class TransactionData {
               '    "amount": -3435973836,\n'
               '    "prefix": "Tv1A6wit",\n'
               '    "bnf": "72e0b23d95a983d6",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "Fee for exchange of 43.45 PayPal, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "bHkTIy21ZCPsV5RBhHyyZDHZTGADdRy8P3Uo0kzNfHiwIo1OJbNRrFC6/XyWV896tKRDUSj2F42F3XhCs3qjFzJSJJJNPeaaSlfB8hEN1LIGV/NzDAbfw1GnwvMmBKvSAGGdbaIhODlzx5tEFotbs0KHxBz7gyfTyYk/eAXp7dcJwm5Ke5MUciU0gaWZOY2Oa3sGelWtagieLi5sS3TR8PretrdJdeAwd5yPE892mrG5TF6osxyHWjLYwC26lXoUORGAF9X0Jg98qkL9poX5bvbc4QtQdZl0vh8xwXQ/7kQLY+jfgs2SViU/IBhFFJ5H0pAeOWD/ZH44UMAoUVmmQQ==",\n'
               '    "tid": "25a9cac1715a3726:5"\n'
@@ -346,6 +352,7 @@ class TransactionData {
               '    "amount": -168362718003,\n'
               '    "prefix": "yDWqkHLe",\n'
               '    "bnf": "860261987eb8d2d3",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "ZLD exchange to 43.45 PayPal, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "H29PN4Kq4z9z/QiogbRbwDxY/o3+RabuQHDztpEt/8aKQ9hWYR11DMCaXett2+yfC7na+qsmhB1JssSWKx9xUIA0HWM+mwDp6CxgZqq7qcOal2TEx+ciattyL8Ne/3sgUwoSA/ibFq7H5l7Gj9YzsQn33kFqpus1SIyQwmnY99YwBFJXm9UIHmbAdp44hdkrenDZ4K53y1MB+OI/uU0WaQhA/gqRohHN3oYzKYkJ5Slj38yAs/Ml8pjOETbFDfPbX6w9wz41iWjM0ogFSWI+r1XFM/MCm9v0JszeZAACBgl28BufcLNkTJlOHXOg45nJkcLjasSInfM97dFk/dmGzw==",\n'
               '    "tid": "25a9cac1715a3726:4"\n'
@@ -486,6 +493,7 @@ class TransactionData {
               '    "amount": -1717986918,\n'
               '    "prefix": "THhRYgZu",\n'
               '    "bnf": "75aed0f768f5791b",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "Fee for exchange of 0.005408 BTC at 3917Lp2T3CFjXZGb7ctKvqVHCGvfVimhg5, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "Lyb10riIAI4FtEiIl25PEBjUmvCLxvionj4ryjZ/hf1BvLXBbCnqbhd1WU1XnUKOIimiaybtrD+srBmhWPgh1zrvM26xFrWo40NbcQWsUAh8OEVzKQ9DcRYyE7srtzYi503e1Hc0vQiC5V19XS51PmSKZ1FekxMCKOlVtm9w4ob0mOk9pPEjis717MGUx2ga/SoS9q/bSEOGa9vPOZppsaNAUuyWVlroVxkV6NIJVlBSBRkC5FlCVt/j/arPuAFdScONBhY1NFTFjdwcsC9+oMYrLVSLveoYaPscAf2azNm7k+2ys7HUPD3ULvwpVxlSy1tTOeb4mnZSFDSHM8jwww==",\n'
               '    "tid": "25a9cac1715a3726:2"\n'
@@ -496,6 +504,7 @@ class TransactionData {
               '    "amount": -84181359001,\n'
               '    "prefix": "MIIBCgKC",\n'
               '    "bnf": "860261987eb8d2d3",\n'
+              // ignore: lines_longer_than_80_chars
               '    "details": "ZLD exchange to 0.005408 BTC at 3917Lp2T3CFjXZGb7ctKvqVHCGvfVimhg5, rate is 0.0002704, fee is 0.02",\n'
               '    "sign": "0TA1oumX8qz+OKGY9Ciu7X2Q1PBct4NbzrqveD/4s5mAIuedfkX/dFz5xhNwGoUd9tM1Sl3+jvHvdUJn2CbSK6vyonLn8336gkKulI9Pvj5bv17AcHolkq2H3c3hTZXtrHkrqSjXAHafvhGeevx0gr2ZSACtNcNGpgQQUgYGt26yqM9MuAmaBZP9ojQf+EUoatJAMod22Q+3XX1uVj/VYJfEbrhuW6V0O4VsoB8CRUhTecuPDQQivCVM9EHHEyRDu9H609edut8lgfLm7H4BixanMtbcyZQ21h7Rp0IkIAuD7UAVgMKm7usW1SvvJiCPkLl7wfJQCfC/Orqn1RDbeA==",\n'
               '    "tid": "25a9cac1715a3726:1"\n'

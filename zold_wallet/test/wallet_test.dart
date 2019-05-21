@@ -5,8 +5,8 @@ import 'package:zold_wallet/wallet.dart';
 import 'secret.dart';
 
 void main() {
-  Wallet wallet = Wallet.instance();
-  wallet.apiKey = Secrets.apiKey;
+  final Wallet wallet = Wallet.instance()
+  ..apiKey = Secrets.apiKey;
   test('test transactions order', () async {
     await wallet.updateTransactions();
     expect(wallet.transactions.length, isNot(0));
