@@ -37,7 +37,7 @@ void main() {
     final API api = API();
     final Invoice res = await api.invoice(Secrets.apiKey);
     expect(res.id, '25a9cac1715a3726');
-  });
+  }, skip: true);
 
   test('test API txns.json', () async {
     final API api = API();
