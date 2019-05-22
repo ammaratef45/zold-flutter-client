@@ -17,6 +17,7 @@ dependencies:
   timeago: ^2.0.13
   cupertino_icons: ^0.1.2
   animated_floatactionbuttons: ^0.1.0
+  trust_fall: ^1.0.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.0"

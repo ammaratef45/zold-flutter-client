@@ -4,14 +4,26 @@ import 'package:zold_wallet/home_page/home_page.dart';
 import 'package:zold_wallet/log_page/log_page.dart';
 import 'package:zold_wallet/login_page/login_page.dart';
 import 'package:zold_wallet/pay_page/pay_page.dart';
+import 'package:trust_fall/trust_fall.dart';
 
-void main() => runApp(MyApp());
+import 'stateless_views/untrusted_page.dart';
 
+Future<void> main() async {
+  if(await TrustFall.isTrustFall) {
+    runApp(MaterialApp(
+       home: UntrustedPage(),
+    ));
+  } else {
+    runApp(MyApp());
+  }
+}
+
+/// The application
 class MyApp extends StatelessWidget {
-  final Widget myHome = LoginPage();
+  final Widget _myHome = LoginPage();
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) =>
+    MaterialApp(
       title: 'Zold Wallet',
       theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -21,16 +33,15 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             body1: TextStyle(fontSize: 16),
           )),
-      home: myHome,
+      home: _myHome,
       onGenerateRoute: _getRoute,
-      routes: {
+      routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginPage(),
         '/home': (BuildContext context) => HomePage(),
         '/pay': (BuildContext context) => PayPage(),
         '/create': (BuildContext context) => CreatePage(),
       },
     );
-  }
 
   Route<dynamic> _getRoute(RouteSettings settings) {
     if (settings.name == '/log') {
@@ -39,10 +50,11 @@ class MyApp extends StatelessWidget {
     return null;
   }
 
-  MaterialPageRoute _buildRoute(RouteSettings settings, Widget builder) {
-    return MaterialPageRoute<dynamic>(
+  MaterialPageRoute<dynamic>
+    _buildRoute(RouteSettings settings, Widget builder) =>
+    MaterialPageRoute<dynamic>(
       settings: settings,
-      builder: (ctx) => builder,
+      builder: (BuildContext ctx) => builder,
     );
-  }
+
 }
