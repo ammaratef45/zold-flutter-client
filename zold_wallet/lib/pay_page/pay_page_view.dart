@@ -22,6 +22,7 @@ class PayPageView extends PayPageViewModel {
             payCallback: pay,
             authCallback: fillKeyGap,
             keyGapAvailable: keyGapAvailable,
+            controllers: controllers,
           ),
         )
       )

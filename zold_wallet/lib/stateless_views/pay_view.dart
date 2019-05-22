@@ -9,16 +9,15 @@ typedef PayCallback = void Function(
 /// payview that prompt for pay details
 class PayView extends StatelessWidget {
   /// constructor
-  PayView({
+  const PayView({
     this.payCallback,
     this.authCallback,
-    this.keyGapAvailable
+    this.keyGapAvailable,
+    this.controllers
   });
 
-  final TextEditingController _bnfController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _messageController = TextEditingController();
-  final TextEditingController _keygapController = TextEditingController();
+  /// controllers of text editors
+  final Map<String, TextEditingController> controllers;
   /// callback when pressing pay
   final PayCallback payCallback;
   /// callback when fingerprint is clicked
@@ -34,12 +33,12 @@ class PayView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ZoldTextField(
-            controller: _bnfController,
+            controller: controllers['bnfController'],
             width: 210,
             hint: 'bnf: eg. ammaratef45',
           ),
           ZoldTextField(
-            controller: _amountController,
+            controller: controllers['amountController'],
             width: 150,
             hint: 'Amount: eg. 1.2',
           ),
@@ -53,7 +52,7 @@ class PayView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               ZoldTextField(
-                controller: _keygapController,
+                controller: controllers['keygapController'],
                 width: 110,
                 hint: 'keygap',
               ),
@@ -67,17 +66,17 @@ class PayView extends StatelessWidget {
             ],
           ),
           ZoldTextField(
-            controller: _messageController,
+            controller: controllers['messageController'],
             width: 310,
             hint: 'Details: eg. for selling me the book',
           ),
           RaisedButton(
             onPressed: (){
               payCallback(
-                _bnfController.text,
-                _amountController.text,
-                _messageController.text,
-                _keygapController.text
+                controllers['bnfController'].text,
+                controllers['amountController'].text,
+                controllers['messageController'].text,
+                controllers['keygapController'].text
               );
             },
             child: const Text('Send'),

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/home_page/home_page.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/wallet.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
 abstract class HomePageViewModel extends State<HomePage> {
@@ -74,16 +74,17 @@ abstract class HomePageViewModel extends State<HomePage> {
       if(res==DialogResult.OK) {
         await Wallet.instance().confirm();
       } else {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('key', '0');
+
+        FlutterSecureStorage prefs = FlutterSecureStorage();
+        await prefs.write(key: 'key', value: '0');
       }
     }
   }
 
   void logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('key', '0');
-    await prefs.setString('keygap', '0');
+    FlutterSecureStorage prefs = FlutterSecureStorage();
+    await prefs.write(key: 'key', value: '0');
+    await prefs.write(key: 'keygap', value: '0');
     Navigator.of(context).pushReplacementNamed('/login');
   }
 }

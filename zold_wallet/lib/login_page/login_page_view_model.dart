@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:zold_wallet/dialogs.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zold_wallet/login_page/login_page.dart';
 import 'package:zold_wallet/wallet.dart';
 
+/// pages enumerations
 enum CurrentVisiblePage {
+  /// page that prompts phone
   phonePage,
+  /// page that prompts auth token
   authPage,
+  /// page that prompts code
   codePage
 }
-
+/// view of login page
 abstract class LoginPageViewModel extends State<LoginPage> {
-  final phoneNumberController = TextEditingController();
-  final secretCodeController = TextEditingController();
-  final apiKeyController = TextEditingController();
-  Wallet wallet = Wallet.instance();
-  SharedPreferences prefs;
-  var snackKey = GlobalKey<ScaffoldState>();
+  /// constructor
+  LoginPageViewModel() {
+    _lazyLogin();
+  }
+  /// controller of phone number
+  final TextEditingController phoneNumberController = TextEditingController();
+  /// controller of secret code
+  final TextEditingController secretCodeController = TextEditingController();
+  /// controller of apikey
+  final TextEditingController apiKeyController = TextEditingController();
+  FlutterSecureStorage _prefs;
+  /// key for using in the snack bar
+  GlobalKey snackKey = GlobalKey<ScaffoldState>();
+  /// the visible page currently
   CurrentVisiblePage page = CurrentVisiblePage.phonePage;
 
-  
-  
-  LoginPageViewModel() {
-    lazyLogin();
-  }
-
-  void lazyLogin() async {
-    prefs = await SharedPreferences.getInstance();
-    String key = prefs.getString('key')?? "0";
-    if( key != "0") {
-      wallet.apiKey = key;
-      Navigator.of(context).pushReplacementNamed('/home');
+  Future<void> _lazyLogin() async {
+    _prefs = FlutterSecureStorage();
+    final String key = await _prefs.read(key: 'key')?? '0';
+    if( key != '0') {
+      Wallet.instance().apiKey = key;
+      await Navigator.of(context).pushReplacementNamed('/home');
     }
   }
   
@@ -42,53 +48,70 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     super.dispose();
   }
 
-  void loginPhone(String code) async {
+  /// login with phone
+  Future<void> loginPhone(String code) async {
     try {
-      await wallet.getKey(code);
+      await Wallet.instance().getKey(code);
+    // ignore: avoid_catches_without_on_clauses
     } catch(e) {
-      Dialogs.messageDialog(context, "Error", e.toString(), snackKey);
+      await Dialogs.messageDialog(context, 'Error', e.toString(), snackKey);
     }
-    login();
+    await login();
   }
 
-  void loginWithKey(String apiKey) async {
-    wallet.apiKey = apiKey;
-    login();
+  /// login using key
+  Future<void> loginWithKey(String apiKey) async {
+    Wallet.instance().apiKey = apiKey;
+    await login();
   }
 
-  void login() async {
-    if(!wallet.keyLoaded()) {
-      throw Exception("apikey is unknown");
+  /// perform the login
+  Future<void> login() async {
+    if(!Wallet.instance().keyLoaded()) {
+      throw Exception('apikey is unknown');
     }
-    if(await wallet.confirmed()) {
-      await prefs.setString('key', wallet.apiKey);
-      Navigator.of(context).pushReplacementNamed('/home');
+    if(await Wallet.instance().confirmed()) {
+      await _prefs.write(key: 'key', value: Wallet.instance().apiKey);
+      await Navigator.of(context).pushReplacementNamed('/home');
     } else {
-      String keygap = await wallet.getKeyGap();
-      DialogResult res = await Dialogs.messageDialog(context, "Confirm", "You keygap is: $keygap please save it in a safe place\n"
-        + "once you press okay it will be deleted from WTS server", snackKey, prompt: true);
+      final String keygap = await Wallet.instance().getKeyGap();
+      DialogResult res = await Dialogs.messageDialog(
+        context, 
+        'Confirm',
+        'You keygap is: $keygap please save it in a safe place\n'
+        'once you press okay it will be deleted from WTS server',
+        snackKey,
+        prompt: true
+      );
       if(res==DialogResult.OK) {
-        confirmTheKey();
+        await confirmTheKey();
       }
     }
   }
 
-  void confirmTheKey() async {
-    await wallet.confirm();
-    await prefs.setString('key', wallet.apiKey);
-    Navigator.of(context).pushReplacementNamed('/home');
+  /// confirm the key so it can be destroyed from WTS
+  Future<void> confirmTheKey() async {
+    await Wallet.instance().confirm();
+    await _prefs.write(key: 'key', value: Wallet.instance().apiKey);
+    await Navigator.of(context).pushReplacementNamed('/home');
   }
 
-  void getCode(String phoneNumber) async {
-    wallet.changePhone(phoneNumber);
+  Future<void> getCode(String phoneNumber) async {
+    Wallet.instance().changePhone(phoneNumber);
     try {
-      await Dialogs.waitingDialog(context, wallet.sendCode, snackKey, returnsJobId: false);
+      await Dialogs.waitingDialog(
+        context,
+        Wallet.instance().sendCode,
+        snackKey,
+        returnsJobId: false
+      );
       setState(() {
         page = CurrentVisiblePage.codePage;
       });
+    // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       Navigator.of(context).pop();
-      Dialogs.messageDialog(context, "Error", e.toString(), snackKey);
+      await Dialogs.messageDialog(context, 'Error', e.toString(), snackKey);
     }
   }
 }
