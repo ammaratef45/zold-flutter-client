@@ -18,10 +18,20 @@ class HomePageView extends HomePageViewModel {
         child: SafeArea(
             child: ListView.builder(
             shrinkWrap: true,
-            itemCount: 3,
+            itemCount: 4,
             itemBuilder: (BuildContext context, int index) {
               switch(index) {
                 case 0:
+                  return Container(
+                    padding: const EdgeInsets.only(left: 6, top: 6),
+                    alignment: const Alignment(-1, 0),
+                    child: Image.asset(
+                      'assets/icon/icon.png',
+                      fit: BoxFit.contain,
+                      height: 64,
+                    ),
+                  );
+                case 1:
                   return Container(
                     padding: const EdgeInsets.only(left: 6, top: 6),
                     child: InformationView(
@@ -32,7 +42,7 @@ class HomePageView extends HomePageViewModel {
                       copyCallback: copyid
                     )
                   );
-                case 1:
+                case 2:
                   return ListView.builder(
                     padding: const EdgeInsets.only(left: 6, top: 3),
                     shrinkWrap: true,
@@ -41,7 +51,7 @@ class HomePageView extends HomePageViewModel {
                     itemBuilder: (BuildContext context, int index) =>
                       TransactionView(Wallet.instance().transactions[index]),
                   );
-                case 2:
+                case 3:
                   return Visibility(
                     visible: Wallet.instance().transactions.isEmpty,
                     child: Center(
