@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run: echo $secrets_file > zold_wallet/test/secret.dart
-      - run: pdd -f /dev/null -v
+      - run: . /etc/profile.d/rvm.sh && pdd -f /dev/null -v
       - run: flutter doctor && cd zold_wallet && flutter packages get && flutter test --coverage
       - codecov/upload:
           file: 'attendance/coverage/lcov.info'
