@@ -11,4 +11,4 @@ jobs:
       - run: . /etc/profile.d/rvm.sh && pdd -f /dev/null -v
       - run: flutter doctor && cd zold_wallet && flutter packages get && flutter test --coverage
       - codecov/upload:
-          file: 'attendance/coverage/lcov.info'
+          file: 'zold_wallet/coverage/lcov.info'
