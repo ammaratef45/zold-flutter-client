@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     docker:
@@ -6,4 +8,7 @@ jobs:
     steps:
       - checkout
       - run: echo $secrets_file > zold_wallet/test/secret.dart
-      - run: flutter doctor && cd zold_wallet && flutter packages get && flutter test
+      - run: pdd -f /dev/null -v
+      - run: flutter doctor && cd zold_wallet && flutter packages get && flutter test --coverage
+      - codecov/upload:
+          file: 'attendance/coverage/lcov.info'
