@@ -8,30 +8,35 @@ import 'package:zold_wallet/transaction.dart';
 import 'backend/API.dart';
 import 'wts_log.dart';
 
+/// wallet.
 class Wallet {
-  String apiKey="";
-  String keygap="";
-  String id="";
-  String balanceZents="pull";
-  String phone="";
-  API api =API();
-  List<Transaction> transactions = List();
-
-  String rate="rate";
   Wallet._();
+  /// wallet api key.
+  String apiKey='';
+  /// wallet keygap.
+  String keygap='';
+  /// wallet id
+  String id='';
+  /// balance of wallet in zents.
+  String balanceZents='pull';
+  /// phone number of wallet.
+  String phone='';
+  API _api =API();
+  /// wallet's list of transactions.
+  List<Transaction> transactions = <Transaction>[];
+  /// wallet's conversion rate.
+  String rate='rate';
   static Wallet _wallet;
+  /// get instance of the wallet.
+  static Wallet instance() =>
+    _wallet ??= Wallet._();
 
-  static Wallet instance() {
-    if(_wallet == null) {
-      _wallet = Wallet._();
-    }
-    return _wallet;
-  }
-
+  /// change wallet's phone.
   void changePhone(String phone) {
     this.phone = phone;
   }
 
+  /// update wallet's info.
   Future<void> update() async {
     await updateId();
     await updateBalanace();
@@ -40,52 +45,51 @@ class Wallet {
   }
 
   Future<String> sendCode() async{
-    return await api.getCode(phone);
+    return await _api.getCode(phone);
   }
 
   bool keyLoaded() {
-    return apiKey != null && apiKey != "";
+    return apiKey != null && apiKey != '';
   }
 
   Future<void> getKey(String code) async {
-    apiKey = await api.getToken(phone, code);
+    apiKey = await _api.getToken(phone, code);
   }
 
-  Future<Invoice> invoice() async {
-    return await api.invoice(apiKey);
-  }
+  Future<Invoice> invoice() async =>
+    _api.invoice(apiKey);
 
   Future<void> confirm() async {
-    await api.confirm(apiKey, keygap);
+    await _api.confirm(apiKey, keygap);
   }
 
   Future<bool> confirmed() async {
-    return await api.confirmed(apiKey) == "yes";
+    return await _api.confirmed(apiKey) == 'yes';
   }
 
   Future<String> getKeyGap() async {
-    keygap = await api.keygap(apiKey);
+    keygap = await _api.keygap(apiKey);
     return keygap;
   }
 
   Future<String> pull() async {
-    return await api.pull(apiKey);
+    return await _api.pull(apiKey);
   }
 
   Future<String> restart() async {
-    return await api.recreate(apiKey);
+    return await _api.recreate(apiKey);
   }
 
   Future<void> updateId() async {
-    id = await api.getId(apiKey);
+    id = await _api.getId(apiKey);
   }
 
   Future<void> updateBalanace() async {
-    balanceZents = await api.getBalance(apiKey);
+    balanceZents = await _api.getBalance(apiKey);
   }
 
   Future<void> updateTransactions() async {
-    String response = await api.transactions(apiKey);
+    String response = await _api.transactions(apiKey);
     List<Transaction> t = Transaction.fromJsonList(json.decode(response));
     transactions.clear();
     transactions.addAll(t);
@@ -95,19 +99,19 @@ class Wallet {
   }
 
   Future<String> pay(String bnf, String amount, String details, String keygap) async {
-    return await api.pay(bnf, amount, details, apiKey, keygap);
+    return await _api.pay(bnf, amount, details, apiKey, keygap);
   }
 
   Future<WtsLog> log(String job) async {
-    return await api.output(job, apiKey);
+    return await _api.output(job, apiKey);
   }
 
   Future<Job> job(String id) async {
-    return await api.job(id, apiKey);
+    return await _api.job(id, apiKey);
   }
 
   String title() {
-    return apiKey.split("-")[0];
+    return apiKey.split('-')[0];
   }
 
   /// returns zold balance
@@ -124,7 +128,7 @@ class Wallet {
   }
 
   Future<void> updateRate() async {
-    this.rate = await api.rate();
+    this.rate = await _api.rate();
   }
 
   /// return value in usd for example $12
@@ -143,11 +147,24 @@ class Wallet {
     return res;
   }
 
-  String zents({String suffix="zents"}) {
+  /// return balance in zents
+  String zents({String suffix='zents'}) {
     if(balanceZents!='pull') {
       return balanceZents + suffix;
     }
     return balanceZents;
+  }
+
+  /// dispose the wallet
+  void dispose() {
+    apiKey='';
+    keygap='';
+    id='';
+    balanceZents='pull';
+    phone='';
+    _api =API();
+    transactions.clear();
+    rate='rate';
   }
 
 }
