@@ -16,10 +16,13 @@ void main() {
   final Transaction t1 = Transaction.fromJson(values);
   values['date'] = '2020-04-07T07:42:57Z';
   final Transaction t2 = Transaction.fromJson(values);
-  test('test is before', () {
+  /// test comparing a transaction as after another one.
+  test('test is after', () {
     expect(t1.isAfter(t2), false);
   });
 
+  /// test the created list out of response 
+  /// is successfully created and ordered correctly.
   test('test creating list', () {
     final List<dynamic> map = json.decode(TransactionData.listStringDumb);
     expect(map, isNotNull);

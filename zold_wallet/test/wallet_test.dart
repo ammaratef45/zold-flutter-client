@@ -7,6 +7,7 @@ import 'secret.dart';
 void main() {
   final Wallet wallet = Wallet.instance()
   ..apiKey = Secrets.apiKey;
+  /// test the order of transactions (descending).
   test('test transactions order', () async {
     await wallet.updateTransactions();
     expect(wallet.transactions.length, isNot(0));
