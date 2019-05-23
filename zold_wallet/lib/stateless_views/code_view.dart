@@ -34,12 +34,9 @@ class CodeView extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
-          Text(
+          const Text(
             'Enter the code you received to your mobile phone'
-            ' via in the text message we just sent you (four digits):',
-            style: TextStyle(
-              fontSize: 22,
-            ),
+            ' via in the text message we just sent you (four digits):'
           ),
           const Padding(
             padding: EdgeInsets.only(top: 18),

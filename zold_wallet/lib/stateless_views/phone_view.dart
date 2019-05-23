@@ -36,12 +36,9 @@ class PhoneView extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
-          Text(
+          const Text(
             'Enter your mobile phone number (digits only) and'
-            ' we will send you a secret code in a few seconds:',
-            style: TextStyle(
-              fontSize: 22,
-            ),
+            ' we will send you a secret code in a few seconds:'
           ),
           const Padding(
             padding: EdgeInsets.only(top: 18),
@@ -51,11 +48,8 @@ class PhoneView extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: 4),
               ),
-              Text(
-                '+',
-                style: TextStyle(
-                  fontSize: 22,
-                ),
+              const Text(
+                '+'
               ),
               ZoldTextField(
                 controller: _phoneController,

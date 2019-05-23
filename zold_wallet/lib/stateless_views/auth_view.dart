@@ -37,11 +37,8 @@ class AuthView extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
-          Text(
+          const Text(
             'Enter your API token:',
-            style: TextStyle(
-              fontSize: 22,
-            ),
           ),
           const Padding(
             padding: EdgeInsets.only(top: 18),

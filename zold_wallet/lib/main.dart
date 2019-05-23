@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
               textTheme: TextTheme(title: TextStyle(fontSize: 18))),
           textTheme: TextTheme(
-            body1: TextStyle(fontSize: 16),
+            body1: TextStyle(fontSize: 18),
           )),
       home: _myHome,
       onGenerateRoute: _getRoute,
