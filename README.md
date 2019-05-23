@@ -5,6 +5,7 @@
 [![DevOps By Rultor.com](http://www.rultor.com/b/ammaratef45/zold-flutter-client)](http://www.rultor.com/p/ammaratef45/zold-flutter-client)
 
 [![PDD status](http://www.0pdd.com/svg?name=ammaratef45/zold-flutter-client)](http://www.0pdd.com/p?name=ammaratef45/zold-flutter-client)
+[![codecov](https://codecov.io/gh/ammaratef45/zold-flutter-client/branch/master/graph/badge.svg)](https://codecov.io/gh/ammaratef45/zold-flutter-client)
 [![CircleCI](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master.svg?style=svg)](https://circleci.com/gh/ammaratef45/zold-flutter-client/tree/master)
 [![Codemagic build status](https://api.codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/status_badge.svg)](https://codemagic.io/apps/5c9e3459da789b000d1c42b4/5c9e3459da789b000d1c42b3/latest_build)
 
