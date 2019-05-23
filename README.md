@@ -11,13 +11,8 @@
 Zold wallet built in flutter (Android and iOS platform).
 
 Use it to pay or receive zolds and view your wallet balance and transactions.
-
-# Download
-Android Beta version can be downloaded from [here](https://play.google.com/store/apps/details?id=com.ammar.zold.wallet)
-
-iOS Beta version can be downloaded from [here](https://testflight.apple.com/join/cqdKZoig).
-
-to join internal testing (faster access to latest features and bug fixes), Drop a message in [telegram](https://t.me/zold_io)
+[![Get it on Google Play](https://github.com/Volorf/Badges/blob/master/Google%20Play/Google%20Play%20Badge.svg)](https://play.google.com/store/apps/details?id=com.ammar.zold.wallet)
+[![Get it on App Store](https://github.com/Volorf/Badges/blob/master/App%20Store/App%20Store%20Badge.svg)](https://testflight.apple.com/join/cqdKZoig)
 
 ### Features
 
