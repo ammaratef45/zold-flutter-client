@@ -34,8 +34,11 @@ class MyApp extends StatelessWidget {
             buttonTheme: ButtonThemeData(
               buttonColor: Theme.of(context).accentColor,
               textTheme: ButtonTextTheme.primary,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
             ),
-            textTheme: TextTheme(body1: TextStyle(fontSize: 18))),
+            textTheme: TextTheme(
+                body1: TextStyle(fontSize: 18),
+                button: TextStyle(fontSize: 15))),
         home: _myHome,
         onGenerateRoute: _getRoute,
         routes: <String, WidgetBuilder>{
