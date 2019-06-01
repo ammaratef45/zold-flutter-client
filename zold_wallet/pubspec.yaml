@@ -39,4 +39,4 @@ flutter_icons:
   - family: RobotoMono
     fonts:
       - asset: assets/fonts/RobotoMono-Regular.ttf
-        weight: 300
+        weight: 100
