@@ -8,6 +8,10 @@ class ZoldTextField extends StatelessWidget {
   final double width;
   final IconData prefixIcon;
   final bool isDigitsOnly;
+  final String errorMessage;
+  final RegExp validateRegex;
+  final Function onSubmit;
+  final TextInputAction inputAction;
 
   ZoldTextField(
       {@required this.controller,
@@ -15,7 +19,11 @@ class ZoldTextField extends StatelessWidget {
       this.hint = '',
       this.width = 240.0,
       this.prefixIcon,
-      this.isDigitsOnly = false});
+      this.isDigitsOnly = false,
+      this.errorMessage,
+      this.validateRegex,
+      this.onSubmit,
+      this.inputAction = TextInputAction.done});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +32,14 @@ class ZoldTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
-        textInputAction: TextInputAction.done,
-        
-
+        textInputAction: inputAction,
+        onFieldSubmitted: (String value) => onSubmit,
+        validator: (String value) {
+          if (validateRegex != null &&
+              (value.isEmpty || !validateRegex.hasMatch(value))) {
+            return errorMessage;
+          }
+        },
         inputFormatters: <TextInputFormatter>[
           isDigitsOnly
               ? WhitelistingTextInputFormatter.digitsOnly

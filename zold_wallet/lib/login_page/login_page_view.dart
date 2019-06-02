@@ -11,44 +11,51 @@ class LoginPageView extends LoginPageViewModel {
         resizeToAvoidBottomPadding: true,
         key: snackKey,
         backgroundColor: Colors.white,
-        body: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Visibility(
-                  visible: page == CurrentVisiblePage.phonePage,
-                  child: PhoneView(
-                    onSendCode: getCode,
-                    authCallback: () {
-                      setState(() {
-                        page = CurrentVisiblePage.authPage;
-                      });
-                    },
+        body: GestureDetector(
+          onTap: () {
+            //remove keyboard focus to nothing if tab outside textfield
+            // so we could hide the keyboard
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Visibility(
+                    visible: page == CurrentVisiblePage.phonePage,
+                    child: PhoneView(
+                      onSendCode: getCode,
+                      authCallback: () {
+                        setState(() {
+                          page = CurrentVisiblePage.authPage;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: page == CurrentVisiblePage.codePage,
-                  child: CodeView(
-                    onLogin: loginPhone,
-                    backCallback: () {
-                      setState(() {
-                        page = CurrentVisiblePage.phonePage;
-                      });
-                    },
+                  Visibility(
+                    visible: page == CurrentVisiblePage.codePage,
+                    child: CodeView(
+                      onLogin: loginPhone,
+                      backCallback: () {
+                        setState(() {
+                          page = CurrentVisiblePage.phonePage;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: page == CurrentVisiblePage.authPage,
-                  child: AuthView(
-                    onLogin: loginWithKey,
-                    phoneCallback: () {
-                      setState(() {
-                        page = CurrentVisiblePage.phonePage;
-                      });
-                    },
+                  Visibility(
+                    visible: page == CurrentVisiblePage.authPage,
+                    child: AuthView(
+                      onLogin: loginWithKey,
+                      phoneCallback: () {
+                        setState(() {
+                          page = CurrentVisiblePage.phonePage;
+                        });
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
