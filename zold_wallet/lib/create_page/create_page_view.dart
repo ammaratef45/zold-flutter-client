@@ -47,11 +47,13 @@ class CreatePageView extends CreatePageViewModel {
                         controller: amountController,
                         width: 150,
                         hint: 'Amount: eg. 1.2',
+                        label: 'Amount',
                       ),
                       ZoldTextField(
                         controller: messageController,
                         width: 310,
                         hint: 'Details: eg. for selling me the book',
+                        label: 'Details',
                       ),
                       RaisedButton(
                         child: const Text('Create'),

@@ -47,6 +47,8 @@ class PhoneView extends StatelessWidget {
               ZoldTextField(
                 controller: _phoneController,
                 hint: 'Digits only...',
+                //Please Review the Label Title For this Text
+                label: 'Mobile Phone',
               ),
             ],
           ),
