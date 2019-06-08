@@ -18,9 +18,9 @@ class PhoneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 18),
@@ -28,43 +28,51 @@ class PhoneView extends StatelessWidget {
           Image.asset(
             'assets/icon/icon.png',
             fit: BoxFit.contain,
-            height: 64,
+            height: 84,
           ),
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
-          const Text('Enter your mobile phone number (digits only) and'
-              ' we will send you a secret code in a few seconds:'),
+          Text('Login', style: Theme.of(context).textTheme.title),
+          const Padding(
+            padding: EdgeInsets.only(top: 18),
+          ),
+          Text('Use your Mobile number to verify your login by SMS code.',
+              style: Theme.of(context).textTheme.subtitle),
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(left: 4),
-              ),
-              const Text('+'),
               ZoldTextField(
                 controller: _phoneController,
-                hint: 'Digits only...',
+                hint: 'Enter your mobile number',
+                width: 300,
+                prefixIcon: Icons.add,
+                keyboardType: TextInputType.number,
+                isDigitsOnly: true,
               ),
             ],
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 18),
+            padding: EdgeInsets.only(top: 22),
           ),
-          RaisedButton(
+          MaterialButton(
+            color: Theme.of(context).accentColor,
+            minWidth: 200,
+            height: 40,
             onPressed: () {
               onSendCode(_phoneController.text);
             },
-            child: const Text('Send me the code'),
+            child: const Text('Send'),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 18),
+            padding: EdgeInsets.only(top: 25),
           ),
           InkWell(
             child: Text(
-              'Login with an API token',
+              'Or login with an API token',
               style: TextStyle(color: Colors.blue),
             ),
             onTap: authCallback,
