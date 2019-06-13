@@ -66,6 +66,7 @@ class PhoneView extends StatelessWidget {
                   errorMessage: 'Invalid mobile number',
                   onSubmit: sendCode,
                   inputAction: TextInputAction.send,
+                  label: 'Mobile Phone'
                 ),
               ],
             ),
