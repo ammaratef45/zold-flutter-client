@@ -50,7 +50,7 @@ class ZoldTextField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hint,
           border: OutlineInputBorder(),
-          labelText: label
+          labelText: label,
           hintStyle: Theme.of(context).textTheme.overline,
           prefixIcon: Icon(
             prefixIcon,
