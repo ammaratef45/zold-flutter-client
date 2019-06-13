@@ -8,6 +8,8 @@ class PhoneView extends StatelessWidget {
   /// constructor
   PhoneView({this.onSendCode, this.authCallback});
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   /// onSendCode callback will execute when send code being clicked.
   final StringCallback onSendCode;
 
@@ -16,61 +18,79 @@ class PhoneView extends StatelessWidget {
 
   final TextEditingController _phoneController = TextEditingController();
 
+  void sendCode() {
+    if (_formKey.currentState.validate()) {
+      onSendCode(_phoneController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Container(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 18),
-          ),
-          Image.asset(
-            'assets/icon/icon.png',
-            fit: BoxFit.contain,
-            height: 64,
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 18),
-          ),
-          const Text('Enter your mobile phone number (digits only) and'
-              ' we will send you a secret code in a few seconds:'),
-          const Padding(
-            padding: EdgeInsets.only(top: 18),
-          ),
-          Row(
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(left: 4),
-              ),
-              const Text('+'),
-              ZoldTextField(
-                controller: _phoneController,
-                hint: 'Digits only...',
-                //Please Review the Label Title For this Text
-                label: 'Mobile Phone',
-              ),
-            ],
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 18),
-          ),
-          RaisedButton(
-            onPressed: () {
-              onSendCode(_phoneController.text);
-            },
-            child: const Text('Send me the code'),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 18),
-          ),
-          InkWell(
-            child: Text(
-              'Login with an API token',
-              style: TextStyle(color: Colors.blue),
+      padding: const EdgeInsets.all(20),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
             ),
-            onTap: authCallback,
-          )
-        ],
+            Image.asset(
+              'assets/icon/icon.png',
+              fit: BoxFit.contain,
+              height: 84,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+            ),
+            Text('Login', style: Theme.of(context).textTheme.title),
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+            ),
+            Text('Use your Mobile number to verify your login by SMS code.',
+                style: Theme.of(context).textTheme.subtitle),
+            const Padding(
+              padding: EdgeInsets.only(top: 18),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ZoldTextField(
+                  controller: _phoneController,
+                  hint: 'Enter your mobile number',
+                  width: 300,
+                  prefixIcon: Icons.add,
+                  keyboardType: TextInputType.number,
+                  isDigitsOnly: true,
+                  validateRegex: RegExp(r'^[0-9]{8,14}$'),
+                  errorMessage: 'Invalid mobile number',
+                  onSubmit: sendCode,
+                  inputAction: TextInputAction.send,
+                  label: 'Mobile Phone'
+                ),
+              ],
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 22),
+            ),
+            MaterialButton(
+              color: Theme.of(context).accentColor,
+              minWidth: 200,
+              height: 40,
+              onPressed: sendCode,
+              child: const Text('Send'),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 25),
+            ),
+            InkWell(
+              child: Text(
+                'Or login with an API token',
+                style: TextStyle(color: Colors.blue),
+              ),
+              onTap: authCallback,
+            )
+          ],
+        ),
       ));
 }
