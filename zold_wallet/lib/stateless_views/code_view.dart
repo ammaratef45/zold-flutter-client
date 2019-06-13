@@ -50,6 +50,7 @@ class CodeView extends StatelessWidget {
                 controller: _codeController,
                 width: 110,
                 hint: 'Code',
+                label: 'Code',
               ),  
             ],
           ),
