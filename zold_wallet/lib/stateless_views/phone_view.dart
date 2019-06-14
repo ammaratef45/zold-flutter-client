@@ -100,6 +100,7 @@ class _PhoneView extends State<PhoneView> {
                   errorMessage: 'Invalid mobile number',
                   onSubmit: widget.sendCode,
                   inputAction: TextInputAction.send,
+                  label: 'Mobile Phone'
                 ),
               ],
             ),

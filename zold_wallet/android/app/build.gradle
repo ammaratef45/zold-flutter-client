@@ -11,8 +11,8 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-def flutterVersionCode = '24'
-def flutterVersionName = '0.2.1'
+def flutterVersionCode = '26'
+def flutterVersionName = '1.1.1'
 
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -32,6 +32,9 @@ android {
     }
 
     defaultConfig {
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
         applicationId "com.ammar.zold.wallet"
         minSdkVersion 18
         targetSdkVersion 28

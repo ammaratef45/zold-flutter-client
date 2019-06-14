@@ -40,11 +40,13 @@ class PayView extends StatelessWidget {
               controller: controllers['bnfController'],
               width: 210,
               hint: 'bnf: eg. ammaratef45',
+              label: 'bnf',
             ),
             ZoldTextField(
               controller: controllers['amountController'],
               width: 150,
               hint: 'Amount: eg. 1.2',
+              label: 'Amount',
             ),
             Text(
               'Balance: ${Wallet.instance().balance()}',
@@ -57,6 +59,7 @@ class PayView extends StatelessWidget {
                   controller: controllers['keygapController'],
                   width: 110,
                   hint: 'keygap',
+                  label: 'keygap',
                 ),
                 Visibility(
                     visible: keyGapAvailable,
@@ -70,6 +73,7 @@ class PayView extends StatelessWidget {
               controller: controllers['messageController'],
               width: 310,
               hint: 'Details: eg. for selling me the book',
+              label: 'Details',
             ),
             RaisedButton(
               onPressed: () {

@@ -52,6 +52,7 @@ class AuthView extends StatelessWidget {
                 width: 240,
                 controller: _tokenController,
                 hint: 'Token...',
+                label: 'Token',
               ),
             ],
           ),

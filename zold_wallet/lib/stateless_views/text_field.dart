@@ -5,6 +5,7 @@ class ZoldTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String hint;
+  final String label;
   final double width;
   final IconData prefixIcon;
   final bool isDigitsOnly;
@@ -17,6 +18,7 @@ class ZoldTextField extends StatelessWidget {
       {@required this.controller,
       this.keyboardType = TextInputType.text,
       this.hint = '',
+      this.label='',
       this.width = 240.0,
       this.prefixIcon,
       this.isDigitsOnly = false,
@@ -26,8 +28,8 @@ class ZoldTextField extends StatelessWidget {
       this.inputAction = TextInputAction.done});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) =>
+     Container(
       width: width,
       child: TextFormField(
         controller: controller,
@@ -47,6 +49,8 @@ class ZoldTextField extends StatelessWidget {
         ],
         decoration: InputDecoration(
           hintText: hint,
+          border: OutlineInputBorder(),
+          labelText: label,
           hintStyle: Theme.of(context).textTheme.overline,
           prefixIcon: Icon(
             prefixIcon,
@@ -57,4 +61,3 @@ class ZoldTextField extends StatelessWidget {
       ),
     );
   }
-}
