@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:zold_wallet/backend/API.dart';
+import 'package:zold_wallet/backend/api.dart';
 import 'package:zold_wallet/invoice.dart';
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/wts_log.dart';
@@ -10,13 +10,14 @@ void main() {
   /// also the response shouldn't be null.
   test('test API PULL', () async {
     final API api = API();
-    final String res =await api.pull(Secrets.apiKey);
+    final String res = await api.pull(Secrets.apiKey);
     expect(res, isNot(null));
   });
+
   /// test if the job returned by endpoints like pull works as supposed.
   test('test API output', () async {
     final API api = API();
-    final String job =await api.pull(Secrets.apiKey);
+    final String job = await api.pull(Secrets.apiKey);
     final WtsLog log = await api.output(job, Secrets.apiKey);
     expect(log.status, isNot(null));
     expect(log.fullLog, isNot(null));
