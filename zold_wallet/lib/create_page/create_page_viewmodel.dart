@@ -1,28 +1,41 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:zold_wallet/create_page/create_page.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/invoice.dart';
-import './create_page.dart';
-import '../wallet.dart';
-import '../wts_log.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:zold_wallet/wallet.dart';
+import 'package:zold_wallet/wts_log.dart';
 
+typedef WaitingCallback = Future<WtsLog> Function();
 
-typedef Future<WtsLog> WaitingCallback();
+/// View model of invoice page.
 abstract class CreatePageViewModel extends State<CreatePage> {
-  Wallet wallet = Wallet.instance();
-  final amountController = TextEditingController();
-  final messageController = TextEditingController();
-  GlobalKey globalKey = new GlobalKey();
-  var snackKey = GlobalKey<ScaffoldState>();
-  String qrString = "";
+  /// Controller of amount field.
+  final TextEditingController amountController = TextEditingController();
+
+  /// Controller of message key field.
+  final TextEditingController messageController = TextEditingController();
+
+  /// Global key.
+  GlobalKey globalKey = GlobalKey();
+
+  /// Key for showing snack
+  GlobalKey snackKey = GlobalKey<ScaffoldState>();
+
+  /// String of the QR.
+  String qrString = '';
+
+  /// is it created or not yet.
   bool created = false;
+
+  /// flag to delay copying the string.
   bool canCopy = true;
   @override
   void dispose() {
@@ -31,50 +44,57 @@ abstract class CreatePageViewModel extends State<CreatePage> {
     messageController.dispose();
   }
 
+  /// create QR.
   Future<void> createQR() async {
     Invoice invoice;
     try {
-      invoice = await wallet.invoice();
+      invoice = await Wallet.instance().invoice();
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      Dialogs.messageDialog(context, 'Error', e.toString(), snackKey);
+      await Dialogs.messageDialog(context, 'Error', e.toString(), snackKey);
       return;
     }
     setState(() {
-      Map<String, String> values =Map();
-      values["bnf"] = invoice.invoice;
-      values["amount"] = amountController.text;
-      values["details"] = messageController.text;
+      final Map<String, String> values = <String, String>{};
+      values['bnf'] = invoice.invoice;
+      values['amount'] = amountController.text;
+      values['details'] = messageController.text;
       qrString = json.encode(values);
       created = true;
     });
   }
 
+  /// Copy the content of QR to clipboard.
   void copyContent() {
-    if(canCopy) {
+    if (canCopy) {
       canCopy = false;
-      Clipboard.setData(new ClipboardData(text:  qrString));
-      snackKey.currentState.showSnackBar(SnackBar(content: Text('invoice copied')));
-      Future<void>.delayed(new Duration(seconds:2)).then((_){
+      Clipboard.setData(ClipboardData(text: qrString));
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: const Text('invoice copied')));
+      Future<void>.delayed(Duration(seconds: 2)).then((_) {
         canCopy = true;
       });
     }
   }
 
-  void captureAndSharePng() async {
-    
+  /// Get the image of QR code and share it.
+  Future<void> captureAndSharePng() async {
     try {
-      RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
-      var image = await boundary.toImage();
-      ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
+      final RenderRepaintBoundary boundary =
+          globalKey.currentContext.findRenderObject();
+      final ui.Image image = await boundary.toImage();
+      final ByteData byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      final Uint8List pngBytes = byteData.buffer.asUint8List();
 
-      final tempDir = await getTemporaryDirectory();
-      final file = await new File('${tempDir.path}/image.png').create();
+      final Directory tempDir = await getTemporaryDirectory();
+      final File file = await File('${tempDir.path}/image.png').create();
       await file.writeAsBytes(pngBytes);
-      final channel = const MethodChannel('channel:ammar.zold.share/share');
+      const MethodChannel channel =
+          MethodChannel('channel:ammar.zold.share/share');
       await channel.invokeMethod<void>('shareFile', 'image.png');
-
-    } catch(e) {
+      // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
       print(e.toString());
     }
   }
