@@ -5,31 +5,38 @@ import 'package:zold_wallet/invoice.dart';
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/transaction.dart';
 
-import 'backend/API.dart';
+import 'backend/api.dart';
 import 'wts_log.dart';
 
 /// wallet.
 class Wallet {
   Wallet._();
+
   /// wallet api key.
-  String apiKey='';
+  String apiKey = '';
+
   /// wallet keygap.
-  String keygap='';
+  String keygap = '';
+
   /// wallet id
-  String id='';
+  String id = '';
+
   /// balance of wallet in zents.
-  String balanceZents='pull';
+  String balanceZents = 'pull';
+
   /// phone number of wallet.
-  String phone='';
-  API _api =API();
+  String phone = '';
+  API _api = API();
+
   /// wallet's list of transactions.
   List<Transaction> transactions = <Transaction>[];
+
   /// wallet's conversion rate.
-  String rate='rate';
+  String rate = 'rate';
   static Wallet _wallet;
+
   /// get instance of the wallet.
-  static Wallet instance() =>
-    _wallet ??= Wallet._();
+  static Wallet instance() => _wallet ??= Wallet._();
 
   /// change wallet's phone.
   void changePhone(String phone) {
@@ -44,7 +51,7 @@ class Wallet {
     await updateRate();
   }
 
-  Future<String> sendCode() async{
+  Future<String> sendCode() async {
     return await _api.getCode(phone);
   }
 
@@ -56,8 +63,7 @@ class Wallet {
     apiKey = await _api.getToken(phone, code);
   }
 
-  Future<Invoice> invoice() async =>
-    _api.invoice(apiKey);
+  Future<Invoice> invoice() async => _api.invoice(apiKey);
 
   Future<void> confirm() async {
     await _api.confirm(apiKey, keygap);
@@ -98,7 +104,8 @@ class Wallet {
     });
   }
 
-  Future<String> pay(String bnf, String amount, String details, String keygap) async {
+  Future<String> pay(
+      String bnf, String amount, String details, String keygap) async {
     return await _api.pay(bnf, amount, details, apiKey, keygap);
   }
 
@@ -116,11 +123,12 @@ class Wallet {
 
   /// returns zold balance
   /// can change the suffix by passing it.
-  String balance({String suffix=' ZLD'}) {
+  String balance({String suffix = ' ZLD'}) {
     String res = '';
     try {
-      res = (double.parse(balanceZents)/pow(2,32)).toStringAsFixed(3) + suffix;
-    // ignore: avoid_catches_without_on_clauses
+      res =
+          (double.parse(balanceZents) / pow(2, 32)).toStringAsFixed(3) + suffix;
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       res = 'not available';
     }
@@ -133,14 +141,14 @@ class Wallet {
 
   /// return value in usd for example $12
   /// to change the prefix and suffix pass them as optional params
-  String usd({String prefix='\$', String suffix=''}) {
+  String usd({String prefix = '\$', String suffix = ''}) {
     String res = '';
     try {
       res += prefix;
-      res += (double.parse(balance(suffix: '')) *
-        double.parse(rate)).toStringAsFixed(2);
+      res += (double.parse(balance(suffix: '')) * double.parse(rate))
+          .toStringAsFixed(2);
       res += suffix;
-    // ignore: avoid_catches_without_on_clauses
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       res = 'USD not available';
     }
@@ -148,8 +156,8 @@ class Wallet {
   }
 
   /// return balance in zents
-  String zents({String suffix='zents'}) {
-    if(balanceZents!='pull') {
+  String zents({String suffix = 'zents'}) {
+    if (balanceZents != 'pull') {
       return balanceZents + suffix;
     }
     return balanceZents;
@@ -157,14 +165,13 @@ class Wallet {
 
   /// dispose the wallet
   void dispose() {
-    apiKey='';
-    keygap='';
-    id='';
-    balanceZents='pull';
-    phone='';
-    _api =API();
+    apiKey = '';
+    keygap = '';
+    id = '';
+    balanceZents = 'pull';
+    phone = '';
+    _api = API();
     transactions.clear();
-    rate='rate';
+    rate = 'rate';
   }
-
 }

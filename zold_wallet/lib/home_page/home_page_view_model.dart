@@ -9,7 +9,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// viewmodel of home page.
 abstract class HomePageViewModel extends State<HomePage> {
-  
   /// constructor
   HomePageViewModel() {
     refresh(doPull: false);
@@ -17,8 +16,10 @@ abstract class HomePageViewModel extends State<HomePage> {
 
   /// message to be shown instead of transactions.
   String message = 'This wallet is Empty, make some transactions';
+
   /// global key for showing snackbar from dialogs.
   GlobalKey<ScaffoldState> snackKey = GlobalKey<ScaffoldState>();
+
   /// indicate if id can be copied.
   bool canCopy = true;
 
@@ -27,44 +28,40 @@ abstract class HomePageViewModel extends State<HomePage> {
     super.dispose();
     Wallet.instance().dispose();
   }
+
   /// refresh callback
-  Future<void> onRefresh() async =>
-    refresh(doPull: false);
+  Future<void> onRefresh() async => refresh(doPull: false);
 
   /// refresh the page.
-  Future<void> refresh({bool doPull=true}) async {
+  Future<void> refresh({bool doPull = true}) async {
     try {
-      if(doPull) {
-        await Dialogs.waitingDialog(
-          context,
-          Wallet.instance().pull,
-          snackKey
-        );
+      if (doPull) {
+        await Dialogs.waitingDialog(context, Wallet.instance().pull, snackKey);
       }
       try {
         await Wallet.instance().update();
-        if(Wallet.instance().transactions.isEmpty) {
+        if (Wallet.instance().transactions.isEmpty) {
           message = 'This wallet is Empty, make some transactions';
         }
-      // ignore: avoid_catches_without_on_clauses
+        // ignore: avoid_catches_without_on_clauses
       } catch (e) {
         message = 'you need to pull your wallet';
       }
-      setState((){});
-    // ignore: avoid_catches_without_on_clauses
-    } catch(ex) {
+      setState(() {});
+      // ignore: avoid_catches_without_on_clauses
+    } catch (ex) {
       await Dialogs.messageDialog(context, 'error', ex.toString(), snackKey);
     }
   }
 
   /// copy the id
   void copyid() {
-    if(canCopy) {
+    if (canCopy) {
       canCopy = false;
-      Clipboard.setData(ClipboardData(text:  Wallet.instance().id));
-      snackKey.currentState.showSnackBar(SnackBar
-        (content: const Text('ID copied')));
-      Future<void>.delayed(Duration(seconds:2)).then((_){
+      Clipboard.setData(ClipboardData(text: Wallet.instance().id));
+      snackKey.currentState
+          .showSnackBar(SnackBar(content: const Text('ID copied')));
+      Future<void>.delayed(Duration(seconds: 2)).then((_) {
         canCopy = true;
       });
     }
@@ -72,22 +69,22 @@ abstract class HomePageViewModel extends State<HomePage> {
 
   /// restart the wallet.
   Future<void> restart() async {
-    final DialogResult res = await Dialogs.messageDialog(context, 'Sure?',
-    'the old wallet will be lost forever', snackKey, prompt: true);
-    if(res==DialogResult.OK) {
+    final DialogResult res = await Dialogs.messageDialog(
+        context, 'Sure?', 'the old wallet will be lost forever', snackKey,
+        prompt: true);
+    if (res == DialogResult.ok) {
       await Dialogs.waitingDialog(context, Wallet.instance().restart, snackKey,
-      returnsJobId: false);
+          returnsJobId: false);
       await Wallet.instance().restart();
       final String keygap = await Wallet.instance().getKeyGap();
       final DialogResult res = await Dialogs.messageDialog(
-        context,
-        'Confirm',
-        'You keygap is: $keygap please save it in a safe place\n'
-        'once you press okay it will be deleted from WTS server',
-        snackKey,
-        prompt: true
-      );
-      if(res==DialogResult.OK) {
+          context,
+          'Confirm',
+          'You keygap is: $keygap please save it in a safe place\n'
+              'once you press okay it will be deleted from WTS server',
+          snackKey,
+          prompt: true);
+      if (res == DialogResult.ok) {
         await Wallet.instance().confirm();
       } else {
         final FlutterSecureStorage prefs = FlutterSecureStorage();
