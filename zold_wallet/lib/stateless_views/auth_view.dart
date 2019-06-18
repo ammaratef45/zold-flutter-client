@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/stateless_views/text_field.dart';
+
 typedef StringCallback = void Function(String);
 
 /// view that prompt for api key
 class AuthView extends StatelessWidget {
   /// constructor
-  AuthView(
-    {
-      this.onLogin,
-      this.phoneCallback
-    }
-  );
+  AuthView({this.onLogin, this.phoneCallback});
 
   /// callback for login pressed
   final StringCallback onLogin;
+
   /// callback for pressing login with phone number
   final VoidCallback phoneCallback;
 
   final TextEditingController _tokenController = TextEditingController();
-  
+
   @override
-  Widget build(BuildContext context) =>
-    Container(
+  Widget build(BuildContext context) => Container(
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +26,7 @@ class AuthView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Image.asset(
-            'assets/icon/icon.png',
+            'assets/icon/icon2.png',
             fit: BoxFit.contain,
             height: 64,
           ),
@@ -60,7 +56,7 @@ class AuthView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           RaisedButton(
-            onPressed: (){
+            onPressed: () {
               onLogin(_tokenController.text);
             },
             color: Colors.blue,
@@ -77,7 +73,5 @@ class AuthView extends StatelessWidget {
             onTap: phoneCallback,
           )
         ],
-      )
-    );
-
+      ));
 }

@@ -23,7 +23,7 @@ class HomePageView extends HomePageViewModel {
                       padding: const EdgeInsets.only(left: 6, top: 6),
                       alignment: const Alignment(-1, 0),
                       child: Image.asset(
-                        'assets/icon/icon.png',
+                        'assets/icon/icon2.png',
                         fit: BoxFit.contain,
                         height: 64,
                       ),

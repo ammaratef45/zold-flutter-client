@@ -36,7 +36,7 @@ class PhoneView extends StatelessWidget {
               padding: EdgeInsets.only(top: 18),
             ),
             Image.asset(
-              'assets/icon/icon.png',
+              'assets/icon/icon2.png',
               fit: BoxFit.contain,
               height: 84,
             ),
@@ -56,18 +56,17 @@ class PhoneView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ZoldTextField(
-                  controller: _phoneController,
-                  hint: 'Enter your mobile number',
-                  width: 300,
-                  prefixIcon: Icons.add,
-                  keyboardType: TextInputType.number,
-                  isDigitsOnly: true,
-                  validateRegex: RegExp(r'^[0-9]{8,14}$'),
-                  errorMessage: 'Invalid mobile number',
-                  onSubmit: sendCode,
-                  inputAction: TextInputAction.send,
-                  label: 'Mobile Phone'
-                ),
+                    controller: _phoneController,
+                    hint: 'Enter your mobile number',
+                    width: 300,
+                    prefixIcon: Icons.add,
+                    keyboardType: TextInputType.number,
+                    isDigitsOnly: true,
+                    validateRegex: RegExp(r'^[0-9]{8,14}$'),
+                    errorMessage: 'Invalid mobile number',
+                    onSubmit: sendCode,
+                    inputAction: TextInputAction.send,
+                    label: 'Mobile Phone'),
               ],
             ),
             const Padding(

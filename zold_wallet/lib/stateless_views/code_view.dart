@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/stateless_views/text_field.dart';
+
 typedef StringCallback = void Function(String);
+
 /// view that prompt for code to authenticate
 class CodeView extends StatelessWidget {
   /// constructor
-  CodeView(
-    {
-      this.onLogin,
-      this.backCallback
-    }
-  );
+  CodeView({this.onLogin, this.backCallback});
+
   /// callback when login clicked
   final StringCallback onLogin;
+
   /// callback when back clicked
   final VoidCallback backCallback;
   final TextEditingController _codeController = TextEditingController();
-  
+
   @override
-  Widget build(BuildContext context) =>
-    Container(
+  Widget build(BuildContext context) => Container(
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,17 +25,15 @@ class CodeView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           Image.asset(
-            'assets/icon/icon.png',
+            'assets/icon/icon2.png',
             fit: BoxFit.contain,
             height: 64,
           ),
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
-          const Text(
-            'Enter the code you received to your mobile phone'
-            ' via in the text message we just sent you (four digits):'
-          ),
+          const Text('Enter the code you received to your mobile phone'
+              ' via in the text message we just sent you (four digits):'),
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
@@ -51,14 +47,14 @@ class CodeView extends StatelessWidget {
                 width: 110,
                 hint: 'Code',
                 label: 'Code',
-              ),  
+              ),
             ],
           ),
           const Padding(
             padding: EdgeInsets.only(top: 18),
           ),
           RaisedButton(
-            onPressed: (){
+            onPressed: () {
               onLogin(_codeController.text);
             },
             color: Colors.blue,
@@ -75,7 +71,5 @@ class CodeView extends StatelessWidget {
             onTap: backCallback,
           )
         ],
-      )
-    );
-
+      ));
 }
