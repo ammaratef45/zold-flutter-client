@@ -22,6 +22,9 @@ class Head {
   /// Wallet's balance in zents.
   num get balance => _balance;
   num _txns;
+
+  /// Number of transactions.
+  num get txns => _txns;
   num _taxes;
   num _debt;
 }

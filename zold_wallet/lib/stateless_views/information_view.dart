@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:zold_wallet/backend/head.dart';
 
 /// the main info of wallet.
 class InformationView extends StatelessWidget {
   /// constructor
-  const InformationView(
-      {this.idText = '',
-      this.balanceText = '',
-      this.balanceZents = '',
-      this.balanceUSD = '',
-      this.copyCallback,
-      this.transactions});
+  const InformationView(this._head,
+      {this.balanceText = '', this.balanceUSD = '', this.copyCallback});
 
-  /// The text represents the wallet id
-  final String idText;
+  final Head _head;
 
   /// The text represents the balance of the wallet
   final String balanceText;
 
-  /// Balance in zents as a String
-  final String balanceZents;
-
   /// Balance in USD as a String
   final String balanceUSD;
-
-  /// Transactions count
-  final num transactions;
 
   /// the callback when copy is clicked
   final VoidCallback copyCallback;
@@ -36,7 +25,7 @@ class InformationView extends StatelessWidget {
               children: <Widget>[
                 const Text('ID: '),
                 Flexible(
-                  child: Text(idText),
+                  child: Text(_head.id),
                 ),
                 GestureDetector(
                   onTap: copyCallback,
@@ -53,8 +42,8 @@ class InformationView extends StatelessWidget {
                   const Text('Balance: '),
                   GestureDetector(
                     onTap: () {
-                      Scaffold.of(context)
-                          .showSnackBar(SnackBar(content: Text(balanceZents)));
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text(_head.balance.toString())));
                     },
                     child: Text('$balanceText ($balanceUSD)'),
                   ),
@@ -65,7 +54,7 @@ class InformationView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 18),
               child: Row(
                 children: <Widget>[
-                  Text('Transactions: $transactions'),
+                  Text('Transactions: ${_head.txns}'),
                 ],
               ),
             ),
