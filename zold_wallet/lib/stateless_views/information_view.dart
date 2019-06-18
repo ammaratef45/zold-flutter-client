@@ -58,6 +58,23 @@ class InformationView extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              padding: const EdgeInsets.only(top: 18),
+              child: Row(
+                children: <Widget>[
+                  Text('Taxes: ${_head.taxes()}ZLD paid, '
+                      'the debt is ${_head.debt()}ZLD'),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 18),
+              child: Row(
+                children: <Widget>[
+                  Text('File Size: ${_head.size}bytes'),
+                ],
+              ),
+            ),
           ],
         ),
       );
