@@ -32,7 +32,7 @@ class HomePageView extends HomePageViewModel {
                     return Container(
                         padding: const EdgeInsets.only(left: 6, top: 6),
                         child: InformationView(
-                          idText: Wallet.instance().id,
+                          idText: Wallet.instance().head.id,
                           balanceText: Wallet.instance().balance(),
                           balanceZents: Wallet.instance().zents(),
                           balanceUSD: Wallet.instance().usd(),

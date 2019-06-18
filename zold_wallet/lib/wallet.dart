@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:zold_wallet/backend/head.dart';
 import 'package:zold_wallet/invoice.dart';
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/transaction.dart';
@@ -18,11 +19,10 @@ class Wallet {
   /// wallet keygap.
   String keygap = '';
 
-  /// wallet id
-  String id = '';
+  Head _head;
 
-  /// balance of wallet in zents.
-  String balanceZents = 'pull';
+  /// Head info of wallet.
+  Head get head => _head;
 
   /// phone number of wallet.
   String phone = '';
@@ -45,89 +45,81 @@ class Wallet {
 
   /// update wallet's info.
   Future<void> update() async {
-    await updateId();
-    await updateBalanace();
+    await updateHead();
     await updateTransactions();
     await updateRate();
   }
 
-  Future<String> sendCode() async {
-    return await _api.getCode(phone);
-  }
+  /// Sends the verification message.
+  Future<String> sendCode() async => _api.getCode(phone);
 
+  /// Check if we got the key.
   bool keyLoaded() {
     return apiKey != null && apiKey != '';
   }
 
+  /// Get the key.
   Future<void> getKey(String code) async {
     apiKey = await _api.getToken(phone, code);
   }
 
+  /// Get an invoice.
   Future<Invoice> invoice() async => _api.invoice(apiKey);
 
+  /// Confirm the keygap.
   Future<void> confirm() async {
     await _api.confirm(apiKey, keygap);
   }
 
-  Future<bool> confirmed() async {
-    return await _api.confirmed(apiKey) == 'yes';
+  /// Check if keygap is confirmed.
+  Future<bool> confirmed() async => await _api.confirmed(apiKey) == 'yes';
+
+  /// Get the keygap.
+  Future<String> getKeyGap() async => _api.keygap(apiKey);
+
+  /// Pull the wallet.
+  Future<String> pull() async => _api.pull(apiKey);
+
+  /// Restart the wallet.
+  Future<String> restart() async => _api.recreate(apiKey);
+
+  /// Update head info.
+  Future<void> updateHead() async {
+    _head = await _api.head(apiKey);
   }
 
-  Future<String> getKeyGap() async {
-    keygap = await _api.keygap(apiKey);
-    return keygap;
-  }
-
-  Future<String> pull() async {
-    return await _api.pull(apiKey);
-  }
-
-  Future<String> restart() async {
-    return await _api.recreate(apiKey);
-  }
-
-  Future<void> updateId() async {
-    id = await _api.getId(apiKey);
-  }
-
-  Future<void> updateBalanace() async {
-    balanceZents = await _api.getBalance(apiKey);
-  }
-
+  /// Update the list of transactions.
   Future<void> updateTransactions() async {
-    String response = await _api.transactions(apiKey);
-    List<Transaction> t = Transaction.fromJsonList(json.decode(response));
-    transactions.clear();
-    transactions.addAll(t);
-    transactions.sort((t1, t2) {
-      return t2.compare(t1);
-    });
+    final String response = await _api.transactions(apiKey);
+    final List<Transaction> t = Transaction.fromJsonList(json.decode(response));
+    transactions
+      ..clear()
+      ..addAll(t)
+      ..sort((Transaction t1, Transaction t2) {
+        return t2.compare(t1);
+      });
   }
 
+  /// Perform payment.
   Future<String> pay(
-      String bnf, String amount, String details, String keygap) async {
-    return await _api.pay(bnf, amount, details, apiKey, keygap);
-  }
+          String bnf, String amount, String details, String keygap) async =>
+      _api.pay(bnf, amount, details, apiKey, keygap);
 
-  Future<WtsLog> log(String job) async {
-    return await _api.output(job, apiKey);
-  }
+  /// Get log of a job.
+  Future<WtsLog> log(String job) async => _api.output(job, apiKey);
 
-  Future<Job> job(String id) async {
-    return await _api.job(id, apiKey);
-  }
+  /// Get job info.
+  Future<Job> job(String id) async => _api.job(id, apiKey);
 
-  String title() {
-    return apiKey.split('-')[0];
-  }
+  /// Get title from key.
+  String title() => apiKey.split('-')[0];
 
   /// returns zold balance
   /// can change the suffix by passing it.
   String balance({String suffix = ' ZLD'}) {
     String res = '';
     try {
-      res =
-          (double.parse(balanceZents) / pow(2, 32)).toStringAsFixed(3) + suffix;
+      res = (_head.balance / pow(2, 32)).toStringAsFixed(3) + suffix;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       res = 'not available';
@@ -135,9 +127,8 @@ class Wallet {
     return res;
   }
 
-  Future<void> updateRate() async {
-    this.rate = await _api.rate();
-  }
+  /// Update the conversion rate.
+  Future<void> updateRate() async => rate = await _api.rate();
 
   /// return value in usd for example $12
   /// to change the prefix and suffix pass them as optional params
@@ -156,19 +147,13 @@ class Wallet {
   }
 
   /// return balance in zents
-  String zents({String suffix = 'zents'}) {
-    if (balanceZents != 'pull') {
-      return balanceZents + suffix;
-    }
-    return balanceZents;
-  }
+  String zents({String suffix = 'zents'}) => '${_head.balance} $suffix';
 
   /// dispose the wallet
   void dispose() {
     apiKey = '';
     keygap = '';
-    id = '';
-    balanceZents = 'pull';
+    _head = null;
     phone = '';
     _api = API();
     transactions.clear();

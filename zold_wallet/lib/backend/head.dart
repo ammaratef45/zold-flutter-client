@@ -13,8 +13,14 @@ class Head {
     _debt = map['debt'];
   }
   String _id;
+
+  /// ID of the wallet.
+  String get id => _id;
   num _size;
   num _balance;
+
+  /// Wallet's balance in zents.
+  num get balance => _balance;
   num _txns;
   num _taxes;
   num _debt;
