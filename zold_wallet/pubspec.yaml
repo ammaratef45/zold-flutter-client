@@ -18,6 +18,7 @@ dependencies:
   animated_floatactionbuttons: ^0.1.0
   trust_fall: ^1.0.0
   flutter_secure_storage: ^3.2.1+1
+  mobile_number: ^0.0.4
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.0"
