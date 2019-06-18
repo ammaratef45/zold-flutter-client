@@ -6,6 +6,8 @@ import 'package:zold_wallet/invoice.dart';
 import 'package:zold_wallet/wts_log.dart';
 import 'package:zold_wallet/job.dart';
 
+import 'head.dart';
+
 /// API helper class
 class API {
   /// Constructor.
@@ -255,5 +257,19 @@ class API {
       throw Exception('Status code is not 200');
     }
     return response.stream.transform(utf8.decoder).join();
+  }
+
+  /// Gets the head of wallet.
+  Future<Head> head(String apiKey) async {
+    const String url = '${_baseURL}head.json';
+    final http.Request request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(_headers(apiKey));
+    request.followRedirects = false;
+    final http.StreamedResponse response = await _client.send(request);
+    if (response.statusCode != 200) {
+      throw Exception('Status code is not 200');
+    }
+    return Head.fromJsonString(
+        await response.stream.transform(utf8.decoder).join());
   }
 }

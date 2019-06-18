@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:zold_wallet/backend/api.dart';
+import 'package:zold_wallet/backend/head.dart';
 import 'package:zold_wallet/invoice.dart';
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/wts_log.dart';
@@ -50,6 +51,13 @@ void main() {
   test('test API txns.json', () async {
     final API api = API();
     final String res = await api.transactions(Secrets.apiKey);
+    expect(res, isNotNull);
+  });
+
+  /// test retreiving the head works.
+  test('test API head.json', () async {
+    final API api = API();
+    final Head res = await api.head(Secrets.apiKey);
     expect(res, isNotNull);
   });
 }
