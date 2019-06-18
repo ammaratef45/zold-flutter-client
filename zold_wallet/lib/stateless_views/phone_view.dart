@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_number/mobile_number.dart';
 import 'package:zold_wallet/stateless_views/text_field.dart';
+import 'package:flutter/services.dart';
 
 typedef StringCallback = void Function(String);
 
 /// PhoneView is the view that propmt for the phone number.
-class PhoneView extends StatelessWidget {
+class PhoneView extends StatefulWidget {
   /// constructor
   PhoneView({this.onSendCode, this.authCallback});
 
@@ -25,10 +27,42 @@ class PhoneView extends StatelessWidget {
   }
 
   @override
+  State<StatefulWidget> createState() {
+    return _PhoneView();
+  }
+}
+
+class _PhoneView extends State<PhoneView> {
+  @override
+  void initState() {
+    super.initState();
+    initMobileNumberState();
+  }
+
+  Future<void> initMobileNumberState() async {
+    String mobileNumber = '';
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      mobileNumber = await MobileNumber.mobileNumber;
+    } on PlatformException catch (e) {
+      debugPrint("Failed to get mobile number because of '${e.message}'");
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      widget._phoneController.text = mobileNumber;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) => Container(
       padding: const EdgeInsets.all(20),
       child: Form(
-        key: _formKey,
+        key: widget._formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -56,7 +90,7 @@ class PhoneView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ZoldTextField(
-                  controller: _phoneController,
+                  controller: widget._phoneController,
                   hint: 'Enter your mobile number',
                   width: 300,
                   prefixIcon: Icons.add,
@@ -64,7 +98,7 @@ class PhoneView extends StatelessWidget {
                   isDigitsOnly: true,
                   validateRegex: RegExp(r'^[0-9]{8,14}$'),
                   errorMessage: 'Invalid mobile number',
-                  onSubmit: sendCode,
+                  onSubmit: widget.sendCode,
                   inputAction: TextInputAction.send,
                   label: 'Mobile Phone'
                 ),
@@ -77,7 +111,7 @@ class PhoneView extends StatelessWidget {
               color: Theme.of(context).accentColor,
               minWidth: 200,
               height: 40,
-              onPressed: sendCode,
+              onPressed: widget.sendCode,
               child: const Text('Send'),
             ),
             const Padding(
@@ -88,7 +122,7 @@ class PhoneView extends StatelessWidget {
                 'Or login with an API token',
                 style: TextStyle(color: Colors.blue),
               ),
-              onTap: authCallback,
+              onTap: widget.authCallback,
             )
           ],
         ),
