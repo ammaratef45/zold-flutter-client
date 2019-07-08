@@ -4,9 +4,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:zold_wallet/dialogs.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'package:zold_wallet/stateless_views/text_field.dart';
+import 'package:zold_wallet/stateless_views/title_text.dart';
 
 /// view of invoice page
 class CreatePageView extends CreatePageViewModel {
+  static const double gapsHeight = 50;
   Widget _copy() => Container(
         child: FloatingActionButton(
           onPressed: copyContent,
@@ -37,23 +39,27 @@ class CreatePageView extends CreatePageViewModel {
               case 0:
                 return SafeArea(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      const Text('Create Invoice'),
+                      const TitleText('Invoice'),
                       const SizedBox(
-                        height: 10,
+                        height: gapsHeight,
                       ),
                       ZoldTextField(
                         controller: amountController,
-                        width: 150,
-                        hint: 'Amount: eg. 1.2',
-                        label: 'Amount',
+                        width: 310,
+                        hint: 'Amount in zold',
+                      ),
+                      const SizedBox(
+                        height: gapsHeight,
                       ),
                       ZoldTextField(
                         controller: messageController,
                         width: 310,
-                        hint: 'Details: eg. for selling me the book',
-                        label: 'Details',
+                        hint: 'Details',
+                      ),
+                      const SizedBox(
+                        height: gapsHeight,
                       ),
                       RaisedButton(
                         child: const Text('Create'),
