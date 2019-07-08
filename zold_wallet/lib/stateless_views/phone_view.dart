@@ -91,7 +91,7 @@ class _PhoneView extends State<PhoneView> {
               children: <Widget>[
                 ZoldTextField(
                     controller: widget._phoneController,
-                    hint: 'Enter your mobile number',
+                    hint: 'Mobile Phone',
                     width: 300,
                     prefixIcon: Icons.add,
                     keyboardType: TextInputType.number,
@@ -99,8 +99,7 @@ class _PhoneView extends State<PhoneView> {
                     validateRegex: RegExp(r'^[0-9]{8,14}$'),
                     errorMessage: 'Invalid mobile number',
                     onSubmit: widget.sendCode,
-                    inputAction: TextInputAction.send,
-                    label: 'Mobile Phone'),
+                    inputAction: TextInputAction.send),
               ],
             ),
             const Padding(

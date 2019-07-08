@@ -43,11 +43,7 @@ class CodeView extends StatelessWidget {
                 padding: EdgeInsets.only(left: 4),
               ),
               ZoldTextField(
-                controller: _codeController,
-                width: 110,
-                hint: 'Code',
-                label: 'Code',
-              ),
+                  controller: _codeController, width: 110, hint: 'Code'),
             ],
           ),
           const Padding(
