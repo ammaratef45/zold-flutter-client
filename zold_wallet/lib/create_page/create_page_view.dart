@@ -8,7 +8,8 @@ import 'package:zold_wallet/stateless_views/title_text.dart';
 
 /// view of invoice page
 class CreatePageView extends CreatePageViewModel {
-  static const double gapsHeight = 50;
+  static const double _gapsHeight = 50;
+  static const double _smallGapsHeight = 15;
   Widget _copy() => Container(
         child: FloatingActionButton(
           onPressed: copyContent,
@@ -43,7 +44,7 @@ class CreatePageView extends CreatePageViewModel {
                     children: <Widget>[
                       const TitleText('Invoice'),
                       const SizedBox(
-                        height: gapsHeight,
+                        height: _gapsHeight,
                       ),
                       ZoldTextField(
                         controller: amountController,
@@ -51,7 +52,7 @@ class CreatePageView extends CreatePageViewModel {
                         hint: 'Amount in zold',
                       ),
                       const SizedBox(
-                        height: gapsHeight,
+                        height: _gapsHeight,
                       ),
                       ZoldTextField(
                         controller: messageController,
@@ -59,7 +60,7 @@ class CreatePageView extends CreatePageViewModel {
                         hint: 'Details',
                       ),
                       const SizedBox(
-                        height: gapsHeight,
+                        height: _gapsHeight,
                       ),
                       RaisedButton(
                         child: const Text('Create'),
@@ -82,6 +83,9 @@ class CreatePageView extends CreatePageViewModel {
                       Visibility(
                         visible: created,
                         child: Text(qrString),
+                      ),
+                      const SizedBox(
+                        height: _smallGapsHeight,
                       ),
                       InkWell(
                         child: Text(
