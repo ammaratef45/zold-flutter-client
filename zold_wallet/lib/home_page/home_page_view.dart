@@ -1,4 +1,6 @@
+import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/home_page/home_page_view_model.dart';
+import 'package:zold_wallet/stateless_views/icon_text.dart';
 import 'package:zold_wallet/stateless_views/information_view.dart';
 import 'package:zold_wallet/stateless_views/transaction_view.dart';
 
@@ -64,27 +66,58 @@ class HomePageView extends HomePageViewModel {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.send),
-                onPressed: () {
+              GestureDetector(
+                onTap: () {
                   Navigator.of(context).pushNamed('/pay');
                 },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Icon(Icons.send),
+                    IconText('Pay'),
+                  ],
+                ),
               ),
-              IconButton(
-                icon: const Icon(Icons.file_download),
-                onPressed: refresh,
+              GestureDetector(
+                onTap: refresh,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Icon(Icons.file_download),
+                    IconText('Pull'),
+                  ],
+                ),
               ),
-              IconButton(icon: const Icon(Icons.delete), onPressed: restart),
-              IconButton(
-                icon: const Icon(Icons.receipt),
-                onPressed: () {
+              GestureDetector(
+                onTap: () {
                   Navigator.of(context).pushNamed('/create');
                 },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Icon(Icons.receipt),
+                    IconText('Invoice'),
+                  ],
+                ),
               ),
+              GestureDetector(
+                onTap: () {
+                  Dialogs.messageDialog(context, 'Wait',
+                      'This page is not implemented yet', snackKey);
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Icon(Icons.settings),
+                    IconText('Settings'),
+                  ],
+                ),
+              ),
+              /*IconButton(icon: const Icon(Icons.delete), onPressed: restart),
               IconButton(
                 icon: const Icon(Icons.exit_to_app),
                 onPressed: logout,
-              ),
+              ),*/
             ],
           ),
         ),
