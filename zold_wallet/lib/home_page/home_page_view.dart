@@ -22,22 +22,24 @@ class HomePageView extends HomePageViewModel {
                 switch (index) {
                   case 0:
                     return Container(
-                      padding: const EdgeInsets.only(left: 6, top: 6),
-                      alignment: const Alignment(-1, 0),
-                      child: Image.asset(
-                        'assets/icon/icon2.png',
-                        fit: BoxFit.contain,
-                        height: 64,
-                      ),
-                    );
-                  case 1:
-                    return Container(
                         padding: const EdgeInsets.only(left: 6, top: 6),
                         child: InformationView(
                           Wallet.instance().head,
                           balanceText: Wallet.instance().balance(),
                           balanceUSD: Wallet.instance().usd(),
                           copyCallback: copyid,
+                        ));
+                  case 1:
+                    return Container(
+                        padding:
+                            const EdgeInsets.only(left: 16, right: 16, top: 6),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('ID'),
+                            Text('Taxes'),
+                            Text('Transactions'),
+                          ],
                         ));
                   case 2:
                     return ListView.builder(

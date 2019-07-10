@@ -23,63 +23,66 @@ class InformationView extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         child: ClipPath(
           clipper: DiagonalClipper(),
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  const Text('ID: '),
-                  Flexible(
-                    child: Text(_head.id),
-                  ),
-                  GestureDetector(
-                    onTap: copyCallback,
-                    child: const Icon(
-                      Icons.content_copy,
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 18),
-                child: Row(
+          child: Container(
+            decoration: const BoxDecoration(color: Color(0xff2196f3)),
+            child: Column(
+              children: <Widget>[
+                Row(
                   children: <Widget>[
-                    const Text('Balance: '),
+                    const Text('ID: '),
+                    Flexible(
+                      child: Text(_head.id),
+                    ),
                     GestureDetector(
-                      onTap: () {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text(_head.balance.toString())));
-                      },
-                      child: Text('$balanceText ($balanceUSD)'),
+                      onTap: copyCallback,
+                      child: const Icon(
+                        Icons.content_copy,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 18),
-                child: Row(
-                  children: <Widget>[
-                    Text('Transactions: ${_head.txns}'),
-                  ],
+                Container(
+                  padding: const EdgeInsets.only(top: 18),
+                  child: Row(
+                    children: <Widget>[
+                      const Text('Balance: '),
+                      GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(_head.balance.toString())));
+                        },
+                        child: Text('$balanceText ($balanceUSD)'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 18),
-                child: Row(
-                  children: <Widget>[
-                    Text('Taxes: ${_head.taxes()}ZLD paid, '
-                        'the debt is ${_head.debt()}ZLD'),
-                  ],
+                Container(
+                  padding: const EdgeInsets.only(top: 18),
+                  child: Row(
+                    children: <Widget>[
+                      Text('Transactions: ${_head.txns}'),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 18),
-                child: Row(
-                  children: <Widget>[
-                    Text('File Size: ${_head.size}bytes'),
-                  ],
+                Container(
+                  padding: const EdgeInsets.only(top: 18),
+                  child: Row(
+                    children: <Widget>[
+                      Text('Taxes: ${_head.taxes()}ZLD paid, '
+                          'the debt is ${_head.debt()}ZLD'),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  padding: const EdgeInsets.only(top: 18),
+                  child: Row(
+                    children: <Widget>[
+                      Text('File Size: ${_head.size}bytes'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
