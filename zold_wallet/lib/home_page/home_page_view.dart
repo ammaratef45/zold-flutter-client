@@ -1,5 +1,6 @@
 import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/home_page/home_page_view_model.dart';
+import 'package:zold_wallet/stateless_views/head_wallet_view.dart';
 import 'package:zold_wallet/stateless_views/icon_text.dart';
 import 'package:zold_wallet/stateless_views/information_view.dart';
 import 'package:zold_wallet/stateless_views/transaction_view.dart';
@@ -29,16 +30,13 @@ class HomePageView extends HomePageViewModel {
                             balanceUSD: Wallet.instance().usd()));
                   case 1:
                     return Container(
-                        padding:
-                            const EdgeInsets.only(left: 16, right: 16, top: 6),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text('ID'),
-                            Text('Taxes'),
-                            Text('Transactions'),
-                          ],
-                        ));
+                      padding:
+                          const EdgeInsets.only(left: 16, right: 16, top: 6),
+                      child: HeadWalletView(
+                        Wallet.instance().head,
+                        copyCallback: copyid,
+                      ),
+                    );
                   case 2:
                     return ListView.builder(
                       padding: const EdgeInsets.only(left: 6, top: 3),
