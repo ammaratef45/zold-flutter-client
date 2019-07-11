@@ -113,11 +113,6 @@ class HomePageView extends HomePageViewModel {
                   ],
                 ),
               ),
-              /*IconButton(icon: const Icon(Icons.delete), onPressed: restart),
-              IconButton(
-                icon: const Icon(Icons.exit_to_app),
-                onPressed: logout,
-              ),*/
             ],
           ),
         ),

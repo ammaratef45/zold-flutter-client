@@ -42,25 +42,21 @@ class SettingsPageView extends SettingsPageViewModel {
                     'Restart Wallet',
                     style: TextStyle(color: Color(0xff1970b6), fontSize: 16),
                   ),
-                  onTap: () {
-                    Dialogs.messageDialog(context, 'Wait',
-                        'This action is not implemented yet', snackKey);
-                  },
+                  onTap: restart,
                 ),
                 const Divider(
                   height: 0,
                 ),
                 ListTile(
-                  leading: const Icon(Icons.exit_to_app),
-                  title: const Text(
-                    'Logout',
-                    style: TextStyle(color: Color(0xff1970b6), fontSize: 16),
-                  ),
-                  onTap: () {
-                    Dialogs.messageDialog(context, 'Wait',
-                        'This action is not implemented yet', snackKey);
-                  },
-                ),
+                    leading: const Icon(Icons.exit_to_app),
+                    title: const Text(
+                      'Logout',
+                      style: TextStyle(color: Color(0xff1970b6), fontSize: 16),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      logout();
+                    }),
                 const Divider(
                   height: 0,
                 )
