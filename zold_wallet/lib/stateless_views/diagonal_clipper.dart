@@ -5,7 +5,7 @@ class DiagonalClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path = Path()
-      ..lineTo(0, size.height - 100)
+      ..lineTo(0, size.height - 65)
       ..lineTo(size.width, size.height)
       ..lineTo(size.width, 0)
       ..close();

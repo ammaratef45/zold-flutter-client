@@ -119,7 +119,7 @@ class Wallet {
   String balance({String suffix = ' ZLD'}) {
     String res = '';
     try {
-      res = (_head.balance / pow(2, 32)).toStringAsFixed(3) + suffix;
+      res = (_head.balance / pow(2, 32)).toStringAsFixed(2) + suffix;
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       res = 'not available';
