@@ -103,8 +103,7 @@ class HomePageView extends HomePageViewModel {
               ),
               GestureDetector(
                 onTap: () {
-                  Dialogs.messageDialog(context, 'Wait',
-                      'This page is not implemented yet', snackKey);
+                  Navigator.of(context).pushNamed('/settings');
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

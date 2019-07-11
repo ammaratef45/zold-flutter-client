@@ -7,6 +7,7 @@ import 'package:zold_wallet/login_page/login_page.dart';
 import 'package:zold_wallet/pay_page/pay_page.dart';
 import 'package:trust_fall/trust_fall.dart';
 import 'package:flutter/foundation.dart';
+import 'package:zold_wallet/settings_page/settings_page.dart';
 
 import 'stateless_views/untrusted_page.dart';
 
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
           '/home': (BuildContext context) => HomePage(),
           '/pay': (BuildContext context) => PayPage(),
           '/create': (BuildContext context) => CreatePage(),
+          '/settings': (BuildContext context) => SettingsPage(),
         },
       );
 
