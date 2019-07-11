@@ -10,6 +10,9 @@ import 'package:zold_wallet/wallet.dart';
 
 /// view of home page
 class HomePageView extends HomePageViewModel {
+  /**
+   * @todo #125 fix the font colours, weight and size.
+   */
   @override
   Widget build(BuildContext context) => Scaffold(
         key: snackKey,

@@ -9,14 +9,14 @@ class TransactionView extends StatelessWidget {
   /// model of the view
   final Transaction transaction;
 
+  static const TextStyle _noramlTextStyle = TextStyle(color: Color(0xff707070));
+  static const TextStyle _timeTextStyle = TextStyle(color: Color(0xff2196f3));
+
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => Card(
+          child: Container(
         margin: const EdgeInsets.only(top: 10, left: 2, right: 2),
         padding: const EdgeInsets.only(top: 10, bottom: 10, left: 8),
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
-        ),
         child: Column(
           children: <Widget>[
             Row(
@@ -39,7 +39,11 @@ class TransactionView extends StatelessWidget {
             ),
             Row(
               children: <Widget>[
-                Flexible(child: Text(transaction.details)),
+                Flexible(
+                    child: Text(
+                  transaction.details,
+                  style: _noramlTextStyle,
+                )),
               ],
             ),
             const SizedBox(
@@ -50,14 +54,20 @@ class TransactionView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Flexible(
-                  child: Text(transaction.sender),
+                  child: Text(
+                    transaction.sender,
+                    style: _noramlTextStyle,
+                  ),
                 ),
                 Flexible(
-                  child: Text(transaction.timeAgo()),
+                  child: Text(
+                    transaction.timeAgo(),
+                    style: _timeTextStyle,
+                  ),
                 ),
               ],
             ),
           ],
         ),
-      );
+      ));
 }

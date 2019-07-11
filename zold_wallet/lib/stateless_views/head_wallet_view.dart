@@ -9,6 +9,7 @@ class HeadWalletView extends StatelessWidget {
   final Head _head;
 
   static const TextStyle _style = TextStyle(color: Color(0xff1970b6));
+  static const TextStyle _noramlTextStyle = TextStyle(color: Color(0xff707070));
 
   /// the callback when copy is clicked
   final VoidCallback copyCallback;
@@ -37,7 +38,10 @@ class HeadWalletView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(_head.id),
+                  Text(
+                    _head.id,
+                    style: _noramlTextStyle,
+                  ),
                 ],
               ),
               Column(
@@ -46,7 +50,10 @@ class HeadWalletView extends StatelessWidget {
                     'Debt',
                     style: _style,
                   ),
-                  Text(_head.debt()),
+                  Text(
+                    _head.debt(),
+                    style: _noramlTextStyle,
+                  ),
                 ],
               ),
               Column(
@@ -55,7 +62,10 @@ class HeadWalletView extends StatelessWidget {
                     'Transactions',
                     style: _style,
                   ),
-                  Text(_head.txns.toString()),
+                  Text(
+                    _head.txns.toString(),
+                    style: _noramlTextStyle,
+                  ),
                 ],
               ),
             ]),
