@@ -54,9 +54,7 @@ class Wallet {
   Future<String> sendCode() async => _api.getCode(phone);
 
   /// Check if we got the key.
-  bool keyLoaded() {
-    return apiKey != null && apiKey != '';
-  }
+  bool keyLoaded() => apiKey != null && apiKey != '';
 
   /// Get the key.
   Future<void> getKey(String code) async {
@@ -95,9 +93,7 @@ class Wallet {
     transactions
       ..clear()
       ..addAll(t)
-      ..sort((Transaction t1, Transaction t2) {
-        return t2.compare(t1);
-      });
+      ..sort((Transaction t1, Transaction t2) => t2.compare(t1));
   }
 
   /// Perform payment.

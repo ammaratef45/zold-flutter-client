@@ -83,7 +83,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
       await Navigator.of(context).pushReplacementNamed('/home');
     } else {
       final String keygap = await Wallet.instance().getKeyGap();
-      DialogResult res = await Dialogs.messageDialog(
+      final DialogResult res = await Dialogs.messageDialog(
           context,
           'Confirm',
           'You keygap is: $keygap please save it in a safe place\n'
@@ -103,6 +103,7 @@ abstract class LoginPageViewModel extends State<LoginPage> {
     await Navigator.of(context).pushReplacementNamed('/home');
   }
 
+  /// get the security code
   Future<void> getCode(String phoneNumber) async {
     Wallet.instance().changePhone(phoneNumber);
     try {

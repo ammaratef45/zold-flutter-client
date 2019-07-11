@@ -1,6 +1,11 @@
-
+/// The log of the wts jobs
 class WtsLog {
-  String status;
-  String fullLog;
+  /// ctor
   WtsLog(this.status, this.fullLog);
+
+  /// Status
+  String status;
+
+  /// Full log text
+  String fullLog;
 }

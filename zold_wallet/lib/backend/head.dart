@@ -19,6 +19,8 @@ class Head {
   /// ID of the wallet.
   String get id => _id;
   num _size;
+
+  /// Size of file.
   num get size => _size;
   num _balance;
 

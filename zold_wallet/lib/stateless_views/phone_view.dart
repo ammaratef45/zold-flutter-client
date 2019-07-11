@@ -20,6 +20,7 @@ class PhoneView extends StatefulWidget {
 
   final TextEditingController _phoneController = TextEditingController();
 
+  /// send code to the phone number
   void sendCode() {
     if (_formKey.currentState.validate()) {
       onSendCode(_phoneController.text);
@@ -27,9 +28,7 @@ class PhoneView extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() {
-    return _PhoneView();
-  }
+  State<StatefulWidget> createState() => _PhoneView();
 }
 
 class _PhoneView extends State<PhoneView> {
@@ -51,7 +50,9 @@ class _PhoneView extends State<PhoneView> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     setState(() {
       widget._phoneController.text = mobileNumber;

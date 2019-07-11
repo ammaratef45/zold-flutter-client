@@ -48,7 +48,9 @@ class WaitingDialogView extends State<WaitingDialog> {
           _progeessText = 'got: ${job.outputLength} bytes';
         });
         // ignore: avoid_catches_without_on_clauses
-      } catch (ex) {}
+      } catch (ex) {
+        print(ex);
+      }
       await Future<void>.delayed(const Duration(milliseconds: 500));
       status = (await Wallet.instance().log(_id)).status;
     }
