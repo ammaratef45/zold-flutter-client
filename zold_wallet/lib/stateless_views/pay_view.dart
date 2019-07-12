@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/stateless_views/text_field.dart';
+import 'package:zold_wallet/stateless_views/title_text.dart';
 import 'package:zold_wallet/wallet.dart';
 
 typedef PayCallback = void Function(
@@ -30,32 +31,38 @@ class PayView extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Text('Send ZLD'),
+            const TitleText('Send ZLD'),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Balance: ${Wallet.instance().balance()}',
+              style: const TextStyle(color: Colors.green, fontSize: 18),
+            ),
             const SizedBox(
               height: 10,
             ),
             ZoldTextField(
               controller: controllers['bnfController'],
-              width: 210,
               hint: 'bnf',
+            ),
+            const SizedBox(
+              height: 10,
             ),
             ZoldTextField(
               controller: controllers['amountController'],
-              width: 150,
               hint: 'Amount',
             ),
-            Text(
-              'Balance: ${Wallet.instance().balance()}',
-              style: const TextStyle(color: Colors.red),
+            const SizedBox(
+              height: 10,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ZoldTextField(
                   controller: controllers['keygapController'],
-                  width: 110,
                   hint: 'keygap',
                 ),
                 Visibility(
@@ -66,10 +73,15 @@ class PayView extends StatelessWidget {
                     ))
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
             ZoldTextField(
               controller: controllers['messageController'],
-              width: 310,
               hint: 'Details',
+            ),
+            const SizedBox(
+              height: 10,
             ),
             RaisedButton(
               onPressed: () {
@@ -80,6 +92,9 @@ class PayView extends StatelessWidget {
                     controllers['keygapController'].text);
               },
               child: const Text('Send'),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             InkWell(
               child: const Text(

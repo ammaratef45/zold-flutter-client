@@ -87,6 +87,7 @@ abstract class PayPageViewModel extends State<PayPage> {
         result = true;
       }
     } on PlatformException catch (e) {
+      print(e);
       if (e.code == auth_error.notAvailable) {
         await Dialogs.messageDialog(context, 'error',
             "local auth isn't available in your device", snackKey);
