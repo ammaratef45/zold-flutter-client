@@ -11,61 +11,73 @@
 import 'dart:math';
 import 'package:timeago/timeago.dart' as timeago;
 
+/// Transaction model
 class Transaction {
- num _id;
- num get id => _id;
+  /// ctor
+  Transaction.fromJson(Map<String, dynamic> map) {
+    _id = map['id'];
+    _date = map['date'];
+    _zents = map['amount'];
+    _details = map['details'];
+    _sender = map['bnf'];
+  }
+  num _id;
 
- String _date;
- String get date => _date;
+  /// transaction id
+  num get id => _id;
 
- num _zents;
- num get zents => _zents;
+  String _date;
 
- String _details;
- String get details => _details;
+  /// transaction date
+  String get date => _date;
 
- String _sender;
- String get sender => _sender;
+  num _zents;
 
- Transaction.fromJson(Map<String, dynamic> map) {
-   this._id = map["id"];
-   this._date = map["date"];
-   this._zents = map["amount"];
-   this._details = map["details"];
-   this._sender = map["bnf"];
- }
+  /// amount in zents
+  num get zents => _zents;
 
- static List<Transaction> fromJsonList(List<dynamic> list) {
-   List<Transaction> result =List();
-   for (var i = 0; i < list.length; i++) {
-     result.add(Transaction.fromJson(list[i]));
-   }
-   return result;
- }
+  String _details;
 
-  String amount() {
-    return (zents/pow(2,32)).toStringAsFixed(2);
+  /// details of transaction
+  String get details => _details;
+
+  String _sender;
+
+  /// sender wallet
+  String get sender => _sender;
+
+  /// create list of transactions
+  static List<Transaction> fromJsonList(List<dynamic> list) {
+    final List<Transaction> result = <Transaction>[];
+    for (int i = 0; i < list.length; i++) {
+      result.add(Transaction.fromJson(list[i]));
+    }
+    return result;
   }
 
+  /// get amount in zold
+  String amount() => (zents / pow(2, 32)).toStringAsFixed(2);
+
+  /// get transaction date in timeAgo format
   String timeAgo() {
-    final datetime = this.dateTime();
+    final DateTime datetime = dateTime();
     return timeago.format(datetime);
   }
 
-  DateTime dateTime({bool trunc=false}) {
-    if(trunc) {
-      return DateTime.tryParse(this.date.split('T')[0]); 
+  /// get datetime parsing date property
+  DateTime dateTime({bool trunc = false}) {
+    if (trunc) {
+      return DateTime.tryParse(date.split('T')[0]);
     } else {
-      return DateTime.tryParse(this.date); 
+      return DateTime.tryParse(date);
     }
   }
 
-  bool isAfter(Transaction other) {
-    return this.dateTime(trunc: true).isAfter(other.dateTime());
-  }
+  /// is transaction after another one?
+  bool isAfter(Transaction other) =>
+      dateTime(trunc: true).isAfter(other.dateTime());
 
-  int compare(Transaction other) {
-    return this.dateTime().difference(other.dateTime()).inSeconds;
-  }
-
+  /// is transaction before another one?
+  int compare(Transaction other) =>
+      dateTime().difference(other.dateTime()).inSeconds;
 }

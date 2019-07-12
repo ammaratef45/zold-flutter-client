@@ -60,7 +60,7 @@ class CodeView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           InkWell(
-            child: Text(
+            child: const Text(
               'Go back and try again',
               style: TextStyle(color: Colors.blue),
             ),

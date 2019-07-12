@@ -1,13 +1,22 @@
-
+/// The Job model
 class Job {
-  String id;
-  String status;
-  num outputLength;
-  String errorMessage;
+  /// ctor
   Job.fromJson(Map<String, dynamic> map) {
-    this.id = map["id"];
-    this.status = map["status"];
-    this.outputLength = map["output_length"];
-    this.errorMessage =map["error_message"];
+    id = map['id'];
+    status = map['status'];
+    outputLength = map['output_length'];
+    errorMessage = map['error_message'];
   }
+
+  /// id of the job
+  String id;
+
+  /// status of job (running, ok, cancelled)
+  String status;
+
+  /// length of output
+  num outputLength;
+
+  /// error message if any
+  String errorMessage;
 }

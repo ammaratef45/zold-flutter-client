@@ -11,6 +11,6 @@ class TitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         data,
-        style: TextStyle(color: const Color(0xff1970b6), fontSize: 28),
+        style: const TextStyle(color: Color(0xff1970b6), fontSize: 28),
       );
 }

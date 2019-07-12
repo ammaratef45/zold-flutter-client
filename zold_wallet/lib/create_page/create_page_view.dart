@@ -88,7 +88,7 @@ class CreatePageView extends CreatePageViewModel {
                         height: _smallGapsHeight,
                       ),
                       InkWell(
-                        child: Text(
+                        child: const Text(
                           'Go back to home screen',
                           style: TextStyle(color: Colors.blue),
                         ),

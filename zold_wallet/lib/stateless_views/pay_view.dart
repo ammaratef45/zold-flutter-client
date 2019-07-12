@@ -48,7 +48,7 @@ class PayView extends StatelessWidget {
             ),
             Text(
               'Balance: ${Wallet.instance().balance()}',
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +82,7 @@ class PayView extends StatelessWidget {
               child: const Text('Send'),
             ),
             InkWell(
-              child: Text(
+              child: const Text(
                 'Go back to home screen',
                 style: TextStyle(color: Colors.blue),
               ),

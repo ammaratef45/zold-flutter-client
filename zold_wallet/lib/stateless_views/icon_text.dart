@@ -11,6 +11,6 @@ class IconText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         data,
-        style: TextStyle(color: const Color(0xff2196f3)),
+        style: const TextStyle(color: Color(0xff2196f3)),
       );
 }

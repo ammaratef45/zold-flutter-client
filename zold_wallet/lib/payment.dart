@@ -1,13 +1,23 @@
 import 'wallet.dart';
 
+/// Payment model and behaviour.
 class Payment {
-  String bnf;
-  String amount;
-  String details;
-  String keygap;
+  /// ctor
   Payment(this.bnf, this.amount, this.details, this.keygap);
 
-  Future<String> doPay() async {
-    return await Wallet.instance().pay(bnf, amount, details, keygap);
-  }
+  /// bnf of the payment
+  String bnf;
+
+  /// amount of payment
+  String amount;
+
+  /// details of payment
+  String details;
+
+  /// keygap of wallet
+  String keygap;
+
+  /// do the payment process
+  Future<String> doPay() async =>
+      Wallet.instance().pay(bnf, amount, details, keygap);
 }

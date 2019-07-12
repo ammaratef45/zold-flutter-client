@@ -3,23 +3,8 @@ import 'package:flutter/services.dart';
 
 /// widget for text boxes
 class ZoldTextField extends StatelessWidget {
-  /// textfield controller
-  final TextEditingController controller;
-
-  /// keyboard type
-  final TextInputType keyboardType;
-
-  /// label and hint
-  final String hint;
-  final double width;
-  final IconData prefixIcon;
-  final bool isDigitsOnly;
-  final String errorMessage;
-  final RegExp validateRegex;
-  final Function onSubmit;
-  final TextInputAction inputAction;
-
-  ZoldTextField(
+  /// ctor
+  const ZoldTextField(
       {@required this.controller,
       this.keyboardType = TextInputType.text,
       this.hint = '',
@@ -30,6 +15,36 @@ class ZoldTextField extends StatelessWidget {
       this.validateRegex,
       this.onSubmit,
       this.inputAction = TextInputAction.done});
+
+  /// textfield controller
+  final TextEditingController controller;
+
+  /// keyboard type
+  final TextInputType keyboardType;
+
+  /// label and hint
+  final String hint;
+
+  /// width of the text field
+  final double width;
+
+  /// prefix icon if any
+  final IconData prefixIcon;
+
+  /// check if it takes digits only
+  final bool isDigitsOnly;
+
+  /// error message if any
+  final String errorMessage;
+
+  /// regex for validation
+  final RegExp validateRegex;
+
+  /// callback for submission
+  final Function onSubmit;
+
+  /// action of input
+  final TextInputAction inputAction;
 
   @override
   Widget build(BuildContext context) => Container(
