@@ -20,6 +20,7 @@ dependencies:
   flutter_secure_storage: ^3.2.1+1
   mobile_number: ^0.0.4
   flutter_custom_clippers: ^1.0.4
+  share: ^0.6.1+1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.0"

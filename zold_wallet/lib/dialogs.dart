@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:zold_wallet/job.dart';
 import 'package:zold_wallet/wallet.dart';
 import 'wts_log.dart';
@@ -69,19 +70,19 @@ class WaitingDialogView extends State<WaitingDialog> {
 /// Dialogs class.
 class Dialogs {
   /// waiting dialog for timed operations.
-  static Future<void> waitingDialog(BuildContext context,
+  static Future<String> waitingDialog(BuildContext context,
       WaitingCallback callback, GlobalKey<ScaffoldState> scaffoldKey,
       {bool returnsJobId = true}) async {
-    await showDialog<void>(
+    unawaited(showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => Center(
               child: const CircularProgressIndicator(),
-            ));
+            )));
     if (!returnsJobId) {
       final String res = await callback();
       Navigator.of(context).pop(res);
-      return;
+      return res;
     }
     String id = '';
     try {
@@ -90,7 +91,7 @@ class Dialogs {
     } catch (e) {
       Navigator.of(context).pop();
       await messageDialog(context, 'Error', e.toString(), scaffoldKey);
-      return;
+      return 'error';
     }
     final WaitingDialog w = WaitingDialog(id);
     Navigator.pop(context);
@@ -113,7 +114,7 @@ class Dialogs {
       message += message + job.errorMessage;
     }
     if (log.status.toLowerCase() == 'ok') {
-      return;
+      return 'ok';
     }
     await showDialog<void>(
       context: context,
@@ -137,12 +138,13 @@ class Dialogs {
             ],
           ),
     );
+    return 'done';
   }
 
   /// Dilaog for showing messages or asking confirmation.
   static Future<DialogResult> messageDialog(BuildContext context, String title,
           String message, GlobalKey<ScaffoldState> scaffoldKey,
-          {bool prompt = false}) async =>
+          {bool prompt = false, String promptText = 'OK'}) async =>
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -160,7 +162,7 @@ class Dialogs {
                 Visibility(
                   visible: prompt,
                   child: FlatButton(
-                    child: const Text('OK'),
+                    child: Text(promptText),
                     onPressed: () {
                       Navigator.of(context).pop(DialogResult.ok);
                     },

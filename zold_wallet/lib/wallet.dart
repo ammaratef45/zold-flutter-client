@@ -155,4 +155,7 @@ class Wallet {
     transactions.clear();
     rate = 'rate';
   }
+
+  /// download wallet file
+  Future<String> download() => _api.download(apiKey);
 }

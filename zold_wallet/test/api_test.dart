@@ -65,6 +65,6 @@ void main() {
   test('test API download', () async {
     final API api = API();
     final String response = await api.download(Secrets.apiKey);
-    expect(response, 'a');
-  }, skip: true);
+    expect(response, isNotNull);
+  });
 }
