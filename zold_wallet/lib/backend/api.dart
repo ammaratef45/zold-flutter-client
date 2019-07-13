@@ -272,4 +272,19 @@ class API {
     return Head.fromJsonString(
         await response.stream.transform(utf8.decoder).join());
   }
+
+  /// Downloads of wallet.
+  Future<String> download(String apiKey) async {
+    const String url = '${_baseURL}download';
+    final http.Request request = http.Request('GET', Uri.parse(url));
+    request.headers.addAll(_headers(apiKey));
+    request.followRedirects = false;
+    final http.StreamedResponse response = await _client.send(request);
+    final String responseString =
+        await response.stream.transform(utf8.decoder).join();
+    if (response.statusCode != 200) {
+      throw Exception('Status code is not 200\n$responseString');
+    }
+    return responseString;
+  }
 }

@@ -60,4 +60,11 @@ void main() {
     final Head res = await api.head(Secrets.apiKey);
     expect(res, isNotNull);
   });
+
+  /// test download works.
+  test('test API download', () async {
+    final API api = API();
+    final String response = await api.download(Secrets.apiKey);
+    expect(response, 'a');
+  }, skip: true);
 }
