@@ -19,30 +19,36 @@ class HeadWalletView extends StatelessWidget {
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      const Text(
-                        'Id',
-                        style: _style,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      GestureDetector(
-                        onTap: copyCallback,
-                        child: const Icon(
-                          Icons.content_copy,
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        const Text(
+                          'Id',
+                          style: _style,
                         ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    _head.id,
-                    style: _noramlTextStyle,
-                  ),
-                ],
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        GestureDetector(
+                          onTap: copyCallback,
+                          child: const Icon(
+                            Icons.content_copy,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      _head.id,
+                      style: _noramlTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 6,
               ),
               Column(
                 children: <Widget>[
@@ -55,6 +61,9 @@ class HeadWalletView extends StatelessWidget {
                     style: _noramlTextStyle,
                   ),
                 ],
+              ),
+              const SizedBox(
+                width: 6,
               ),
               Column(
                 children: <Widget>[
