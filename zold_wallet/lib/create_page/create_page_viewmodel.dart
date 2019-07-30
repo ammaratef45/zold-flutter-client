@@ -71,7 +71,7 @@ abstract class CreatePageViewModel extends State<CreatePage> {
       Clipboard.setData(ClipboardData(text: qrString));
       Scaffold.of(context)
           .showSnackBar(SnackBar(content: const Text('invoice copied')));
-      Future<void>.delayed(Duration(seconds: 2)).then((_) {
+      Future<void>.delayed(const Duration(seconds: 2)).then((_) {
         canCopy = true;
       });
     }

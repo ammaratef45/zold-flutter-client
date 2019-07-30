@@ -1,4 +1,3 @@
-import 'package:zold_wallet/dialogs.dart';
 import 'package:zold_wallet/home_page/home_page_view_model.dart';
 import 'package:zold_wallet/stateless_views/head_wallet_view.dart';
 import 'package:zold_wallet/stateless_views/icon_text.dart';
@@ -10,6 +9,7 @@ import 'package:zold_wallet/wallet.dart';
 
 /// view of home page
 class HomePageView extends HomePageViewModel {
+  //ignore: slash_for_doc_comments
   /**
    * @todo #125 fix the font colours, weight and size.
    */
@@ -55,6 +55,8 @@ class HomePageView extends HomePageViewModel {
                       visible: Wallet.instance().transactions.isEmpty,
                       child: Center(child: Text(message)),
                     );
+                  default:
+                    return null;
                 }
               },
             ),

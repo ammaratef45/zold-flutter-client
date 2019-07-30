@@ -65,7 +65,7 @@ class AuthView extends StatelessWidget {
             padding: EdgeInsets.only(top: 18),
           ),
           InkWell(
-            child: Text(
+            child: const Text(
               'Login with mobile phone',
               style: TextStyle(color: Colors.blue),
             ),

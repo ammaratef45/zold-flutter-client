@@ -14,6 +14,16 @@ class Head {
     _taxes = map['taxes'];
     _debt = map['debt'];
   }
+
+  /// ctor
+  Head.nullHead() {
+    _id = '0';
+    _size = 0;
+    _balance = 0;
+    _txns = 0;
+    _taxes = 0;
+    _debt = 0;
+  }
   String _id;
 
   /// ID of the wallet.

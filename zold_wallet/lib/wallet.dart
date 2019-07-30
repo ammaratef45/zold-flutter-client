@@ -19,7 +19,7 @@ class Wallet {
   /// wallet keygap.
   String keygap = '';
 
-  Head _head;
+  Head _head = Head.nullHead();
 
   /// Head info of wallet.
   Head get head => _head;
@@ -149,10 +149,13 @@ class Wallet {
   void dispose() {
     apiKey = '';
     keygap = '';
-    _head = null;
+    _head = Head.nullHead();
     phone = '';
     _api = API();
     transactions.clear();
     rate = 'rate';
   }
+
+  /// download wallet file
+  Future<String> download() => _api.download(apiKey);
 }

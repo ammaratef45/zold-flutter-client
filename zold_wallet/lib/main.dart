@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             fontFamily: 'RobotoMono',
-            appBarTheme: AppBarTheme(
+            appBarTheme: const AppBarTheme(
                 textTheme: TextTheme(title: TextStyle(fontSize: 18))),
             buttonTheme: ButtonThemeData(
               buttonColor: Theme.of(context).accentColor,
@@ -38,19 +38,19 @@ class MyApp extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
             ),
             iconTheme: const IconThemeData(color: Color(0xFF1970B6)),
-            textTheme: TextTheme(
+            textTheme: const TextTheme(
                 title: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF1970B6)),
+                    color: Color(0xFF1970B6)),
                 subtitle: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF707070)),
+                    color: Color(0xFF707070)),
                 overline: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFFA2A5A2)),
+                    color: Color(0xFFA2A5A2)),
                 body1: TextStyle(fontSize: 18),
                 button: TextStyle(fontSize: 15))),
         home: _myHome,

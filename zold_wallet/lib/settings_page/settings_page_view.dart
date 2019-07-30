@@ -28,10 +28,7 @@ class SettingsPageView extends SettingsPageViewModel {
                     'Download Wallet',
                     style: TextStyle(color: Color(0xff1970b6), fontSize: 16),
                   ),
-                  onTap: () {
-                    Dialogs.messageDialog(context, 'Wait',
-                        'This action is not implemented yet', snackKey);
-                  },
+                  onTap: download,
                 ),
                 const Divider(
                   height: 0,

@@ -1,11 +1,21 @@
+/// Invoice model
 class Invoice {
-  String prefix;
-  String invoice;
-  String id;
+  /// ctor
   Invoice(this.prefix, this.invoice, this.id);
+
+  /// ctor
   Invoice.fromJson(Map<String, dynamic> map) {
-    this.prefix = map["prefix"];
-    this.invoice = map["invoice"];
-    this.id = map["id"];
+    prefix = map['prefix'];
+    invoice = map['invoice'];
+    id = map['id'];
   }
+
+  /// Prefix of invoice
+  String prefix;
+
+  ///The invoice
+  String invoice;
+
+  /// Id of invoice
+  String id;
 }
