@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zold_wallet/create_page/create_page.dart';
@@ -12,7 +14,13 @@ import 'package:zold_wallet/settings_page/settings_page.dart';
 import 'stateless_views/untrusted_page.dart';
 
 Future<void> main() async {
-  if (await TrustFall.isTrustFall && kReleaseMode) {
+  final bool isJailBroken = await TrustFall.isJailBroken;
+  final bool isNotRealDevice = !(await TrustFall.isRealDevice);
+  final bool isOnExternalStorage =
+      Platform.isAndroid && await TrustFall.isOnExternalStorage;
+  final bool notTrusted =
+      isJailBroken || isNotRealDevice || isOnExternalStorage;
+  if (notTrusted && kReleaseMode) {
     runApp(MaterialApp(
       home: UntrustedPage(),
     ));

@@ -16,7 +16,7 @@ dependencies:
   timeago: ^2.0.13
   cupertino_icons: ^0.1.2
   animated_floatactionbuttons: ^0.1.0
-  trust_fall: ^1.0.0
+  trust_fall: ^1.0.4
   flutter_secure_storage: ^3.2.1+1
   mobile_number: ^0.0.4
   flutter_custom_clippers: ^1.0.4
